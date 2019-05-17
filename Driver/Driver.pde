@@ -14,6 +14,11 @@ void setup() {
 
 void mouseClicked() {
   image(lawn, 0, 0, width, height);
+  pushMatrix();
+  fill(255, 240, 179);
+  translate(50, 200);
+  rect(0, 0, 150, 200);
+  popMatrix();
 }
 
 void draw() {
