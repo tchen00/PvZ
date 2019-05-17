@@ -45,6 +45,8 @@ void setup() {
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
+  plants = new ArrayList<>();
+  zombies = new ArrayList<>();
 }
 
 void mouseClicked() {
