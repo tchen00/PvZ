@@ -15,6 +15,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
     Instantiated the ArrayList and Queues needed to keep track of zombies and plants on the screen and those that will appear on the screen later.  
     Also started adding constructors to Zombie classes.
 
-## DAY 3: May 18 2019
+### DAY 3: May 18 2019
 - **Peihua**   
     Finished constructors for Zombie classes. Loaded the images in for zombies and added display methods for the zombies.
