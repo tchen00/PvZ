@@ -11,9 +11,9 @@ void instZombies() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie());
+      nextZombies.add(new BasicZombie(0,0));
     } else {
-      nextZombies.add(new ConeheadZombie());
+      nextZombies.add(new ConeheadZombie(0,0));
     }
   }
 }

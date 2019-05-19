@@ -17,10 +17,13 @@ abstract class Zombie{
 }
 
 class BasicZombie extends Zombie{
-  BasicZombie(){
-    //super(200, 100, 
+  BasicZombie(int xx, int yy){
+    super(200, 100, 1.5, 20, xx, yy);
   }
 }
 
 class ConeheadZombie extends Zombie{
+  ConeheadZombie (int xx, int yy){
+    super(560, 100, 1.5, 20, xx, yy);
+  }
 }
