@@ -27,7 +27,7 @@ class BasicZombie extends Zombie {
   }
 
   void display() {
-    image(this.img, this.x, this.y, this.img.width * 3/50, this.img.height * 3/50);
+    image(this.img, this.x, this.y, 99, 118);
   }
 }
 
@@ -41,6 +41,6 @@ class ConeheadZombie extends Zombie {
   }
 
   void display() {
-    image(this.img, this.x, this.y, this.img.width * 3/5, this.img.height * 3/5);
+    image(this.img, this.x, this.y, 99, 140);
   }
 }
