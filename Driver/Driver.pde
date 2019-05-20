@@ -1,3 +1,11 @@
+interface Displayable {
+  void display();
+}
+
+interface Moveable {
+  void move();
+}
+
 import java.util.*;
 
 PImage start, lawn, zombie1, zombie2;
@@ -5,15 +13,16 @@ ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
+boolean startGame;
 
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie(0, 0, zombie1));
+      nextZombies.add(new BasicZombie( width -10, (int)(random(5)), zombie1));
     } else {
-      nextZombies.add(new ConeheadZombie(0, 0, zombie2));
+      nextZombies.add(new ConeheadZombie( width - 10, (int)(random(5)), zombie2));
     }
   }
 }
@@ -49,20 +58,27 @@ void setup() {
   instPlants();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
+  zombies.add(new BasicZombie(width, (int)(random(5)) * 100 + 80, zombie1));
+  zombies.add(new ConeheadZombie(width, (int)(random(5)) * 100 + 70, zombie2));
 }
 
 void mouseClicked() {
-  image(lawn, 0, 0, width, height);
-  pushMatrix();
-  fill(255, 240, 179);
-  translate(50, 200);
-  rect(0, 0, 150, 200);
-  popMatrix();
-  ConeheadZombie a = new ConeheadZombie(0, 0, zombie2);
-  a.display();
-  BasicZombie b = new BasicZombie(50, 50, zombie1);
-  b.display();
+  startGame = true;
 }
 
 void draw() {
+  if (startGame) {
+    image(lawn, 0, 0, width, height);
+    pushMatrix();
+    fill(255, 240, 179);
+    translate(50, 200);
+    rect(0, 0, 150, 200);
+    popMatrix();
+    for (Displayable thing : zombies) {
+      thing.display();
+    }
+    for (Moveable thing : zombies) {
+      thing.move();
+    }
+  }
 }
