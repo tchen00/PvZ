@@ -15,6 +15,18 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame;
 
+void makeGrid(){
+  noFill();
+  pushMatrix();
+  translate(260, 100);
+  for (int i = 0; i < 9; i++){
+    for (int j = 0; j < 5; j++){
+    }
+  }
+  popMatrix();
+  rect(260,100,890,590);
+}
+
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
   for (int i = 0; i < 10; i++) {
@@ -74,6 +86,7 @@ void draw() {
     translate(50, 200);
     rect(0, 0, 150, 200);
     popMatrix();
+    makeGrid();
     for (Displayable thing : zombies) {
       thing.display();
     }
