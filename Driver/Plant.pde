@@ -53,6 +53,10 @@ class Peashooter extends Plant{
   int speed; 
   void attack(){
   }
+  Peashooter(){
+    //super(imgx, 100, 5, x_co, y_co);
+  }
+  
   Peashooter(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
@@ -62,13 +66,18 @@ class CherryBomb extends Plant{
   int time; 
   void attack(){
   }
-  
+  CherryBomb(){
+    //super(imgx, 150, 5, x_co, y_co); 
+  }
   CherryBomb(float x_co, float y_co, PImage imgx){
     super(imgx, 150, 5, x_co, y_co); 
   }
 }
 
 class WallNut extends Plant{
+  WallNut(){ 
+    //super(imgx, 100, 5, x_co, y_co); 
+  }
   WallNut(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
@@ -79,10 +88,16 @@ class Squash extends Plant{
   Squash(float x_co, float y_co, PImage imgx){
     super(imgx, 150, 5, x_co, y_co); 
   }
+  Squash(){
+   // super(imgx, 150, 5, x_co, y_co); 
+  }
 }
 
 class SnowPea extends Plant{
   int speed; 
   void attack(){
+  }
+  SnowPea(){
+   //super 
   }
 }
