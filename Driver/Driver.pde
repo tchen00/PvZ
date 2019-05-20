@@ -21,10 +21,10 @@ void makeGrid() {
   translate(260, 100);
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 5; j++) {
+      rect(i * 99, j * 118, 99, 118);
     }
   }
   popMatrix();
-  rect(260, 100, 890, 590);
 }
 
 void instZombies() {
