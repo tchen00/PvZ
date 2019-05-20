@@ -1,22 +1,19 @@
-class Test{
-var time;
-var wait = 1000;
+int savedTime;
+int totalTime = 5000;
 
-var tick = false;
-
-function setup(){
-  time = millis();//store the current time
-  smooth();
-  strokeWeight(3);
+void setup() {
+  size(200, 200);
+  background(0);
+  savedTime = millis();
 }
-function draw(){
-  //check the difference between now and the previously stored time is greater than the wait interval
-  if(millis() - time >= wait){
-    tick = !tick;//if it is, do something
-    time = millis();//also update the stored time
+
+void draw() {
+  // Calculate how much time has passed
+  int passedTime = millis() - savedTime;
+  // Has five seconds passed?
+  if (passedTime > totalTime) {
+    println("5 seconds have passed!");
+    background(random(255)); // Color a new background
+    savedTime = millis(); // Save the current time to restart the timer!
   }
-  //draw a visual cue
-  background(255);
-  line(50,10,tick ? 10 : 90,90);
-}
 }
