@@ -8,12 +8,10 @@ void setup() {
 }
 
 void draw() {
-  // Calculate how much time has passed
-  int passedTime = millis() - savedTime;
-  // Has five seconds passed?
-  if (passedTime > totalTime) {
-    println("5 seconds have passed!");
-    background(random(255)); // Color a new background
-    savedTime = millis(); // Save the current time to restart the timer!
+  if (mousePressed == true) {
+    fill(0);
+  } else {
+    fill(255);
   }
+  rect(25, 25, 50, 50);
 }
