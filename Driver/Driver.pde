@@ -63,7 +63,7 @@ void mouseClicked() {
   a.display();
   BasicZombie b = new BasicZombie(50, 50, zombie1);
   b.display();
-  Sunflower c = new Sunflower(100, 100, plant1); 
+  Sunflower c = new Sunflower(1000, 1000, plant1); 
   c.display(); 
 }
 
