@@ -28,10 +28,8 @@ class Sunflower extends Plant{
   int speed, time; 
   void produce(){
   }
-<<<<<<< HEAD
   Sunflower(float x_cor, float y_cor, y
-=======
->>>>>>> master
+
 }
 
 class Peashooter extends Plant{
