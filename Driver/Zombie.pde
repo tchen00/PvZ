@@ -1,4 +1,4 @@
-abstract class Zombie implements Displayable, Moveable{
+abstract class Zombie implements Displayable, Moveable {
   PImage img;
   int hp, dmg;
   float atk_speed, move_speed, x, y;
@@ -23,10 +23,11 @@ class BasicZombie extends Zombie {
   }
 
   void move() {
+    this.x = this.x - 0.5;
   }
 
   void display() {
-    image(this.img, x, y, this.img.width * 3/50, this.img.height * 3/50);
+    image(this.img, this.x, this.y, this.img.width * 3/50, this.img.height * 3/50);
   }
 }
 
@@ -36,9 +37,10 @@ class ConeheadZombie extends Zombie {
   }
 
   void move() {
+    this.x = this.x - 0.5;
   }
 
   void display() {
-    image(this.img, x, y, this.img.width * 3/5, this.img.height * 3/5);
+    image(this.img, this.x, this.y, this.img.width * 3/5, this.img.height * 3/5);
   }
 }

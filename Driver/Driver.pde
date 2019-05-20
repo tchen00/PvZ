@@ -20,7 +20,7 @@ void instZombies() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie( width -10, (int)(random(5)), zombie1));
+      nextZombies.add(new BasicZombie( width - 10, (int)(random(5)), zombie1));
     } else {
       nextZombies.add(new ConeheadZombie( width - 10, (int)(random(5)), zombie2));
     }
@@ -58,8 +58,8 @@ void setup() {
   instPlants();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  zombies.add(new BasicZombie(width, (int)(random(5)) * 100 + 80, zombie1));
-  zombies.add(new ConeheadZombie(width, (int)(random(5)) * 100 + 70, zombie2));
+  zombies.add(new BasicZombie(width - 100, (int)(random(5)) * 100 + 80, zombie1));
+  zombies.add(new ConeheadZombie(width - 100, (int)(random(5)) * 100 + 70, zombie2));
 }
 
 void mouseClicked() {
@@ -78,7 +78,7 @@ void draw() {
       thing.display();
     }
     for (Moveable thing : zombies) {
-      thing.move();
+        thing.move();
     }
   }
 }
