@@ -8,7 +8,7 @@ interface Moveable {
 
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2;
+PImage start, lawn, zombie1, zombie2, plant1;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
@@ -65,6 +65,7 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
+  plant1 = loadImage("sunflower.png"); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -75,7 +76,22 @@ void setup() {
 }
 
 void mouseClicked() {
+<<<<<<< HEAD
+  image(lawn, 0, 0, width, height);
+  pushMatrix();
+  fill(255, 240, 179);
+  translate(50, 200);
+  rect(0, 0, 150, 200);
+  popMatrix();
+  ConeheadZombie a = new ConeheadZombie(0, 0, zombie2);
+  a.display();
+  BasicZombie b = new BasicZombie(50, 50, zombie1);
+  b.display();
+  Sunflower c = new Sunflower(1000, 1000, plant1); 
+  c.display(); 
+=======
   startGame = true;
+>>>>>>> 0909c91a3a903e34b3bb0c13c0f3561e0b44a7cf
 }
 
 void draw() {

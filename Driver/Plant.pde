@@ -21,12 +21,31 @@ abstract class Plant{
   }
   
   void setLocation(){
+    
   }
 }
 
 class Sunflower extends Plant{
-  int speed, time; 
+  int speed, time, cost;
+  float x, y; 
+  //PImage img; 
   void produce(){
+  }
+  
+  Sunflower(float x_co, float y_co, PImage imgx){
+    super(imgx, 50, 5, x_co, y_co); 
+  }
+  
+  Sunflower(){
+    PImage imgx = loadImage("sunflower.png"); 
+    img = imgx; 
+    speed = 3; 
+    time = 0; 
+    cost = 50; 
+  }
+  
+  void display(){ 
+    image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
   }
 }
 
@@ -34,7 +53,9 @@ class Peashooter extends Plant{
   int speed; 
   void attack(){
   }
-  
+  Peashooter(float x_co, float y_co, PImage imgx){
+    super(imgx, 100, 5, x_co, y_co); 
+  }
 }
 
 class CherryBomb extends Plant{
@@ -42,16 +63,22 @@ class CherryBomb extends Plant{
   void attack(){
   }
   
+  CherryBomb(float x_co, float y_co, PImage imgx){
+    super(imgx, 150, 5, x_co, y_co); 
+  }
 }
 
 class WallNut extends Plant{
-
+  WallNut(float x_co, float y_co, PImage imgx){
+    super(imgx, 100, 5, x_co, y_co); 
+  }
 
 }
 
 class Squash extends Plant{
-
-
+  Squash(float x_co, float y_co, PImage imgx){
+    super(imgx, 150, 5, x_co, y_co); 
+  }
 }
 
 class SnowPea extends Plant{
