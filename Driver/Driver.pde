@@ -1,6 +1,6 @@
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2;
+PImage start, lawn, zombie1, zombie2, plant1;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
@@ -44,6 +44,7 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
+  plant1 = loadImage("sunflower.png"); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -62,6 +63,8 @@ void mouseClicked() {
   a.display();
   BasicZombie b = new BasicZombie(50, 50, zombie1);
   b.display();
+  Sunflower c = new Sunflower(100, 100, plant1); 
+  c.display(); 
 }
 
 void draw() {

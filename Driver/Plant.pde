@@ -25,11 +25,26 @@ abstract class Plant{
 }
 
 class Sunflower extends Plant{
-  int speed, time; 
+  int speed, time, cost;
+  float x, y; 
+  //PImage img; 
   void produce(){
   }
-  Sunflower(float x_cor, float y_cor, y
-
+  
+  Sunflower(float x_co, float y_co, PImage imgx){
+    super(imgx, 50, 5, x_co, y_co); 
+  }
+  
+  Sunflower(){
+    PImage imgx = loadImage("sunflower.png"); 
+    img = imgx; 
+    speed = 3; 
+    time = 0; 
+    cost = 50; 
+  }
+  void display(){ 
+    image(this.img, x, y, this.img.width * 3/50, this.img.height * 3/50);
+  }
 }
 
 class Peashooter extends Plant{
