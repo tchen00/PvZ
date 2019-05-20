@@ -15,16 +15,16 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame;
 
-void makeGrid(){
+void makeGrid() {
   noFill();
   pushMatrix();
   translate(260, 100);
-  for (int i = 0; i < 9; i++){
-    for (int j = 0; j < 5; j++){
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 5; j++) {
     }
   }
   popMatrix();
-  rect(260,100,890,590);
+  rect(260, 100, 890, 590);
 }
 
 void instZombies() {
@@ -46,15 +46,15 @@ void instPlants() {
     if (rand < 1) {
       nextPlants.add(new Sunflower());
     } else if (rand < 2) {
-      nextPlants.add(new Peashooter());
+      //nextPlants.add(new Peashooter());
     } else if (rand < 3) {
-      nextPlants.add(new CherryBomb());
+      //nextPlants.add(new CherryBomb());
     } else if (rand < 4) {
-      nextPlants.add(new WallNut());
+      //nextPlants.add(new WallNut());
     } else if (rand < 5) {
-      nextPlants.add(new Squash());
+      //nextPlants.add(new Squash());
     } else {
-      nextPlants.add(new SnowPea());
+      //nextPlants.add(new SnowPea());
     }
   }
 }
@@ -76,22 +76,7 @@ void setup() {
 }
 
 void mouseClicked() {
-<<<<<<< HEAD
-  image(lawn, 0, 0, width, height);
-  pushMatrix();
-  fill(255, 240, 179);
-  translate(50, 200);
-  rect(0, 0, 150, 200);
-  popMatrix();
-  ConeheadZombie a = new ConeheadZombie(0, 0, zombie2);
-  a.display();
-  BasicZombie b = new BasicZombie(50, 50, zombie1);
-  b.display();
-  Sunflower c = new Sunflower(1000, 1000, plant1); 
-  c.display(); 
-=======
   startGame = true;
->>>>>>> 0909c91a3a903e34b3bb0c13c0f3561e0b44a7cf
 }
 
 void draw() {
@@ -107,7 +92,9 @@ void draw() {
       thing.display();
     }
     for (Moveable thing : zombies) {
-        thing.move();
+      thing.move();
     }
+    Sunflower c = new Sunflower(1000, 1000, plant1); 
+    c.display();
   }
 }
