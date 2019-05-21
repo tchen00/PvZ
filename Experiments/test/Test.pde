@@ -1,17 +1,86 @@
-int savedTime;
-int totalTime = 5000;
 
-void setup() {
-  size(200, 200);
-  background(0);
-  savedTime = millis();
+float bx;
+float by;
+int bs = 100;
+boolean bover = false;
+boolean locked = false;
+float bdifx = 0.0; 
+float bdify = 0.0; 
+ 
+
+void setup() 
+{
+  size(2000, 2000);
+  bx = width/2.0;
+  by = height/2.0;
+  PImage img = loadImage("peashooter.png");
+  image(img, bx, by);  
 }
 
-void draw() {
-  if (mousePressed == true) {
-    fill(0);
+void draw() 
+{ 
+  background(0);
+  // Test if the cursor is over the box 
+  if (mouseX > bx-bs && mouseX < bx+bs && 
+      mouseY > by-bs && mouseY < by+bs) {
+    bover = true;  
+    if(!locked) { 
+
+      stroke(255); 
+
+      fill(153);
+
+    } 
+
   } else {
-    fill(255);
+    stroke(153);
+    fill(153);
+    bover = false;
   }
-  rect(25, 25, 50, 50);
+
+  
+  PImage img = loadImage("peashooter.png");
+  // Draw the box
+  image(img, bx, by); 
+  //rect(bx, by, bs, bs);
+
+}
+
+
+
+void mousePressed() {
+
+  if(bover) { 
+
+    locked = true;
+    fill(255, 255, 255);
+
+  } else {
+
+    locked = false;
+
+  }
+
+  bdifx = mouseX-bx; 
+
+  bdify = mouseY-by; 
+
+
+}
+
+
+
+void mouseDragged() {
+
+  if(locked) {
+    bx = mouseX-bdifx; 
+    by = mouseY-bdify; 
+  }
+
+}
+
+
+
+void mouseReleased() {
+  locked = false;
 }
