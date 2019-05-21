@@ -88,7 +88,7 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
-    if (millis() > time + 4000) {
+    if (millis() > time + 8000) {
       time = millis();
       if (nextZombies.peek() != null) {
         zombies.add(nextZombies.remove());

@@ -1,17 +1,16 @@
 abstract class Zombie implements Displayable, Moveable {
   PImage img;
   int hp, dmg;
-  float atk_speed, move_speed, x, y;
+  float atk_speed, x, y;
 
   Zombie() {
   }
 
-  Zombie(PImage img1, int hhp, int ddmg, float atk, float move, float xx, float yy) {
+  Zombie(PImage img1, int hhp, int ddmg, float atk, float xx, float yy) {
     img = img1;
     hp = hhp;
     dmg = ddmg;
     atk_speed = atk;
-    move_speed = move;
     x = xx;
     y = yy;
   }
@@ -19,11 +18,11 @@ abstract class Zombie implements Displayable, Moveable {
 
 class BasicZombie extends Zombie {
   BasicZombie(int xx, int yy, PImage img1) {
-    super(img1, 200, 100, 1.5, 20, xx, yy);
+    super(img1, 200, 100, 20, xx, yy);
   }
 
   void move() {
-    this.x = this.x - 0.5;
+    this.x = this.x - 0.3;
   }
 
   void display() {
@@ -33,11 +32,11 @@ class BasicZombie extends Zombie {
 
 class ConeheadZombie extends Zombie {
   ConeheadZombie (int xx, int yy, PImage img1) {
-    super(img1, 560, 100, 1.5, 20, xx, yy);
+    super(img1, 560, 100, 20, xx, yy);
   }
 
   void move() {
-    this.x = this.x - 0.5;
+    this.x = this.x - 0.3;
   }
 
   void display() {
