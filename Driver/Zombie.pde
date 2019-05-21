@@ -1,4 +1,4 @@
-abstract class Zombie implements Displayable, Moveable {
+abstract class Zombie implements {
   PImage img;
   int hp, dmg;
   float atk_speed, x, y;
@@ -13,6 +13,13 @@ abstract class Zombie implements Displayable, Moveable {
     atk_speed = atk;
     x = xx;
     y = yy;
+  }
+  
+  abstract void display();
+  abstract void move();
+  
+  void attack(Plant smth){
+    
   }
 }
 

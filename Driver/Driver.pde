@@ -1,11 +1,3 @@
-interface Displayable {
-  void display();
-}
-
-interface Moveable {
-  void move();
-}
-
 import java.util.*;
 
 PImage start, lawn, zombie1, zombie2, plant1, end;
@@ -95,13 +87,9 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
-    for (Displayable thing : zombies) {
-      thing.display();
-    }
-    for (Moveable thing : zombies) {
-      thing.move();
-    }
     for (Zombie zzz: zombies){
+      zzz.display();
+      zzz.move();
       if (zzz.x < 161){
         noLoop();
         image(end, 0, 0);
