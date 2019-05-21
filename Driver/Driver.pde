@@ -14,6 +14,7 @@ ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame;
+int time;
 
 void makeGrid() {
   noFill();
@@ -32,9 +33,9 @@ void instZombies() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie(width, (int)(random(5)), zombie1));
+      nextZombies.add(new BasicZombie(width, (int)(random(5)) * 118 + 100, zombie1));
     } else {
-      nextZombies.add(new ConeheadZombie(width, (int)(random(5)), zombie2));
+      nextZombies.add(new ConeheadZombie(width, (int)(random(5)) * 118 + 78, zombie2));
     }
   }
 }
@@ -71,8 +72,7 @@ void setup() {
   instPlants();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  zombies.add(new BasicZombie(width - 100, (int)(random(5)) * 118 + 100, zombie1));
-  zombies.add(new ConeheadZombie(width - 100, (int)(random(5)) * 118 + 78, zombie2));
+  time = millis();
 }
 
 void mouseClicked() {
@@ -87,12 +87,24 @@ void draw() {
     translate(50, 200);
     rect(0, 0, 150, 200);
     popMatrix();
-    //makeGrid();
+    makeGrid();
+    if (millis() > time + 4000) {
+      time = millis();
+      if (nextZombies.peek() != null) {
+        zombies.add(nextZombies.remove());
+      }
+    }
     for (Displayable thing : zombies) {
       thing.display();
     }
     for (Moveable thing : zombies) {
       thing.move();
+    }
+    for (Zombie zzz: zombies){
+      if (zzz.x < 161){
+        noLoop();
+        // end screen to be implemented
+      }
     }
     Sunflower c = new Sunflower(1000, 1000, plant1); 
     c.display();
