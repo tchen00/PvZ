@@ -8,7 +8,7 @@ interface Moveable {
 
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2, plant1;
+PImage start, lawn, zombie1, zombie2, plant1, end;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
@@ -67,6 +67,7 @@ void setup() {
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
   plant1 = loadImage("sunflower.png"); 
+  end = loadImage("end.png");
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -103,7 +104,7 @@ void draw() {
     for (Zombie zzz: zombies){
       if (zzz.x < 161){
         noLoop();
-        // end screen to be implemented
+        image(end, 0, 0);
       }
     }
     Sunflower c = new Sunflower(1000, 1000, plant1); 
