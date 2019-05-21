@@ -20,7 +20,8 @@ abstract class Zombie {
   abstract void move();
   
   void attack(Plant smth){
-    attacking = true;
+    for (Plant pla: plants){
+    }
   }
 }
 
