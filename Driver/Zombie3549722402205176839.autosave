@@ -14,12 +14,11 @@ abstract class Zombie {
     x = xx;
     y = yy;
   }
-  
+
   abstract void display();
   abstract void move();
-  
-  void attack(Plant smth){
-    
+
+  void attack(Plant smth) {
   }
 }
 

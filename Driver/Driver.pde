@@ -93,6 +93,7 @@ void draw() {
       if (zzz.x < 161){
         noLoop();
         image(end, 0, 0);
+        break;
       }
     }
     Sunflower c = new Sunflower(1000, 1000, plant1); 
