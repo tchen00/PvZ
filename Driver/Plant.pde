@@ -2,7 +2,8 @@ abstract class Plant{
   PImage img; 
   int price, cooldown; 
   float x, y; 
-  boolean is_planted; 
+  boolean is_planted = false; 
+  boolean hover = false; 
   // basic constructor 
   Plant(){
     
@@ -21,6 +22,14 @@ abstract class Plant{
   }
   
   void setLocation(){
+    
+  }
+  
+  void plant(){
+    while (mousePressed){
+      x = mouseX; 
+      y = mouseY; 
+    }
     
   }
 }

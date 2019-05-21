@@ -79,6 +79,8 @@ void mouseClicked() {
   startGame = true;
 }
 
+void mousePressed(){
+}
 void draw() {
   if (startGame) {
     image(lawn, 0, 0, width, height);
