@@ -1,9 +1,10 @@
 abstract class Plant{
   PImage img; 
   int price, cooldown; 
-  float x, y; 
+  float x, y, x_co, y_co; 
   boolean is_planted = false; 
   boolean hover = false; 
+  
   // basic constructor 
   Plant(){
     
@@ -19,19 +20,32 @@ abstract class Plant{
   }
   
   void display(){
+    
   }
   
   void setLocation(){
     
   }
   
-  void plant(){
-    while (mousePressed){
-      x = mouseX; 
-      y = mouseY; 
+  void mousePressed() {
+    if(hover) { 
+      is_planted = true; 
+      //fill(255, 255, 255);
+    } else {
+      is_planted = false;
     }
-    
+    x_co = mouseX-x; 
+    y_co = mouseY-y; 
   }
+  
+  void mouseDragged() {
+  if(is_planted){
+    x = mouseX-x_co; 
+    y = mouseY-y_co; 
+  }
+  
+}
+
 }
 
 class Sunflower extends Plant{
@@ -39,6 +53,7 @@ class Sunflower extends Plant{
   float x, y; 
   //PImage img; 
   void produce(){
+    
   }
   
   Sunflower(float x_co, float y_co, PImage imgx){
@@ -56,6 +71,7 @@ class Sunflower extends Plant{
   void display(){ 
     image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
   }
+  
 }
 
 class Peashooter extends Plant{
