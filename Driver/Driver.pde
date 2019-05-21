@@ -90,6 +90,9 @@ void draw() {
     for (Zombie zzz: zombies){
       zzz.display();
       zzz.move();
+      if (zzz.hp <= 0){
+        zombies.remove(zzz);
+      }
       if (zzz.x < 161){
         noLoop();
         image(end, 0, 0);

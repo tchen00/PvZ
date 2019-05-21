@@ -2,6 +2,7 @@ abstract class Zombie {
   PImage img;
   int hp, dmg;
   float atk_speed, x, y;
+  boolean attacking;
 
   Zombie() {
   }
@@ -19,7 +20,7 @@ abstract class Zombie {
   abstract void move();
   
   void attack(Plant smth){
-    
+    attacking = true;
   }
 }
 
