@@ -14,6 +14,9 @@ abstract class Plant{
     img = img1; 
     price = price1; 
     cooldown = cooldown1; 
+    while (mousePressed){
+      
+    }
     x = x_cor; 
     y = y_cor; 
     is_planted = true; 
