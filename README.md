@@ -29,4 +29,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ### DAY 5: May 20 2019
 - **Tammy**
-    Started on the final project grind. Continued to work on the Plant classes (specifically the Sunflower and Peashooter classes). Got the display to work for plants. Experimented in the test/experiment folder about different ways to implement timers and mouse-clicks (mousePressed). Also added in plant PNG to the folder 
+    Started on the final project grind. Continued to work on the Plant classes (specifically the Sunflower and Peashooter classes). Got the display to work for plants. Experimented in the test/experiment folder about different ways to implement timers and mouse-clicks (mousePressed). Also added in plant PNG to the folder    
+- **Peihua**  
+    Continued working on Zombie display. Had Zombie classes implement interfaces Moveable and Displayable to make draw easier. Made a grid over the law for the purpose of debugging. Allowed for the random spawning of Zombie objects over regular intervals of time. Made draw stop looping once a Zombie gets past the lawn (to be updated with end screen).
