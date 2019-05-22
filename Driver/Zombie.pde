@@ -26,8 +26,8 @@ abstract class Zombie {
 }
 
 class BasicZombie extends Zombie {
-  BasicZombie(int xx, int yy, PImage img1) {
-    super(img1, 200, 100, 20, xx, yy);
+  BasicZombie(int xx, int row, PImage img1) {
+    super(img1, 200, 100, 20, xx, row * 118 + 100);
   }
 
   void move() {
@@ -40,8 +40,8 @@ class BasicZombie extends Zombie {
 }
 
 class ConeheadZombie extends Zombie {
-  ConeheadZombie (int xx, int yy, PImage img1) {
-    super(img1, 560, 100, 20, xx, yy);
+  ConeheadZombie (int xx, int row, PImage img1) {
+    super(img1, 560, 100, 20, xx, row * 118 + 78);
   }
 
   void move() {
