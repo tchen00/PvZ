@@ -19,7 +19,7 @@ abstract class Plant{
     }
     x = x_cor; 
     y = y_cor; 
-    is_planted = true; 
+    //is_planted = true; 
   }
   
   void display(){
@@ -29,26 +29,7 @@ abstract class Plant{
   void setLocation(){
     
   }
-  
-  void mousePressed() {
-    if(hover) { 
-      is_planted = true; 
-      //fill(255, 255, 255);
-    } else {
-      is_planted = false;
-    }
-    x_co = mouseX-x; 
-    y_co = mouseY-y; 
-  }
-  
-  void mouseDragged() {
-  if(is_planted){
-    x = mouseX-x_co; 
-    y = mouseY-y_co; 
-  }
-  
-}
-
+   
 }
 
 class Sunflower extends Plant{
