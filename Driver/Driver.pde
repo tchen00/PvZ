@@ -8,6 +8,14 @@ Queue<Zombie> nextZombies;
 boolean startGame;
 int time;
 
+float bx;
+float by;
+int bs = 100;
+boolean bover = false;
+boolean locked = false;
+float bdifx = 0.0; 
+float bdify = 0.0; 
+
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -70,9 +78,52 @@ void setup() {
 
 void mouseClicked() {
   startGame = true;
+    if(bover) { 
+
+    locked = true;
+    fill(255, 255, 255);
+
+  } else {
+
+    locked = false;
+
+  }
+
+  bdifx = mouseX-bx; 
+
+  bdify = mouseY-by; 
 }
 
 void mousePressed(){
+  if(bover) { 
+
+    locked = true;
+    fill(255, 255, 255);
+
+  } else {
+
+    locked = false;
+
+  }
+
+  bdifx = mouseX-bx; 
+
+  bdify = mouseY-by; 
+
+}
+
+
+void mouseDragged() {
+
+  if(locked) {
+    bx = mouseX-bdifx; 
+    by = mouseY-bdify; 
+  }
+
+}
+
+void mouseReleased() {
+  locked = false;
 }
 
 void draw() {
