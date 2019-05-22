@@ -25,9 +25,9 @@ void instZombies() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie(width, (int)(random(5)) * 118 + 100, zombie1));
+      nextZombies.add(new BasicZombie(width, (int)(random(5)), zombie1));
     } else {
-      nextZombies.add(new ConeheadZombie(width, (int)(random(5)) * 118 + 78, zombie2));
+      nextZombies.add(new ConeheadZombie(width, (int)(random(5)), zombie2));
     }
   }
 }
@@ -83,6 +83,7 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
+    boolean game_over = false;
     if (millis() > time + 8000) {
       time = millis();
       if (nextZombies.peek() != null) {
@@ -96,12 +97,20 @@ void draw() {
         zombies.remove(zzz);
       }
       if (zzz.x < 161){
-        noLoop();
-        image(end, 0, 0);
-        break;
+        game_over = true;
       }
+    }
+    for (Plant pla: plants){
+      pla.display();
+    }
+    if (nextPlants.poll() == null){
+      instPlants();
     }
     Sunflower c = new Sunflower(1000, 1000, plant1); 
     c.display();
+    if (game_over){
+      noLoop();
+      image(end, 0, 0);
+    }
   }
 }

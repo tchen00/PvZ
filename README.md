@@ -36,5 +36,3 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 6: May 21 2019
 - **Tammy**
     Experimented with mousePressed and mouseDragged. Got an image of plants to move and release. Also resolved issue with display in Plant class.
-
-    
