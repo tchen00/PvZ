@@ -34,7 +34,6 @@ abstract class Plant{
 
 class Sunflower extends Plant{
   int speed, time, cost;
-  float x, y; 
   //PImage img; 
   void produce(){
     
@@ -53,7 +52,7 @@ class Sunflower extends Plant{
   }
   
   void display(){ 
-    image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
+    image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
   }
   
 }
