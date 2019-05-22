@@ -36,3 +36,5 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 6: May 21 2019
 - **Tammy**
     Experimented with mousePressed and mouseDragged. Got an image of plants to move and release. Also resolved issue with display in Plant class.
+- **Peihua**
+	  Continued working on Zombies. Removed the interfaces because it was looping over the same list multiple times. Condensed the code in draw and added a field, row, to the Zombie subclasses to make comparisons with plants easier later on. Added an end screen once a Zombie passes through the whole lawn. Wrote an attack method for Zombie subclasses (which will be tested once Plants are added). Fixed the nextPlants queue so that player does not run out of Plants.
