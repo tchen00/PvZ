@@ -100,7 +100,12 @@ void draw() {
         game_over = true;
       }
     }
-
+    for (Plant pla: plants){
+      pla.display();
+    }
+    if (nextPlants.poll() == null){
+      instPlants();
+    }
     Sunflower c = new Sunflower(1000, 1000, plant1); 
     c.display();
     if (game_over){
