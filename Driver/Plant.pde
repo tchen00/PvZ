@@ -12,10 +12,12 @@ abstract class Plant{
   Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor){
     img = img1; 
     price = price1; 
-    cooldown = cooldown1; 
+    cooldown = cooldown1;
+    /*
     while (mousePressed){
       
     }
+    */ 
     x = x_cor; 
     y = y_cor; 
     row = -1;
