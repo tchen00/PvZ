@@ -1,11 +1,14 @@
-class Projectile{
+abstract class Projectile{
   // PImage img = loadImage("projectile.png"); 
   float x, y; 
   int damage; 
   
-  Projectile(){
-    
+  Projectile(float x, float y, int damage){
+    this.x = x; 
+    this.y = y; 
+    this.damage = damage; 
   }
+  
   
   float getX(){
     return x; 
@@ -19,8 +22,23 @@ class Projectile{
     return damage; 
   }
   
-  void display(){
-   // image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
+  abstract void display(); 
+  abstract void move();  
+}
+
+class greenProjectile extends Projectile{
+  PImage img; 
+  
+  greenProjectile(float x, float y, int damage){
+   super(x, y, damage); 
   }
   
+  void display(){
+    fill(40, 155, 85);
+    ellipse(x, y, 25, 25);  
+  }
+  
+  void move(){
+    x += 1;
+  }
 }
