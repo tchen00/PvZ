@@ -47,5 +47,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ### DAY 8: May 23 2019
 - **Tammy**  
+    After Peihua successfully moved plant, I edited the display method for each one of the plants (sunflower, peashooter, wallnut, squash, cherry bomb, snow pea) so that it fits accordingly with the size of the lawn. I also added in wallnut and cherry bomb png files. 
 - **Peihua**  
     Successfully moved Plant(!!!!) and have it snap to grid. Fixed issue with mousePressed code not registering at times (turns out the coordinates were wrong, oops).
