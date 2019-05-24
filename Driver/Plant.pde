@@ -1,6 +1,6 @@
 abstract class Plant{
   PImage img; 
-  int price, cooldown; 
+  int price, cooldown, health; 
   float x, y, x_co, y_co; 
   boolean is_planted = false; 
   boolean hover = false; 
@@ -56,7 +56,6 @@ class Sunflower extends Plant{
   float x, y; 
   //PImage img; 
   void produce(){
-    
   }
   
   Sunflower(float x_co, float y_co, PImage imgx){
