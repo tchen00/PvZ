@@ -4,7 +4,6 @@ abstract class Plant{
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
   
-  // basic constructor 
   Plant(){
   }
   
@@ -12,11 +11,6 @@ abstract class Plant{
     img = img1; 
     price = price1; 
     cooldown = cooldown1;
-    /*
-    while (mousePressed){
-      
-    }
-    */ 
     x = x_cor; 
     y = y_cor; 
     row = -1;

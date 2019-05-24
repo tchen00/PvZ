@@ -27,6 +27,7 @@ abstract class Projectile{
 }
 
 class greenProjectile extends Projectile{
+  // add in the image later -- for now use ellipse/circle 
   PImage img; 
   
   greenProjectile(float x, float y, int damage){
@@ -40,5 +41,20 @@ class greenProjectile extends Projectile{
   
   void move(){
     x += 1;
+  }
+}
+
+class blueProjectile extends Projectile{
+  blueProjectile(float x, float y, int damage){
+    super(x, y, damage); 
+  }
+  
+  void display(){
+    fill(36, 225, 242); 
+    ellipse(x, y, 25, 25); 
+  }
+  
+  void move(){
+    x += 1; 
   }
 }
