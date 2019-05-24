@@ -64,10 +64,10 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
-  plant1 = loadImage("peashooter.png"); 
+  plant1 = loadImage("wallnut.png"); 
   //plant2 = loadImage("peashooter.png"); 
   end = loadImage("end.png");
-  next = new Peashooter(125, 300, plant1);
+  next = new WallNut(125, 300, plant1);
   //peaNext = new Peashooter(200, 300, plant2); 
   image(start, 0, 0, width, height);
   instZombies();

@@ -43,7 +43,7 @@ class Sunflower extends Plant{
   Sunflower(float x_co, float y_co, PImage imgx){
     super(imgx, 50, 5, x_co, y_co); 
   }
-  
+  /*
   Sunflower(){
     PImage imgx = loadImage("sunflower.png"); 
     img = imgx; 
@@ -51,7 +51,7 @@ class Sunflower extends Plant{
     time = 0; 
     cost = 50; 
   }
-  
+  */
   void display(){ 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
@@ -71,33 +71,51 @@ class Peashooter extends Plant{
   Peashooter(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
+  
   void display(){ 
-  imageMode(CENTER);
-  image(this.img, this.x, this.y, this.img.width * 2/10, this.img.height * 2/10);
-  imageMode(CORNER);
-}
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 2/10, this.img.height * 2/10);
+    imageMode(CORNER);
+  }
 }
 
 class CherryBomb extends Plant{
   int time; 
   void attack(){
   }
+  
   CherryBomb(){
     //super(imgx, 150, 5, x_co, y_co); 
   }
+  
   CherryBomb(float x_co, float y_co, PImage imgx){
     super(imgx, 150, 5, x_co, y_co); 
   }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 2/10, this.img.height * 2/10);
+    imageMode(CORNER);
+  }
+  
+  
 }
 
 class WallNut extends Plant{
   WallNut(){ 
     //super(imgx, 100, 5, x_co, y_co); 
   }
+  
   WallNut(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
 
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 4/10, this.img.height * 4/10);
+    imageMode(CORNER);
+  } 
+  
 }
 
 class Squash extends Plant{
@@ -107,6 +125,13 @@ class Squash extends Plant{
   Squash(){
    // super(imgx, 150, 5, x_co, y_co); 
   }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CORNER);
+  } 
+  
 }
 
 class SnowPea extends Plant{
@@ -116,4 +141,14 @@ class SnowPea extends Plant{
   SnowPea(){
    //super 
   }
+  
+  SnowPea(float x_co, float y_co, PImage imgx){
+    super(imgx, 150, 5, x_co, y_co); 
+  }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 3/20, this.img.height * 3/20);
+    imageMode(CORNER);
+  } 
 }
