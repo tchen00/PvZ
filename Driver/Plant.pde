@@ -1,13 +1,21 @@
 abstract class Plant{
   PImage img; 
+<<<<<<< HEAD
   int price, cooldown, row, col, health; 
+=======
+  int price, cooldown, row, col; 
+>>>>>>> 62d0f7cb1716e5fec06bc3479db16fe021a48871
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
   
   Plant(){
   }
   
+<<<<<<< HEAD
   Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float phA, float pwA, int health){
+=======
+  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float pwA, float phA){
+>>>>>>> 62d0f7cb1716e5fec06bc3479db16fe021a48871
     img = img1; 
     price = price1; 
     cooldown = cooldown1;
@@ -101,7 +109,11 @@ class WallNut extends Plant{
   }
   
   WallNut(float x_co, float y_co, PImage imgx){
+<<<<<<< HEAD
     super(imgx, 100, 5, x_co, y_co,imgx.width * 4/10, imgx.height * 4/10, 200); 
+=======
+    super(imgx, 100, 5, x_co, y_co,imgx.width * 1/10, imgx.height * 1/10); 
+>>>>>>> 62d0f7cb1716e5fec06bc3479db16fe021a48871
   }
 
   void display(){ 
