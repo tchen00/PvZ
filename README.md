@@ -48,4 +48,4 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 8: May 23 2019
 - **Tammy**  
 - **Peihua**  
-    Successfully moved Plant(!!!!) and have it snap to grid. There is an issue with mousePressed code not registering at times. Will check with school computers tomorrow to see if it is a computer problem or a code problem. 
+    Successfully moved Plant(!!!!) and have it snap to grid. Fixed issue with mousePressed code not registering at times (turns out the coordinates were wrong, oops).

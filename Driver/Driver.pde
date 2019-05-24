@@ -89,8 +89,8 @@ void draw() {
     popMatrix();
     makeGrid();
     //print(bover && locked);
-    if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
-      mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
+    if (mouseX > (next.x - next.img.width / 20.0) && mouseX < (next.x + next.img.width / 20.0) &&
+      mouseY > (next.y - next.img.height / 20.0) && mouseY < (next.y + next.img.height / 20.0)) {
       bover = true;
     }
     else{
@@ -129,6 +129,8 @@ void draw() {
 
 
 void mousePressed() {
+  //println("pressed" + true);
+  //println("bover" + bover);
   if (bover) {
     locked = true;
   } else {
