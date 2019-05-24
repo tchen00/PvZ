@@ -20,7 +20,7 @@ class Projectile{
   }
   
   void display(){
-    image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
+   // image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
   }
   
 }
