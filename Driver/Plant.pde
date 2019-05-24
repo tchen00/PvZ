@@ -17,7 +17,7 @@ abstract class Plant{
   Plant(){
   }
   
-  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float phA, float pwA){
+  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float pwA, float phA){
     img = img1; 
     price = price1; 
     cooldown = cooldown1;
@@ -118,7 +118,7 @@ class WallNut extends Plant{
   }
   
   WallNut(float x_co, float y_co, PImage imgx){
-    super(imgx, 100, 5, x_co, y_co,imgx.width * 4/10, imgx.height * 4/10); 
+    super(imgx, 100, 5, x_co, y_co,imgx.width * 1/10, imgx.height * 1/10); 
   }
 
   void display(){ 

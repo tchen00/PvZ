@@ -133,8 +133,8 @@ void draw() {
 
 
 void mousePressed() {
-  print("pressed " + true);
-  print("bover " + bover);
+  //print("pressed " + true);
+  //print("bover " + bover);
   if (bover) {
     locked = true;
   } else {
