@@ -1,20 +1,14 @@
 import java.util.*;
 
 PImage start, lawn, zombie1, zombie2, plant1, end;
+Plant next;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame;
+boolean startGame, bover, locked = false;
 int time;
-
-float bx;
-float by;
-int bs = 100;
-boolean bover = false;
-boolean locked = false;
-float bdifx = 0.0; 
-float bdify = 0.0; 
+float difx, dify = 0.0;
 
 void makeGrid() {
   noFill();
@@ -68,6 +62,7 @@ void setup() {
   zombie2 = loadImage("coneheadzombie.png");
   plant1 = loadImage("sunflower.png"); 
   end = loadImage("end.png");
+  next = new Sunflower(65, 260, plant1);
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -78,52 +73,6 @@ void setup() {
 
 void mouseClicked() {
   startGame = true;
-    if(bover) { 
-
-    locked = true;
-    fill(255, 255, 255);
-
-  } else {
-
-    locked = false;
-
-  }
-
-  bdifx = mouseX-bx; 
-
-  bdify = mouseY-by; 
-}
-
-void mousePressed(){
-  if(bover) { 
-
-    locked = true;
-    fill(255, 255, 255);
-
-  } else {
-
-    locked = false;
-
-  }
-
-  bdifx = mouseX-bx; 
-
-  bdify = mouseY-by; 
-
-}
-
-
-void mouseDragged() {
-
-  if(locked) {
-    bx = mouseX-bdifx; 
-    by = mouseY-bdify; 
-  }
-
-}
-
-void mouseReleased() {
-  locked = false;
 }
 
 void draw() {
@@ -135,6 +84,14 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
+    if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
+      mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
+      bover = true;
+    }
+    else{
+      bover = false;
+    }
+    next.display();
     boolean game_over = false;
     if (millis() > time + 8000) {
       time = millis();
@@ -142,27 +99,47 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
-    for (Zombie zzz: zombies){
+    for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
-      if (zzz.hp <= 0){
+      if (zzz.hp <= 0) {
         zombies.remove(zzz);
       }
-      if (zzz.x < 161){
+      if (zzz.x < 161) {
         game_over = true;
       }
     }
-    for (Plant pla: plants){
+    for (Plant pla : plants) {
       pla.display();
     }
-    if (nextPlants.poll() == null){
+    if (nextPlants.poll() == null) {
       instPlants();
     }
-    Sunflower c = new Sunflower(60, 250, plant1); 
-    c.display();
-    if (game_over){
+    if (game_over) {
       noLoop();
       image(end, 0, 0);
     }
   }
+}
+
+
+void mousePressed() {
+  if (bover) {
+    locked = true;
+  } else {
+    locked = false;
+  }
+  difx = mouseX - next.x;
+  dify = mouseY - next.y;
+}
+
+void mouseDragged() {
+  if (locked) {
+    next.x = mouseX - difx;
+    next.y = mouseY - dify;
+  }
+}
+
+void mouseReleased() {
+  locked = false;
 }
