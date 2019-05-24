@@ -1,6 +1,6 @@
 abstract class Plant{
   PImage img; 
-  int price, cooldown; 
+  int price, cooldown, row, col; 
   float x, y, x_co, y_co; 
   boolean is_planted = false; 
   boolean hover = false; 
@@ -18,6 +18,8 @@ abstract class Plant{
     }
     x = x_cor; 
     y = y_cor; 
+    row = -1;
+    col = -1;
     //is_planted = true; 
   }
   
@@ -51,7 +53,9 @@ class Sunflower extends Plant{
   }
   
   void display(){ 
+    imageMode(CENTER);
     image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CORNER);
   }
   
 }
