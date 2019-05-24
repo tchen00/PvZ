@@ -111,12 +111,9 @@ void draw() {
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
-      Plant toattack = null;
       for (Plant pla : plants) {
         if ((pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
-          println("ahh");
-          zzz.attacking = true;
-          //pla.hp --;
+          zzz.attack(pla);
         }
       }
       if (zzz.hp <= 0) {

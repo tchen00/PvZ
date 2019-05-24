@@ -20,7 +20,7 @@ abstract class Zombie {
 
   abstract void display();
   abstract void move();
-  abstract void attack();
+  abstract void attack(Plant pla);
 }
 
 class BasicZombie extends Zombie {
@@ -38,15 +38,9 @@ class BasicZombie extends Zombie {
     image(this.img, this.x, this.y, 99, 118);
   }
 
-  void attack() {
-    for (Plant pla : plants) {
-      if ((pla.row  == this.row) && (this.x <= pla.x + pla.pw / 2)) {
-        println("ahh");
-        this.attacking = true;
-        //pla.hp --;
-      } else {
-        this.attacking = false;
-      }
+  void attack(Plant pla) {
+    if (plants.contains(pla)) {
+      this.attacking = true;
     }
   }
 }
@@ -66,14 +60,9 @@ class ConeheadZombie extends Zombie {
     image(this.img, this.x, this.y, 99, 140);
   }
 
-  void attack() {
-    for (Plant pla : plants) {
-      if ((pla.row == this.row) && (this.x - pla.x <= pla.pw / 2)) {
-        this.attacking = true;
-        //pla.hp --;
-      } else {
-        this.attacking = false;
-      }
+  void attack(Plant pla) {
+    if (plants.contains(pla)) {
+      this.attacking = true;
     }
   }
 }
