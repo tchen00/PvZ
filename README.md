@@ -42,3 +42,8 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 7: May 22 2019
 - **Peihua**  
     Debugged the display in Plants. Experimented with moving Plants in test file. Started implementing it to Driver, will continue working on it tomorrow, after APUSH and AP Mando are over.
+- **Tammy**
+    Started to work on Projectile class + experimented with Plant movement. Will try implement to implement the Projectile class tomorrow (after APUSH!)
+
+### DAY 8: May 23 2019
+- **Tammy**
