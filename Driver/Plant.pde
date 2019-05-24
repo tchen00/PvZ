@@ -7,7 +7,6 @@ abstract class Plant{
   
   // basic constructor 
   Plant(){
-    
   }
   
   Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor){

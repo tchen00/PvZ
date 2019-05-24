@@ -39,7 +39,7 @@ void instPlants() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 6);
     if (rand < 1) {
-      nextPlants.add(new Sunflower());
+      //nextPlants.add(new Sunflower());
     } else if (rand < 2) {
       //nextPlants.add(new Peashooter());
     } else if (rand < 3) {
