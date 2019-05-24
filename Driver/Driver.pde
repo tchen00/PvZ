@@ -152,4 +152,8 @@ void mouseReleased() {
     next.x = ((ori_x + w * next.row) + (ori_x + w * (next.row + 1))) / 2;
     next.y = ((ori_y + h * next.col) + (ori_y + h * (next.col + 1))) / 2;
   }
+  else{
+    next.x = 125;
+    next.y = 300;
+  }
 }
