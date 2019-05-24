@@ -1,6 +1,6 @@
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2, plant1, plant2, end;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
 Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
@@ -43,17 +43,17 @@ void instPlants() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 6);
     if (rand < 1) {
-      //nextPlants.add(new Sunflower());
+      nextPlants.add(new Sunflower(125, 300, sun));
     } else if (rand < 2) {
-      //nextPlants.add(new Peashooter());
+      nextPlants.add(new Peashooter(125, 300, pea));
     } else if (rand < 3) {
-      //nextPlants.add(new CherryBomb());
+      nextPlants.add(new CherryBomb(125, 300, cherry));
     } else if (rand < 4) {
-      //nextPlants.add(new WallNut());
+      nextPlants.add(new WallNut(125, 300, wall));
     } else if (rand < 5) {
-      //nextPlants.add(new Squash());
+      nextPlants.add(new Squash(125, 300, squash));
     } else {
-      //nextPlants.add(new SnowPea());
+      nextPlants.add(new SnowPea(125, 300, snow));
     }
   }
 }
@@ -64,14 +64,17 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
-  plant1 = loadImage("wallnut.png"); 
-  //plant2 = loadImage("peashooter.png"); 
+  sun = loadImage("sunflower.png");
+  pea = loadImage("peashooter.png");
+  cherry = loadImage("cherrybomb.png");
+  wall = loadImage("wallnut.png");
+  squash = loadImage("squash.png");
+  snow = loadImage("snowpea.png");
   end = loadImage("end.png");
-  next = new WallNut(125, 300, plant1);
-  //peaNext = new Peashooter(200, 300, plant2); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
+  next = nextPlants.remove();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   time = millis();
@@ -90,8 +93,8 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
-    if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
-      mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
+    if (mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
+      mouseY > (next.y - next.pw / 2) && mouseY < (next.y + next.ph / 2)) {
       bover = true;
     }
     else{
@@ -118,7 +121,7 @@ void draw() {
     for (Plant pla : plants) {
       pla.display();
     }
-    if (nextPlants.poll() == null) {
+    if (nextPlants.size() < 1) {
       instPlants();
     }
     if (game_over) {
@@ -130,6 +133,8 @@ void draw() {
 
 
 void mousePressed() {
+  print("pressed " + true);
+  print("bover " + bover);
   if (bover) {
     locked = true;
   } else {
@@ -153,6 +158,8 @@ void mouseReleased() {
     next.col = (int)(next.y - ori_y) / h;
     next.x = ((ori_x + w * next.row) + (ori_x + w * (next.row + 1))) / 2;
     next.y = ((ori_y + h * next.col) + (ori_y + h * (next.col + 1))) / 2;
+    plants.add(next);
+    next = nextPlants.remove();
   }
   else{
     next.x = 125;
