@@ -1,14 +1,14 @@
-abstract class Plant{
+abstract class Plant {
   PImage img; 
   int price, cooldown, row, col, health; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
-  
-  Plant(){
-  }
-  
 
-  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float pwA, float phA, int health){
+  Plant() {
+  }
+
+
+  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float pwA, float phA, int health) {
     img = img1; 
     price = price1; 
     cooldown = cooldown1;
@@ -19,131 +19,125 @@ abstract class Plant{
     ph = phA;
     pw = pwA;
     this.health = health; 
-    //is_planted = true; 
+    //is_planted = true;
   }
-  
+
   abstract void display(); 
-  void getDamage(){
-    health -= 5; 
+  void getDamage() {
+    health -= 5;
   }
-   
 }
 
-class Sunflower extends Plant{
+class Sunflower extends Plant {
   int speed, time, cost;
   //PImage img; 
-  void produce(){
+  void produce() {
   }
-  
-  Sunflower(float x_co, float y_co, PImage imgx){
-    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200); 
+
+  Sunflower(float x_co, float y_co, PImage imgx) {
+    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
   /*
   Sunflower(){
-    PImage imgx = loadImage("sunflower.png"); 
-    img = imgx; 
-    speed = 3; 
-    time = 0; 
-    cost = 50; 
-  }
-  */
-  void display(){ 
+   PImage imgx = loadImage("sunflower.png"); 
+   img = imgx; 
+   speed = 3; 
+   time = 0; 
+   cost = 50; 
+   }
+   */
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
-  
 }
 
-class Peashooter extends Plant{
+class Peashooter extends Plant {
   int speed; 
-  void attack(){
+  void attack() {
   }
-  Peashooter(){
+  Peashooter() {
     //super(imgx, 100, 5, x_co, y_co);
   }
-  
-  Peashooter(float x_co, float y_co, PImage imgx){
-    super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200); 
+
+  Peashooter(float x_co, float y_co, PImage imgx) {
+    super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
   }
-  
-  void display(){ 
+
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
 }
 
-class CherryBomb extends Plant{
+class CherryBomb extends Plant {
   int time; 
-  void attack(){
+  void attack() {
   }
-  
-  CherryBomb(){
-    //super(imgx, 150, 5, x_co, y_co); 
+
+  CherryBomb() {
+    //super(imgx, 150, 5, x_co, y_co);
   }
-  
-  CherryBomb(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200); 
+
+  CherryBomb(float x_co, float y_co, PImage imgx) {
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
   }
-  
-  void display(){ 
+
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
-  
-  
 }
 
-class WallNut extends Plant{
-  WallNut(){ 
-    //super(imgx, 100, 5, x_co, y_co); 
-  }
-  
-  WallNut(float x_co, float y_co, PImage imgx){
-    super(imgx, 100, 5, x_co, y_co,imgx.width * 1/10, imgx.height * 1/10, 200); 
+class WallNut extends Plant {
+  WallNut() { 
+    //super(imgx, 100, 5, x_co, y_co);
   }
 
-  void display(){ 
+  WallNut(float x_co, float y_co, PImage imgx) {
+    super(imgx, 100, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
+  }
+
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
-  } 
-  
+  }
 }
 
-class Squash extends Plant{
-  Squash(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200); 
+class Squash extends Plant {
+  Squash(float x_co, float y_co, PImage imgx) {
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
-  Squash(){
-   // super(imgx, 150, 5, x_co, y_co); 
+  Squash() {
+    // super(imgx, 150, 5, x_co, y_co);
   }
-  
-  void display(){ 
+
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
-  } 
-  
+  }
 }
 
-class SnowPea extends Plant{
+class SnowPea extends Plant {
   int speed; 
-  void attack(){
+  void attack() {
   }
-  SnowPea(){
-   //super 
+  SnowPea() {
+    //super
   }
-  
-  SnowPea(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200); 
+
+  SnowPea(float x_co, float y_co, PImage imgx) {
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200);
   }
-  
-  void display(){ 
+
+  void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
-  } 
+  }
 }

@@ -17,10 +17,10 @@ abstract class Zombie {
     y = yy;
     row = rows;
   }
-  
+
   abstract void display();
   abstract void move();
-  abstract void attack(Plant smth);
+  abstract void attack();
 }
 
 class BasicZombie extends Zombie {
@@ -29,21 +29,23 @@ class BasicZombie extends Zombie {
   }
 
   void move() {
-    this.x = this.x - 0.3;
+    if (!this.attacking) {
+      this.x = this.x - 0.3;
+    }
   }
 
   void display() {
     image(this.img, this.x, this.y, 99, 118);
   }
-  
-  void attack(Plant smth){
-    for (Plant pla: plants){
-      if ((pla.y == this.row) && (this.x - pla.x <= pla.img.width)){
-        attacking = true;
+
+  void attack() {
+    for (Plant pla : plants) {
+      if ((pla.row  == this.row) && (this.x <= pla.x + pla.pw / 2)) {
+        println("ahh");
+        this.attacking = true;
         //pla.hp --;
-      }
-      else{
-        attacking = false;
+      } else {
+        this.attacking = false;
       }
     }
   }
@@ -55,21 +57,22 @@ class ConeheadZombie extends Zombie {
   }
 
   void move() {
-    this.x = this.x - 0.3;
+    if (!this.attacking) {
+      this.x = this.x - 0.3;
+    }
   }
 
   void display() {
     image(this.img, this.x, this.y, 99, 140);
   }
-  
-  void attack(Plant smth){
-    for (Plant pla: plants){
-      if ((pla.y == this.row) && (this.x - pla.x <= pla.img.width)){
-        attacking = true;
+
+  void attack() {
+    for (Plant pla : plants) {
+      if ((pla.row == this.row) && (this.x - pla.x <= pla.pw / 2)) {
+        this.attacking = true;
         //pla.hp --;
-      }
-      else{
-        attacking = false;
+      } else {
+        this.attacking = false;
       }
     }
   }

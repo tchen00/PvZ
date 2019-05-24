@@ -7,7 +7,7 @@ ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, locked = false;
-boolean[][] hasPlant = new boolean[9][5];
+boolean[][] hasPlant = new boolean[5][9];
 int time;
 int ori_x = 260;
 int ori_y = 100;
@@ -97,8 +97,7 @@ void draw() {
     if (mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
       mouseY > (next.y - next.pw / 2) && mouseY < (next.y + next.ph / 2)) {
       bover = true;
-    }
-    else{
+    } else {
       bover = false;
     }
     next.display();
@@ -112,6 +111,14 @@ void draw() {
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
+      Plant toattack = null;
+      for (Plant pla : plants) {
+        if ((pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
+          println("ahh");
+          zzz.attacking = true;
+          //pla.hp --;
+        }
+      }
       if (zzz.hp <= 0) {
         zombies.remove(zzz);
       }
@@ -154,19 +161,18 @@ void mouseDragged() {
 
 void mouseReleased() {
   locked = false;
-  int roww = (int)(next.x - ori_x) / w;
-  int coll = (int)(next.y - ori_y) / h;
+  int coll = (int)(next.x - ori_x) / w;
+  int roww = (int)(next.y - ori_y) / h;
   if (next.x > ori_x && next.x < ori_x + 9 * w && 
-      next.y > ori_y && next.y < ori_y + 5 * h && !hasPlant[roww][coll] ){
+    next.y > ori_y && next.y < ori_y + 5 * h && !hasPlant[roww][coll] ) {
     next.row = roww;
     next.col = coll;
     hasPlant[roww][coll] = true;
-    next.x = ((ori_x + w * next.row) + (ori_x + w * (next.row + 1))) / 2;
-    next.y = ((ori_y + h * next.col) + (ori_y + h * (next.col + 1))) / 2;
+    next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
+    next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
     plants.add(next);
     next = nextPlants.remove();
-  }
-  else{
+  } else {
     next.x = 125;
     next.y = 300;
   }

@@ -1,60 +1,60 @@
-abstract class Projectile{
+abstract class Projectile {
   // PImage img = loadImage("projectile.png"); 
   float x, y; 
   int damage; 
-  
-  Projectile(float x, float y, int damage){
+
+  Projectile(float x, float y, int damage) {
     this.x = x; 
     this.y = y; 
-    this.damage = damage; 
+    this.damage = damage;
   }
-  
-  
-  float getX(){
-    return x; 
+
+
+  float getX() {
+    return x;
   }
-  
-  float getY(){
-    return y;  
+
+  float getY() {
+    return y;
   }
-  
-  int getDamage(){ 
-    return damage; 
+
+  int getDamage() { 
+    return damage;
   }
-  
+
   abstract void display(); 
-  abstract void move();  
+  abstract void move();
 }
 
-class greenProjectile extends Projectile{
+class greenProjectile extends Projectile {
   // add in the image later -- for now use ellipse/circle 
   PImage img; 
-  
-  greenProjectile(float x, float y, int damage){
-   super(x, y, damage); 
+
+  greenProjectile(float x, float y, int damage) {
+    super(x, y, damage);
   }
-  
-  void display(){
+
+  void display() {
     fill(68, 224, 29);
-    ellipse(x, y, 25, 25);  
+    ellipse(x, y, 25, 25);
   }
-  
-  void move(){
+
+  void move() {
     x += 1;
   }
 }
 
-class blueProjectile extends Projectile{
-  blueProjectile(float x, float y, int damage){
-    super(x, y, damage); 
+class blueProjectile extends Projectile {
+  blueProjectile(float x, float y, int damage) {
+    super(x, y, damage);
   }
-  
-  void display(){
+
+  void display() {
     fill(36, 225, 242); 
-    ellipse(x, y, 25, 25); 
+    ellipse(x, y, 25, 25);
   }
-  
-  void move(){
-    x += 1; 
+
+  void move() {
+    x += 1;
   }
 }
