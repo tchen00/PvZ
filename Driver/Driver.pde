@@ -158,7 +158,7 @@ void draw() {
     if (nextPlants.poll() == null){
       instPlants();
     }
-    Sunflower c = new Sunflower(1000, 1000, plant1); 
+    Sunflower c = new Sunflower(60, 250, plant1); 
     c.display();
     if (game_over){
       noLoop();
