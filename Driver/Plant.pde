@@ -1,15 +1,7 @@
 abstract class Plant{
   PImage img; 
-<<<<<<< HEAD
-  int price, cooldown, health; 
-=======
   int price, cooldown, row, col; 
-<<<<<<< HEAD
->>>>>>> master
-  float x, y, x_co, y_co; 
-=======
   float x, y, x_co, y_co, ph, pw; 
->>>>>>> master
   boolean is_planted = false; 
   boolean hover = false; 
   
