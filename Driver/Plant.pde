@@ -3,13 +3,12 @@ abstract class Plant{
   int price, cooldown, row, col, health; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
-  boolean hover = false; 
   
   // basic constructor 
   Plant(){
   }
   
-  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float phA, float pwA){
+  Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor, float phA, float pwA, int health){
     img = img1; 
     price = price1; 
     cooldown = cooldown1;
@@ -24,15 +23,13 @@ abstract class Plant{
     col = -1;
     ph = phA;
     pw = pwA;
+    this.health = health; 
     //is_planted = true; 
   }
   
-  void display(){
-    
-  }
-  
-  void setLocation(){
-    
+  abstract void display(); 
+  void getDamage(){
+    health -= 5; 
   }
    
 }
@@ -44,7 +41,7 @@ class Sunflower extends Plant{
   }
   
   Sunflower(float x_co, float y_co, PImage imgx){
-    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10); 
+    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200); 
   }
   /*
   Sunflower(){
@@ -72,7 +69,7 @@ class Peashooter extends Plant{
   }
   
   Peashooter(float x_co, float y_co, PImage imgx){
-    super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10); 
+    super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200); 
   }
   
   void display(){ 
@@ -92,7 +89,7 @@ class CherryBomb extends Plant{
   }
   
   CherryBomb(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10); 
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200); 
   }
   
   void display(){ 
@@ -110,7 +107,7 @@ class WallNut extends Plant{
   }
   
   WallNut(float x_co, float y_co, PImage imgx){
-    super(imgx, 100, 5, x_co, y_co,imgx.width * 4/10, imgx.height * 4/10); 
+    super(imgx, 100, 5, x_co, y_co,imgx.width * 4/10, imgx.height * 4/10, 200); 
   }
 
   void display(){ 
@@ -123,7 +120,7 @@ class WallNut extends Plant{
 
 class Squash extends Plant{
   Squash(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10); 
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200); 
   }
   Squash(){
    // super(imgx, 150, 5, x_co, y_co); 
@@ -146,7 +143,7 @@ class SnowPea extends Plant{
   }
   
   SnowPea(float x_co, float y_co, PImage imgx){
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20); 
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200); 
   }
   
   void display(){ 
