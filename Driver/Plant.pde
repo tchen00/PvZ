@@ -71,6 +71,11 @@ class Peashooter extends Plant{
   Peashooter(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
+    void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CORNER);
+  }
 }
 
 class CherryBomb extends Plant{

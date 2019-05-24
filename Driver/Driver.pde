@@ -1,7 +1,7 @@
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2, plant1, end;
-Plant next;
+PImage start, lawn, zombie1, zombie2, plant1, plant2, end;
+Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
@@ -65,8 +65,10 @@ void setup() {
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
   plant1 = loadImage("sunflower.png"); 
+  plant2 = loadImage("peashooter.png"); 
   end = loadImage("end.png");
   next = new Sunflower(125, 300, plant1);
+  peaNext = new Peashooter(200, 300, plant2); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
