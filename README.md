@@ -46,4 +46,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
     Started to work on Projectile class + experimented with Plant movement. Will try implement to implement the Projectile class tomorrow (after APUSH!)
 
 ### DAY 8: May 23 2019
-- **Tammy**
+- **Tammy**  
+- **Peihua**  
+    Successfully moved Plant(!!!!) and have it snap to grid. Fixed issue with mousePressed code not registering at times (turns out the coordinates were wrong, oops).
