@@ -64,11 +64,11 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
-  plant1 = loadImage("sunflower.png"); 
-  plant2 = loadImage("peashooter.png"); 
+  plant1 = loadImage("peashooter.png"); 
+  //plant2 = loadImage("peashooter.png"); 
   end = loadImage("end.png");
-  next = new Sunflower(125, 300, plant1);
-  peaNext = new Peashooter(200, 300, plant2); 
+  next = new Peashooter(125, 300, plant1);
+  //peaNext = new Peashooter(200, 300, plant2); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -90,9 +90,8 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
-    //print(bover && locked);
-    if (mouseX > (next.x - next.img.width / 20.0) && mouseX < (next.x + next.img.width / 20.0) &&
-      mouseY > (next.y - next.img.height / 20.0) && mouseY < (next.y + next.img.height / 20.0)) {
+    if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
+      mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
       bover = true;
     }
     else{
@@ -131,8 +130,6 @@ void draw() {
 
 
 void mousePressed() {
-  //println("pressed" + true);
-  //println("bover" + bover);
   if (bover) {
     locked = true;
   } else {
