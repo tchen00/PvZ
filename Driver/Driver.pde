@@ -1,27 +1,26 @@
-interface Displayable {
-  void display();
-}
-
-interface Moveable {
-  void move();
-}
-
 import java.util.*;
 
-PImage start, lawn, zombie1, zombie2, plant1;
+PImage start, lawn, zombie1, zombie2, plant1, plant2, end;
+Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame;
+boolean startGame, bover, locked = false;
+int time;
+int ori_x = 260;
+int ori_y = 100;
+int w = 99;
+int h = 118;
+float difx, dify = 0.0;
 
 void makeGrid() {
   noFill();
   pushMatrix();
-  translate(260, 100);
+  translate(ori_x, ori_y);
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 5; j++) {
-      rect(i * 99, j * 118, 99, 118);
+      rect(i * w, j * h, w, h);
     }
   }
   popMatrix();
@@ -44,7 +43,7 @@ void instPlants() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 6);
     if (rand < 1) {
-      nextPlants.add(new Sunflower());
+      //nextPlants.add(new Sunflower());
     } else if (rand < 2) {
       //nextPlants.add(new Peashooter());
     } else if (rand < 3) {
@@ -65,22 +64,23 @@ void setup() {
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
   zombie2 = loadImage("coneheadzombie.png");
-  plant1 = loadImage("sunflower.png"); 
+  plant1 = loadImage("wallnut.png"); 
+  //plant2 = loadImage("peashooter.png"); 
+  end = loadImage("end.png");
+  next = new WallNut(125, 300, plant1);
+  //peaNext = new Peashooter(200, 300, plant2); 
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  zombies.add(new BasicZombie(width - 100, (int)(random(5)) * 118 + 100, zombie1));
-  zombies.add(new ConeheadZombie(width - 100, (int)(random(5)) * 118 + 78, zombie2));
+  time = millis();
 }
 
 void mouseClicked() {
   startGame = true;
 }
 
-void mousePressed(){
-}
 void draw() {
   if (startGame) {
     image(lawn, 0, 0, width, height);
@@ -89,14 +89,73 @@ void draw() {
     translate(50, 200);
     rect(0, 0, 150, 200);
     popMatrix();
-    //makeGrid();
-    for (Displayable thing : zombies) {
-      thing.display();
+    makeGrid();
+    if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
+      mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
+      bover = true;
     }
-    for (Moveable thing : zombies) {
-      thing.move();
+    else{
+      bover = false;
     }
-    Sunflower c = new Sunflower(1000, 1000, plant1); 
-    c.display();
+    next.display();
+    boolean game_over = false;
+    if (millis() > time + 8000) {
+      time = millis();
+      if (nextZombies.peek() != null) {
+        zombies.add(nextZombies.remove());
+      }
+    }
+    for (Zombie zzz : zombies) {
+      zzz.display();
+      zzz.move();
+      if (zzz.hp <= 0) {
+        zombies.remove(zzz);
+      }
+      if (zzz.x < 161) {
+        game_over = true;
+      }
+    }
+    for (Plant pla : plants) {
+      pla.display();
+    }
+    if (nextPlants.poll() == null) {
+      instPlants();
+    }
+    if (game_over) {
+      noLoop();
+      image(end, 0, 0);
+    }
+  }
+}
+
+
+void mousePressed() {
+  if (bover) {
+    locked = true;
+  } else {
+    locked = false;
+  }
+  difx = mouseX - next.x;
+  dify = mouseY - next.y;
+}
+
+void mouseDragged() {
+  if (locked) {
+    next.x = mouseX - difx;
+    next.y = mouseY - dify;
+  }
+}
+
+void mouseReleased() {
+  locked = false;
+  if (next.x > ori_x && next.x < ori_x + 9 * w && next.y > ori_y && next.y < ori_y + 5 * h){
+    next.row = (int)(next.x - ori_x) / w;
+    next.col = (int)(next.y - ori_y) / h;
+    next.x = ((ori_x + w * next.row) + (ori_x + w * (next.row + 1))) / 2;
+    next.y = ((ori_y + h * next.col) + (ori_y + h * (next.col + 1))) / 2;
+  }
+  else{
+    next.x = 125;
+    next.y = 300;
   }
 }

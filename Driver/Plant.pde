@@ -1,25 +1,32 @@
 abstract class Plant{
   PImage img; 
+<<<<<<< HEAD
   int price, cooldown, health; 
+=======
+  int price, cooldown, row, col; 
+>>>>>>> master
   float x, y, x_co, y_co; 
   boolean is_planted = false; 
   boolean hover = false; 
   
   // basic constructor 
   Plant(){
-    
   }
   
   Plant(PImage img1, int price1, int cooldown1, float x_cor, float y_cor){
     img = img1; 
     price = price1; 
-    cooldown = cooldown1; 
+    cooldown = cooldown1;
+    /*
     while (mousePressed){
       
     }
+    */ 
     x = x_cor; 
     y = y_cor; 
-    is_planted = true; 
+    row = -1;
+    col = -1;
+    //is_planted = true; 
   }
   
   void display(){
@@ -29,31 +36,11 @@ abstract class Plant{
   void setLocation(){
     
   }
-  
-  void mousePressed() {
-    if(hover) { 
-      is_planted = true; 
-      //fill(255, 255, 255);
-    } else {
-      is_planted = false;
-    }
-    x_co = mouseX-x; 
-    y_co = mouseY-y; 
-  }
-  
-  void mouseDragged() {
-  if(is_planted){
-    x = mouseX-x_co; 
-    y = mouseY-y_co; 
-  }
-  
-}
-
+   
 }
 
 class Sunflower extends Plant{
   int speed, time, cost;
-  float x, y; 
   //PImage img; 
   void produce(){
   }
@@ -61,7 +48,7 @@ class Sunflower extends Plant{
   Sunflower(float x_co, float y_co, PImage imgx){
     super(imgx, 50, 5, x_co, y_co); 
   }
-  
+  /*
   Sunflower(){
     PImage imgx = loadImage("sunflower.png"); 
     img = imgx; 
@@ -69,9 +56,11 @@ class Sunflower extends Plant{
     time = 0; 
     cost = 50; 
   }
-  
+  */
   void display(){ 
-    image(this.img, x, y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CORNER);
   }
   
 }
@@ -87,28 +76,51 @@ class Peashooter extends Plant{
   Peashooter(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 2/10, this.img.height * 2/10);
+    imageMode(CORNER);
+  }
 }
 
 class CherryBomb extends Plant{
   int time; 
   void attack(){
   }
+  
   CherryBomb(){
     //super(imgx, 150, 5, x_co, y_co); 
   }
+  
   CherryBomb(float x_co, float y_co, PImage imgx){
     super(imgx, 150, 5, x_co, y_co); 
   }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 2/10, this.img.height * 2/10);
+    imageMode(CORNER);
+  }
+  
+  
 }
 
 class WallNut extends Plant{
   WallNut(){ 
     //super(imgx, 100, 5, x_co, y_co); 
   }
+  
   WallNut(float x_co, float y_co, PImage imgx){
     super(imgx, 100, 5, x_co, y_co); 
   }
 
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 4/10, this.img.height * 4/10);
+    imageMode(CORNER);
+  } 
+  
 }
 
 class Squash extends Plant{
@@ -118,6 +130,13 @@ class Squash extends Plant{
   Squash(){
    // super(imgx, 150, 5, x_co, y_co); 
   }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 1/10, this.img.height * 1/10);
+    imageMode(CORNER);
+  } 
+  
 }
 
 class SnowPea extends Plant{
@@ -127,4 +146,14 @@ class SnowPea extends Plant{
   SnowPea(){
    //super 
   }
+  
+  SnowPea(float x_co, float y_co, PImage imgx){
+    super(imgx, 150, 5, x_co, y_co); 
+  }
+  
+  void display(){ 
+    imageMode(CENTER);
+    image(this.img, this.x, this.y, this.img.width * 3/20, this.img.height * 3/20);
+    imageMode(CORNER);
+  } 
 }

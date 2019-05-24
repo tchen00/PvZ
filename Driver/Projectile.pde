@@ -34,7 +34,11 @@ class greenProjectile extends Projectile{
   }
   
   void display(){
+<<<<<<< HEAD
     fill(68, 224, 29);
+=======
+    fill(40, 155, 85);
+>>>>>>> master
     ellipse(x, y, 25, 25);  
   }
   
