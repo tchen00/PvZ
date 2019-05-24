@@ -88,6 +88,7 @@ void draw() {
     rect(0, 0, 150, 200);
     popMatrix();
     makeGrid();
+    //print(bover && locked);
     if (mouseX > (next.x) && mouseX < (next.x + next.img.width / 10.0) &&
       mouseY > (next.y) && mouseY < (next.y + next.img.height / 10.0)) {
       bover = true;
