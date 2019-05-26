@@ -3,11 +3,12 @@ import java.util.*;
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
 Plant next, peaNext;
 ArrayList<Plant> plants;
+ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
-ArrayList<Object> toBeRemoved;
+ArrayList<Zombie> zombieRemove;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame, bover,setup, locked = false;
+boolean startGame, bover, setup, locked = false;
 boolean[][] hasPlant = new boolean[5][9];
 int time, t;
 int ori_x = 260;
@@ -79,6 +80,8 @@ void setup() {
   next = nextPlants.remove();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
+  plantRemove = new ArrayList<Plant>();
+  zombieRemove = new ArrayList<Zombie>();
   time = millis();
   t = millis();
 }
@@ -89,7 +92,7 @@ void mouseClicked() {
 
 void draw() {
   if (startGame) {
-    if (!setup){
+    if (!setup) {
       time = millis();
       t = millis();
       setup = true;
@@ -123,16 +126,16 @@ void draw() {
         if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
           while (pla.health > 0) {
             zzz.attacking = true;
-            if (millis() > t + 1000) {
+            if (millis() > t + 2000) {
               zzz.attack(pla);
               t = millis();
-              print(pla.health);
             }
           }
+          zzz.attacking = false;
         }
-        
+
         if (zzz.hp <= 0) {
-          zombies.remove(zzz);
+          zombieRemove.add(zzz);
         }
         if (zzz.x < 161) {
           game_over = true;
@@ -141,11 +144,21 @@ void draw() {
       for (Plant pla : plants) {
         pla.display();
         if (pla.health <= 0) {
-          plants.remove(pla);
+          plantRemove.add(pla);
         }
       }
-      if (nextPlants.size() < 1) {
-        instPlants();
+      for (Zombie z : zombieRemove) {
+        if (zombies.contains(z)) {
+          zombies.remove(z);
+        }
+      }
+      for (Plant p : plantRemove) {
+        if (plants.contains(p)) {
+          plants.remove(p);
+        }
+        if (nextPlants.size() < 1) {
+          instPlants();
+        }
       }
       if (game_over) {
         noLoop();

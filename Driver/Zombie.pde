@@ -61,10 +61,7 @@ class ConeheadZombie extends Zombie {
   }
 
   void attack(Plant pla) {
-    if (plants.contains(pla)) {
-      this.attacking = true;
-      println(true);
+      //println(true);
       pla.health = pla.health -  100;
-    }
   }
 }
