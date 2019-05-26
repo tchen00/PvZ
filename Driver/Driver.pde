@@ -10,7 +10,7 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked = false;
 boolean[][] hasPlant = new boolean[5][9];
-int time, t;
+int time, t, coolT = millis();
 int ori_x = 260;
 int ori_y = 100;
 int w = 99;
@@ -82,8 +82,6 @@ void setup() {
   zombies = new ArrayList<Zombie>();
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
-  time = millis();
-  t = millis();
 }
 
 void mouseClicked() {
@@ -95,6 +93,7 @@ void draw() {
     if (!setup) {
       time = millis();
       t = millis();
+      coolT = millis();
       setup = true;
     }
     image(lawn, 0, 0, width, height);
@@ -106,7 +105,10 @@ void draw() {
     //makeGrid();
     if (mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
       mouseY > (next.y - next.pw / 2) && mouseY < (next.y + next.ph / 2)) {
-      bover = true;
+      if (millis() > coolT + 3000) {
+        bover = true;
+        coolT = millis();
+      }
     } else {
       bover = false;
     }
