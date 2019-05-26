@@ -4,11 +4,12 @@ PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
 Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
+ArrayList<Object> toBeRemoved;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame, bover, locked = false;
+boolean startGame, bover,setup, locked = false;
 boolean[][] hasPlant = new boolean[5][9];
-int time;
+int time, t;
 int ori_x = 260;
 int ori_y = 100;
 int w = 99;
@@ -79,6 +80,7 @@ void setup() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   time = millis();
+  t = millis();
 }
 
 void mouseClicked() {
@@ -87,6 +89,11 @@ void mouseClicked() {
 
 void draw() {
   if (startGame) {
+    if (!setup){
+      time = millis();
+      t = millis();
+      setup = true;
+    }
     image(lawn, 0, 0, width, height);
     pushMatrix();
     fill(255, 240, 179);
@@ -108,30 +115,42 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
+
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
       for (Plant pla : plants) {
-        if ((pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
-          zzz.attack(pla);
+        if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
+          while (pla.health > 0) {
+            zzz.attacking = true;
+            if (millis() > t + 1000) {
+              zzz.attack(pla);
+              t = millis();
+              print(pla.health);
+            }
+          }
+        }
+        
+        if (zzz.hp <= 0) {
+          zombies.remove(zzz);
+        }
+        if (zzz.x < 161) {
+          game_over = true;
         }
       }
-      if (zzz.hp <= 0) {
-        zombies.remove(zzz);
+      for (Plant pla : plants) {
+        pla.display();
+        if (pla.health <= 0) {
+          plants.remove(pla);
+        }
       }
-      if (zzz.x < 161) {
-        game_over = true;
+      if (nextPlants.size() < 1) {
+        instPlants();
       }
-    }
-    for (Plant pla : plants) {
-      pla.display();
-    }
-    if (nextPlants.size() < 1) {
-      instPlants();
-    }
-    if (game_over) {
-      noLoop();
-      image(end, 0, 0);
+      if (game_over) {
+        noLoop();
+        image(end, 0, 0);
+      }
     }
   }
 }
