@@ -124,7 +124,7 @@ void draw() {
       zzz.move();
       for (Plant pla : plants) {
         if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
-          while (pla.health > 0) {
+          while (pla.health >= 0) {
             zzz.attacking = true;
             if (millis() > t + 2000) {
               zzz.attack(pla);

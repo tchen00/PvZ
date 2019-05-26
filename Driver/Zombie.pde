@@ -61,7 +61,6 @@ class ConeheadZombie extends Zombie {
   }
 
   void attack(Plant pla) {
-      //println(true);
-      pla.health = pla.health -  100;
+      pla.health = pla.health - 40;
   }
 }
