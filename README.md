@@ -47,6 +47,14 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ### DAY 8: May 23 2019
 - **Tammy**  
-    After Peihua successfully moved plant, I edited the display method for each one of the plants (sunflower, peashooter, wallnut, squash, cherry bomb, snow pea) so that it fits accordingly with the size of the lawn. I also added in wallnut and cherry bomb png files. 
+    After Peihua successfully moved plant, I edited the display method for each one of the plants (sunflower, peashooter, wallnut, squash, cherry bomb, snow pea) so that it fits accordingly with the size of the lawn. I also added in wallnut and cherry bomb png files.
 - **Peihua**  
-    Successfully moved Plant(!!!!) and have it snap to grid. Fixed issue with mousePressed code not registering at times (turns out the coordinates were wrong, oops).
+    Successfully moved Plant(!!!!) and have it snap to grid. Fixed issue with mousePressed code not registering at times (turns out the coordinates were wrong, oops).  
+
+### DAY 9: May 24 2019
+- **Peihua**  
+    Made plants immovable once placed on the grid and made it so that only one Plant is allowed per box. Starting working on Zombie attack, making the Zombie stop if there is a plant in front of it.
+
+## DAY 10: May 25 2019  
+- **Peihua**  
+    Found a bug where the timer started before the game started and the Zombie will spawn right away. Finished Zombie attack. Also fixed bug involving removing plants and zombies (I didn't realize I was modifying in the ArrayList I'm removing from, oops).
