@@ -8,7 +8,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame, bover, setup, locked = false;
+boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
 int time, t, coolT = millis();
 int ori_x = 260;
@@ -99,16 +99,17 @@ void draw() {
     image(lawn, 0, 0, width, height);
     pushMatrix();
     fill(255, 240, 179);
+    stroke(0);
     translate(50, 200);
     rect(0, 0, 150, 200);
     popMatrix();
     //makeGrid();
-    if (mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
+    if (millis() > coolT + 3000) {
+      cool = true;
+    }
+    if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
       mouseY > (next.y - next.pw / 2) && mouseY < (next.y + next.ph / 2)) {
-      if (millis() > coolT + 3000) {
-        bover = true;
-        coolT = millis();
-      }
+      bover = true;
     } else {
       bover = false;
     }
@@ -120,7 +121,20 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
-
+    for (Plant pla : plants) {
+      pla.display();
+      if (pla.health <= 0) {
+        plantRemove.add(pla);
+      }
+    }
+    pushMatrix();
+    fill(10, 80);
+    noStroke();
+    translate(50, 200);
+    if (!cool) {
+      rect(0, 0, 150, 200);
+    }
+    popMatrix();
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
@@ -141,12 +155,6 @@ void draw() {
         }
         if (zzz.x < 161) {
           game_over = true;
-        }
-      }
-      for (Plant pla : plants) {
-        pla.display();
-        if (pla.health <= 0) {
-          plantRemove.add(pla);
         }
       }
       for (Zombie z : zombieRemove) {
@@ -202,6 +210,8 @@ void mouseReleased() {
     next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
     next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
     plants.add(next);
+    coolT = millis();
+    cool = false;
     next = nextPlants.remove();
   } else {
     next.x = 125;
