@@ -58,3 +58,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ## DAY 10: May 25 2019  
 - **Peihua**  
     Found a bug where the timer started before the game started and the Zombie will spawn right away. Finished Zombie attack. Also fixed bug involving removing plants and zombies (I didn't realize I was modifying in the ArrayList I'm removing from, oops).
+
+## DAY 11: May 26 2019
+- **Peihua**  
+    Updated Zombie attack so Plant dies after 5 bites (one bite per second). Added a cool-down timer for adding plants and a semi-transparent gray rectangle to let the player know when they can add more plants.
