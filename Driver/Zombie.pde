@@ -1,5 +1,6 @@
 abstract class Zombie {
   PImage img;
+  Plant target;
   int hp, dmg, row;
   float x, y;
   float atk_speed;
@@ -39,9 +40,8 @@ class BasicZombie extends Zombie {
   }
 
   void attack(Plant pla) {
-    if (plants.contains(pla)) {
-      this.attacking = true;
-    }
+    this.target = pla;
+    pla.health = pla.health - 40;
   }
 }
 
@@ -61,6 +61,7 @@ class ConeheadZombie extends Zombie {
   }
 
   void attack(Plant pla) {
-      pla.health = pla.health - 40;
+    this.target = pla;
+    pla.health = pla.health - 40;
   }
 }

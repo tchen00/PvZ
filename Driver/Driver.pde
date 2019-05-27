@@ -132,7 +132,7 @@ void draw() {
     noStroke();
     translate(50, 200);
     if (!cool) {
-      rect(0, 0, 150, 200);
+      rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
     popMatrix();
     for (Zombie zzz : zombies) {
@@ -140,22 +140,21 @@ void draw() {
       zzz.move();
       for (Plant pla : plants) {
         if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
-          while (pla.health >= 0) {
             zzz.attacking = true;
             if (millis() > t + 2000) {
               zzz.attack(pla);
               t = millis();
             }
-          }
-          zzz.attacking = false;
         }
-
         if (zzz.hp <= 0) {
           zombieRemove.add(zzz);
         }
         if (zzz.x < 161) {
           game_over = true;
         }
+      }
+      if (zzz.target != null && !plants.contains(zzz.target)){
+        zzz.attacking = false;
       }
       for (Zombie z : zombieRemove) {
         if (zombies.contains(z)) {
