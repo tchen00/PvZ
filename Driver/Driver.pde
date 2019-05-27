@@ -6,6 +6,7 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
+ArrayList<Projectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
@@ -85,6 +86,7 @@ void setup() {
   next = nextPlants.remove();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
+  projectiles = new ArrayList<Projectile>(); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
 }
@@ -140,6 +142,11 @@ void draw() {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
     popMatrix();
+    for (Projectile p : projectiles){
+      p.display(); 
+      p.move(); 
+      //print("hello world");
+    }
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
@@ -223,6 +230,6 @@ void mouseReleased() {
   }
 }
 
-boolean checkPlant(){
-  return true;
+boolean checkPlant(int row, int col){
+  return (hasPlant[row][col] == true && hasZombie[row] == true);
 }
