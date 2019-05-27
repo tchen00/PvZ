@@ -61,4 +61,8 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ## DAY 11: May 26 2019
 - **Peihua**  
-    Updated Zombie attack so Plant dies after 5 bites (one bite per second). Added a cool-down timer for adding plants and a semi-transparent gray rectangle to let the player know when they can add more plants.
+    Updated Zombie attack so Plant dies after 5 bites (one bite per second). Added a cool-down timer for adding plants and a semi-transparent gray rectangle to let the player know when they can add more plants.  
+
+## DAY 12: May 27 2019  
+- **Peihua**  
+    Continued working on Zombie attack. Fixed the bug where if one Zombie attacks, the whole screen freezes. Also fixed the bug where only one Zombie can attack at a time (because there was only one timer) by moving most of the attack code from the draw method to the actual attack method itself.
