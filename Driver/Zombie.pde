@@ -2,9 +2,8 @@ abstract class Zombie {
   PImage img;
   Plant target;
   int hp, dmg, row;
-  float x, y;
+  float x, y, t;
   float atk_speed;
-  boolean attacking;
 
   Zombie() {
   }
@@ -21,7 +20,7 @@ abstract class Zombie {
 
   abstract void display();
   abstract void move();
-  abstract void attack(Plant pla);
+  abstract void attack();
 }
 
 class BasicZombie extends Zombie {
@@ -30,7 +29,7 @@ class BasicZombie extends Zombie {
   }
 
   void move() {
-    if (!this.attacking) {
+    if (this.target == null) {
       this.x = this.x - 0.3;
     }
   }
@@ -39,9 +38,17 @@ class BasicZombie extends Zombie {
     image(this.img, this.x, this.y, 99, 118);
   }
 
-  void attack(Plant pla) {
-    this.target = pla;
-    pla.health = pla.health - 40;
+  void attack() {
+    if (this.target != null) {
+      if (plants.contains(this.target)) {
+        if (millis() > this.t + 2000) {
+          this.target.health = this.target.health - 40;
+          this.t = millis();
+        }
+      } else {
+        this.target = null;
+      }
+    }
   }
 }
 
@@ -51,7 +58,7 @@ class ConeheadZombie extends Zombie {
   }
 
   void move() {
-    if (!this.attacking) {
+    if (this.target == null) {
       this.x = this.x - 0.3;
     }
   }
@@ -60,8 +67,16 @@ class ConeheadZombie extends Zombie {
     image(this.img, this.x, this.y, 99, 140);
   }
 
-  void attack(Plant pla) {
-    this.target = pla;
-    pla.health = pla.health - 40;
+  void attack() {
+    if (this.target != null) {
+      if (plants.contains(this.target)) {
+        if (millis() > this.t + 2000) {
+          this.target.health = this.target.health - 40;
+          this.t = millis();
+        }
+      } else {
+        this.target = null;
+      }
+    }
   }
 }
