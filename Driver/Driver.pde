@@ -10,6 +10,7 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
+boolean[] hasZombie = new boolean[5]; 
 int time, t, coolT = millis();
 int ori_x = 260;
 int ori_y = 100;
@@ -34,9 +35,13 @@ void instZombies() {
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie(width, (int)(random(5)), zombie1));
+      int random = (int)(random(5)); 
+      nextZombies.add(new BasicZombie(width, random, zombie1));
+      hasZombie[random] = true; 
     } else {
-      nextZombies.add(new ConeheadZombie(width, (int)(random(5)), zombie2));
+      int random = (int)(random(5)); 
+      nextZombies.add(new ConeheadZombie(width, random, zombie2));
+      hasZombie[random] = true; 
     }
   }
 }
@@ -216,4 +221,8 @@ void mouseReleased() {
     next.x = 125;
     next.y = 300;
   }
+}
+
+boolean checkPlant(){
+  return true;
 }
