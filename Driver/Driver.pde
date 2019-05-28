@@ -10,6 +10,7 @@ ArrayList<greenProjectile> projectiles;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool, sover, slocked = false;
+boolean randomMode = true;
 Plant[][] hasPlant = new Plant[5][9];
 boolean[] hasZombie = {false, false, false, false, false}; 
 int time, coolT = millis();
@@ -74,22 +75,26 @@ void instZombies() {
 
 // RANDOMIZING THE PLANTS 
 void instPlants() {
-  nextPlants = new LinkedList<Plant>();
-  for (int i = 0; i < 10; i++) {
-    float rand = random(0, 6);
-    if (rand < 1) {
-      nextPlants.add(new Sunflower(125, 300, sun));
-    } else if (rand < 2) {
-      nextPlants.add(new Peashooter(125, 300, pea));
-    } else if (rand < 3) {
-      nextPlants.add(new CherryBomb(125, 300, cherry));
-    } else if (rand < 4) {
-      nextPlants.add(new WallNut(125, 300, wall));
-    } else if (rand < 5) {
-      nextPlants.add(new Squash(125, 300, squash));
-    } else {
-      nextPlants.add(new SnowPea(125, 300, snow));
+  if (randomMode) {
+    nextPlants = new LinkedList<Plant>();
+    for (int i = 0; i < 10; i++) {
+      float rand = random(0, 6);
+      if (rand < 1) {
+        nextPlants.add(new Sunflower(125, 300, sun));
+      } else if (rand < 2) {
+        nextPlants.add(new Peashooter(125, 300, pea));
+      } else if (rand < 3) {
+        nextPlants.add(new CherryBomb(125, 300, cherry));
+      } else if (rand < 4) {
+        nextPlants.add(new WallNut(125, 300, wall));
+      } else if (rand < 5) {
+        nextPlants.add(new Squash(125, 300, squash));
+      } else {
+        nextPlants.add(new SnowPea(125, 300, snow));
+      }
     }
+  } else {
+    plants.add(new Sunflower(60, 60, sun));
   }
 }
 
@@ -137,10 +142,10 @@ void draw() {
     }
     image(lawn, 0, 0, width, height);
     pushMatrix();
-    translate(120,0);
+    translate(120, 0);
     image(shovel_bg, 0, 0, 120, 120);
     popMatrix();
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 6; i++) {
       stroke(0);
       fill(255, 240, 179);
       rect(0, 120 * i, 120, 120);
