@@ -1,15 +1,17 @@
 import java.util.*;
-
+// INSTANCE AND FIELDS 
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
 Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
+ArrayList<greenProjectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
+boolean[] hasZombie = {false, false, false, false, false}; 
 int time, coolT = millis();
 int ori_x = 260;
 int ori_y = 100;
@@ -17,6 +19,7 @@ int w = 99;
 int h = 118;
 float difx, dify = 0.0;
 
+// MAKING THE GRID !!!
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -29,18 +32,27 @@ void makeGrid() {
   popMatrix();
 }
 
+// RANDOMIZING THE ZOMBIES 
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
   for (int i = 0; i < 10; i++) {
     float rand = random(0, 2);
     if (rand < 1) {
-      nextZombies.add(new BasicZombie(width, (int)(random(5)), zombie1));
+      int random = (int)(random(5)); 
+      nextZombies.add(new BasicZombie(width, random, zombie1));
+      hasZombie[random] = true; 
+      //print("basictrue"); 
+
     } else {
-      nextZombies.add(new ConeheadZombie(width, (int)(random(5)), zombie2));
+      int random = (int)(random(5)); 
+      nextZombies.add(new ConeheadZombie(width, random, zombie2));
+      hasZombie[random] = true; 
+      //print("true"); 
     }
   }
 }
 
+// RANDOMIZING THE PLANTS 
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
   for (int i = 0; i < 10; i++) {
@@ -61,6 +73,7 @@ void instPlants() {
   }
 }
 
+// SETUP METHOD 
 void setup() {
   size(1280, 720);
   start = loadImage("start_screen.png");
@@ -80,15 +93,19 @@ void setup() {
   next = nextPlants.remove();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
+  projectiles = new ArrayList<greenProjectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
 }
 
+// IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
   startGame = true;
 }
 
+// DRAW METHOD 
 void draw() {
+  // ONCE CLICKED AND ONTO THE NEXT FRAME 
   if (startGame) {
     if (!setup) {
       time = millis();
@@ -120,11 +137,32 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
+    // FOR THE PLANTS 
     for (Plant pla : plants) {
       pla.display();
       if (pla.health <= 0) {
         plantRemove.add(pla);
       }
+      if (hasZombie[pla.getRow()]){
+        //print(true); debugging purposes
+        projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+        //g.display(); 
+        //g.get 
+        //g.move(); 
+        //print(g.getX()); 
+      }
+      
+    }
+    //boolean active = false; 
+    // FOR THE PROJECTILES -- IN THE WORKS ATM 
+    for (greenProjectile p: projectiles){
+      p.display(); 
+      //background(2);
+     // p.clear; 
+      //projectiles.remove(p);
+      //projectiles.remove(p); 
+      //p.move();
+      p.setX(5);
     }
     pushMatrix();
     fill(10, 80);
@@ -134,6 +172,13 @@ void draw() {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
     popMatrix();
+    /*
+    for (greenProjectile p : projectiles){
+      p.display(); 
+      p.move(); 
+    }
+    */
+    // ZOMBIES 
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
@@ -215,4 +260,8 @@ void mouseReleased() {
     next.x = 125;
     next.y = 300;
   }
+}
+
+boolean checkPlant(int row, int col){
+  return (hasPlant[row][col] == true && hasZombie[row] == true);
 }
