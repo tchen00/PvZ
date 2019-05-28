@@ -54,6 +54,8 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 9: May 24 2019
 - **Peihua**  
     Made plants immovable once placed on the grid and made it so that only one Plant is allowed per box. Starting working on Zombie attack, making the Zombie stop if there is a plant in front of it.
+- **Tammy**
+    Started to work on Projectile class and wrote the abstract Projectile class + class greenProjectile and blueProjectile for the two different plants
 
 ### DAY 10: May 25 2019  
 - **Peihua**  
@@ -66,3 +68,5 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 12: May 27 2019  
 - **Peihua**  
     Continued working on Zombie attack. Fixed the bug where if one Zombie attacks, the whole screen freezes. Also fixed the bug where only one Zombie can attack at a time (because there was only one timer) by moving most of the attack code from the draw method to the actual attack method itself.
+- **Tammy**
+    Added projectile in the master branch -- still has a bit of technical issues with display (will fix tomorrow) 
