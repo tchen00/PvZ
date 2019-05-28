@@ -147,7 +147,7 @@ void draw() {
       if (pla.health <= 0) {
         plantRemove.add(pla);
       }
-      if (hasZombie[0][pla.getRow()]){
+      if (hasZombie[0][pla.getRow()] && pla.getType() == 1){
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
         if (!hasZombie[1][pla.getRow()]){
           projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 

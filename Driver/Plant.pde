@@ -1,6 +1,6 @@
 abstract class Plant {
   PImage img; 
-  int price, cooldown, row, col, health; 
+  int price, cooldown, row, col, health, type; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
 
@@ -19,6 +19,7 @@ abstract class Plant {
     ph = phA;
     pw = pwA;
     this.health = health; 
+    type = 0; 
     //is_planted = true;
   }
 
@@ -37,6 +38,10 @@ abstract class Plant {
   
   float getY(){
     return y;
+  }
+  
+  int getType(){
+   return type;  
   }
 }
 
@@ -75,12 +80,17 @@ class Peashooter extends Plant {
 
   Peashooter(float x_co, float y_co, PImage imgx) {
     super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
+    type = 1; 
   }
 
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
+  }
+  
+  int getType(){
+    return type; 
   }
 }
 
@@ -145,11 +155,16 @@ class SnowPea extends Plant {
 
   SnowPea(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200);
+    type = 1; 
   }
 
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
+  }
+  
+  int getType(){
+    return type; 
   }
 }
