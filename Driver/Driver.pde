@@ -6,7 +6,7 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
-ArrayList<Projectile> projectiles; 
+ArrayList<greenProjectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
@@ -39,10 +39,13 @@ void instZombies() {
       int random = (int)(random(5)); 
       nextZombies.add(new BasicZombie(width, random, zombie1));
       hasZombie[random] = true; 
+      //print("basictrue"); 
+
     } else {
       int random = (int)(random(5)); 
       nextZombies.add(new ConeheadZombie(width, random, zombie2));
       hasZombie[random] = true; 
+      //print("true"); 
     }
   }
 }
@@ -86,7 +89,7 @@ void setup() {
   next = nextPlants.remove();
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  projectiles = new ArrayList<Projectile>(); 
+  projectiles = new ArrayList<greenProjectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
 }
@@ -133,6 +136,11 @@ void draw() {
       if (pla.health <= 0) {
         plantRemove.add(pla);
       }
+      if (hasZombie[pla.getRow()]){
+        greenProjectile g = new greenProjectile(pla.getX(), pla.getY(), 10); 
+        g.display(); 
+        g.move(); 
+      }
     }
     pushMatrix();
     fill(10, 80);
@@ -142,10 +150,9 @@ void draw() {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
     popMatrix();
-    for (Projectile p : projectiles){
+    for (greenProjectile p : projectiles){
       p.display(); 
       p.move(); 
-      //print("hello world");
     }
     for (Zombie zzz : zombies) {
       zzz.display();

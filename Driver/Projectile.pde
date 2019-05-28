@@ -55,7 +55,7 @@ class blueProjectile extends Projectile {
   }
 
   void move() {
-    x += 1;
+    x += 10;
   }
   
 }

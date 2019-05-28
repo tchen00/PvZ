@@ -26,6 +26,18 @@ abstract class Plant {
   void getDamage() {
     health -= 5;
   }
+  
+  int getRow(){
+   return row;  
+  }
+  
+  float getX(){
+   return x;  
+  }
+  
+  float getY(){
+    return y;
+  }
 }
 
 class Sunflower extends Plant {
