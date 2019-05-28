@@ -11,7 +11,7 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
-boolean[][] hasZombie = {{false, false, false, false, false},{false, false, false, false, false}}; 
+boolean[][] hasZombie = {{true, true, true, true, true},{false, false, false, false, false}}; 
 int time, coolT, projectileT = millis();
 int ori_x = 260;
 int ori_y = 100;
@@ -42,7 +42,7 @@ void instZombies() {
       nextZombies.add(new BasicZombie(width, random, zombie1));
       //print("zombie here");
       hasZombie[0][random] = true; 
-      print(hasZombie[0][random]); 
+      //print(hasZombie[0][random]); 
       //print("basictrue"); 
 
     } else {
@@ -149,8 +149,9 @@ void draw() {
       }
       if (hasZombie[0][pla.getRow()]){
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
-        if (hasZombie[1][pla.getRow()]){
+        if (!hasZombie[1][pla.getRow()]){
           projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+          hasZombie[1][pla.getRow()] = true; 
           print("projectile"); 
           proj++; 
           //g.display(); 
