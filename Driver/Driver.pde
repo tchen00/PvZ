@@ -11,12 +11,9 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
-<<<<<<< HEAD
 boolean[] hasZombie = {false, false, false, false, false}; 
 int time, t, coolT = millis();
-=======
 int time, coolT = millis();
->>>>>>> f607225627d08926eb8cbea27ee0f652918cfbf1
 int ori_x = 260;
 int ori_y = 100;
 int w = 99;
