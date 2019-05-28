@@ -156,6 +156,10 @@ void draw() {
           zombies.remove(z);
         }
       }
+      if (plantRemove.size() > 100 || zombieRemove.size() > 100){
+        zombieRemove = new ArrayList<Zombie>();
+        plantRemove = new ArrayList<Plant>();
+      }
       for (Plant p : plantRemove) {
         if (plants.contains(p)) {
           plants.remove(p);
