@@ -42,12 +42,16 @@ class greenProjectile extends Projectile {
 
   void move() {
     //print("before" + x); 
-    x += 10;
+    this.x = this.x + 5;
     //print("after" + x); 
   }
   
   float getX(){
     return x; 
+  }
+  
+  void setX(int i){
+    x += i;
   }
 }
 

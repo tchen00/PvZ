@@ -1,5 +1,5 @@
 import java.util.*;
-
+// INSTANCE AND FIELDS 
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
 Plant next, peaNext;
 ArrayList<Plant> plants;
@@ -19,6 +19,7 @@ int w = 99;
 int h = 118;
 float difx, dify = 0.0;
 
+// MAKING THE GRID !!!
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -31,6 +32,7 @@ void makeGrid() {
   popMatrix();
 }
 
+// RANDOMIZING THE ZOMBIES 
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
   for (int i = 0; i < 10; i++) {
@@ -50,6 +52,7 @@ void instZombies() {
   }
 }
 
+// RANDOMIZING THE PLANTS 
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
   for (int i = 0; i < 10; i++) {
@@ -70,6 +73,7 @@ void instPlants() {
   }
 }
 
+// SETUP METHOD 
 void setup() {
   size(1280, 720);
   start = loadImage("start_screen.png");
@@ -94,11 +98,14 @@ void setup() {
   zombieRemove = new ArrayList<Zombie>();
 }
 
+// IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
   startGame = true;
 }
 
+// DRAW METHOD 
 void draw() {
+  // ONCE CLICKED AND ONTO THE NEXT FRAME 
   if (startGame) {
     if (!setup) {
       time = millis();
@@ -131,6 +138,7 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
+    // FOR THE PLANTS 
     for (Plant pla : plants) {
       pla.display();
       if (pla.health <= 0) {
@@ -139,16 +147,23 @@ void draw() {
       if (hasZombie[pla.getRow()]){
         //print(true); debugging purposes
         projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-        g.display(); 
+        //g.display(); 
         //g.get 
-        g.move(); 
+        //g.move(); 
         //print(g.getX()); 
       }
       
     }
-    for (Projectile p: projectiles){
+    //boolean active = false; 
+    // FOR THE PROJECTILES -- IN THE WORKS ATM 
+    for (greenProjectile p: projectiles){
       p.display(); 
-      p.move();
+      //background(2);
+     // p.clear; 
+      //projectiles.remove(p);
+      //projectiles.remove(p); 
+      //p.move();
+      p.setX(5);
     }
     pushMatrix();
     fill(10, 80);
@@ -164,6 +179,7 @@ void draw() {
       p.move(); 
     }
     */
+    // ZOMBIES 
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
