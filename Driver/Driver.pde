@@ -27,15 +27,15 @@ class Shovel {
 
   Shovel() {
     img = shovel;
-    x = shovel_bg.height/2;
-    y = shovel_bg.width/2;
+    x = 180;
+    y = 60;
     row = -1;
     col = -1;
   }
 
   void display() {
     imageMode(CENTER);
-    image(img, x, y);
+    image(img, x, y, img.width / 7.0 * 6, img.height / 7.0 * 6);
     imageMode(CENTER);
   }
 }
@@ -136,7 +136,15 @@ void draw() {
       setup = true;
     }
     image(lawn, 0, 0, width, height);
-    image(shovel_bg, 0, 0);
+    pushMatrix();
+    translate(120,0);
+    image(shovel_bg, 0, 0, 120, 120);
+    popMatrix();
+    for (int i = 0; i < 6; i++){
+      stroke(0);
+      fill(255, 240, 179);
+      rect(0, 120 * i, 120, 120);
+    }
     pushMatrix();
     fill(255, 240, 179);
     stroke(0);
