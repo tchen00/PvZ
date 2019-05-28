@@ -11,8 +11,12 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
+<<<<<<< HEAD
 boolean[] hasZombie = {false, false, false, false, false}; 
 int time, t, coolT = millis();
+=======
+int time, coolT = millis();
+>>>>>>> f607225627d08926eb8cbea27ee0f652918cfbf1
 int ori_x = 260;
 int ori_y = 100;
 int w = 99;
@@ -109,7 +113,6 @@ void draw() {
   if (startGame) {
     if (!setup) {
       time = millis();
-      t = millis();
       coolT = millis();
       setup = true;
     }
@@ -183,23 +186,19 @@ void draw() {
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
+      zzz.attack();
       for (Plant pla : plants) {
         if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
-            zzz.attacking = true;
-            if (millis() > t + 2000) {
-              zzz.attack(pla);
-              t = millis();
-            }
-        }
-        if (zzz.hp <= 0) {
-          zombieRemove.add(zzz);
-        }
-        if (zzz.x < 161) {
-          game_over = true;
+          if (zzz.target == null){
+            zzz.target = pla;
+          }
         }
       }
-      if (zzz.target != null && !plants.contains(zzz.target)){
-        zzz.attacking = false;
+      if (zzz.hp <= 0) {
+        zombieRemove.add(zzz);
+      }
+      if (zzz.x < 161) {
+        game_over = true;
       }
       for (Zombie z : zombieRemove) {
         if (zombies.contains(z)) {

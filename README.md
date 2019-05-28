@@ -55,10 +55,14 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 - **Peihua**  
     Made plants immovable once placed on the grid and made it so that only one Plant is allowed per box. Starting working on Zombie attack, making the Zombie stop if there is a plant in front of it.
 
-## DAY 10: May 25 2019  
+### DAY 10: May 25 2019  
 - **Peihua**  
     Found a bug where the timer started before the game started and the Zombie will spawn right away. Finished Zombie attack. Also fixed bug involving removing plants and zombies (I didn't realize I was modifying in the ArrayList I'm removing from, oops).
 
-## DAY 11: May 26 2019
+### DAY 11: May 26 2019
 - **Peihua**  
-    Updated Zombie attack so Plant dies after 5 bites (one bite per second). Added a cool-down timer for adding plants and a semi-transparent gray rectangle to let the player know when they can add more plants.
+    Updated Zombie attack so Plant dies after 5 bites (one bite per second). Added a cool-down timer for adding plants and a semi-transparent gray rectangle to let the player know when they can add more plants.  
+
+### DAY 12: May 27 2019  
+- **Peihua**  
+    Continued working on Zombie attack. Fixed the bug where if one Zombie attacks, the whole screen freezes. Also fixed the bug where only one Zombie can attack at a time (because there was only one timer) by moving most of the attack code from the draw method to the actual attack method itself.
