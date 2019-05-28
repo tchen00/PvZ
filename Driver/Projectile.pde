@@ -29,7 +29,8 @@ abstract class Projectile {
 class greenProjectile extends Projectile {
   // add in the image later -- for now use ellipse/circle 
   PImage img; 
-
+  //float x, y; 
+  
   greenProjectile(float x, float y, int damage) {
     super(x, y, damage);
   }
@@ -40,7 +41,13 @@ class greenProjectile extends Projectile {
   }
 
   void move() {
-    x += 1;
+    //print("before" + x); 
+    x += 10;
+    //print("after" + x); 
+  }
+  
+  float getX(){
+    return x; 
   }
 }
 

@@ -11,7 +11,7 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
 boolean[][] hasPlant = new boolean[5][9];
-boolean[] hasZombie = new boolean[5]; 
+boolean[] hasZombie = {false, false, false, false, false}; 
 int time, t, coolT = millis();
 int ori_x = 260;
 int ori_y = 100;
@@ -137,10 +137,18 @@ void draw() {
         plantRemove.add(pla);
       }
       if (hasZombie[pla.getRow()]){
-        greenProjectile g = new greenProjectile(pla.getX(), pla.getY(), 10); 
+        //print(true); debugging purposes
+        projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
         g.display(); 
+        //g.get 
         g.move(); 
+        //print(g.getX()); 
       }
+      
+    }
+    for (Projectile p: projectiles){
+      p.display(); 
+      p.move();
     }
     pushMatrix();
     fill(10, 80);
@@ -150,10 +158,12 @@ void draw() {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
     popMatrix();
+    /*
     for (greenProjectile p : projectiles){
       p.display(); 
       p.move(); 
     }
+    */
     for (Zombie zzz : zombies) {
       zzz.display();
       zzz.move();
