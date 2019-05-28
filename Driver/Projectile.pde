@@ -69,4 +69,5 @@ class blueProjectile extends Projectile {
     x += 10;
   }
   
+  
 }

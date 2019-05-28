@@ -18,7 +18,7 @@ int ori_y = 100;
 int w = 99;
 int h = 118;
 float difx, dify = 0.0;
-
+int proj = -1;
 // MAKING THE GRID !!!
 void makeGrid() {
   noFill();
@@ -137,6 +137,7 @@ void draw() {
         zombies.add(nextZombies.remove());
       }
     }
+
     // FOR THE PLANTS 
     for (Plant pla : plants) {
       pla.display();
@@ -145,11 +146,15 @@ void draw() {
       }
       if (hasZombie[pla.getRow()]){
         //print(true); debugging purposes
-        projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-        //g.display(); 
-        //g.get 
-        //g.move(); 
-        //print(g.getX()); 
+        if (proj == -1){
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+          print("projectile"); 
+          proj++; 
+          //g.display(); 
+          //g.get 
+          //g.move(); 
+          //print(g.getX()); 
+        }
       }
       
     }
@@ -163,6 +168,7 @@ void draw() {
       //projectiles.remove(p); 
       //p.move();
       p.setX(5);
+      //p.display();
     }
     pushMatrix();
     fill(10, 80);
