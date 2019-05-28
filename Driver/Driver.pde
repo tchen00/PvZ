@@ -9,26 +9,16 @@ ArrayList<Zombie> zombieRemove;
 ArrayList<greenProjectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-<<<<<<< HEAD
-boolean startGame, bover, setup, locked, cool = false;
+boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 boolean[][] hasPlant = new boolean[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true},{false, false, false, false, false}}; 
-int time, coolT, projectileT = millis();
-=======
-boolean startGame, bover, setup, locked, cool, sover, slocked = false;
 boolean randomMode = true;
-Plant[][] hasPlant = new Plant[5][9];
-boolean[] hasZombie = {false, false, false, false, false}; 
-int time, coolT = millis();
->>>>>>> 9050093a7cc8002c981776fefd7392d210809abe
+int time, coolT, projectileT = millis();
 int ori_x = 260;
 int ori_y = 100;
 int w = 99;
 int h = 118;
-<<<<<<< HEAD
-float difx, dify = 0.0;
 int proj = -1;
-=======
 float difx, dify, sdifx, sdify = 0.0;
 Shovel s;
 
@@ -52,7 +42,6 @@ class Shovel {
   }
 }
 
->>>>>>> 9050093a7cc8002c981776fefd7392d210809abe
 // MAKING THE GRID !!!
 void makeGrid() {
   noFill();
@@ -74,7 +63,6 @@ void instZombies() {
     if (rand < 1) {
       int random = (int)(random(5)); 
       nextZombies.add(new BasicZombie(width, random, zombie1));
-<<<<<<< HEAD
       //print("zombie here");
       hasZombie[0][random] = true; 
       //print(hasZombie[0][random]); 
@@ -85,15 +73,6 @@ void instZombies() {
       nextZombies.add(new ConeheadZombie(width, random, zombie2));
       hasZombie[0][random] = true; 
       //print("true"); 
-=======
-      hasZombie[random] = true; 
-      //print("basictrue");
-    } else {
-      int random = (int)(random(5)); 
-      nextZombies.add(new ConeheadZombie(width, random, zombie2));
-      hasZombie[random] = true; 
-      //print("true");
->>>>>>> 9050093a7cc8002c981776fefd7392d210809abe
     }
   }
 }
@@ -212,10 +191,9 @@ void draw() {
     for (Plant pla : plants) {
       pla.display();
       if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = null;
+        hasPlant[pla.row][pla.col] = true;
         plantRemove.add(pla);
       }
-<<<<<<< HEAD
       if (hasZombie[0][pla.getRow()] && pla.getType() == 1){
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
         if (!hasZombie[1][pla.getRow()]){
@@ -228,15 +206,6 @@ void draw() {
           //g.move(); 
           //print(g.getX()); 
         }
-=======
-      if (hasZombie[pla.getRow()]) {
-        //print(true); debugging purposes
-        projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-        //g.display(); 
-        //g.get 
-        //g.move(); 
-        //print(g.getX());
->>>>>>> 9050093a7cc8002c981776fefd7392d210809abe
       }
     }
     //boolean active = false; 
@@ -373,11 +342,6 @@ void mouseReleased() {
   s = new Shovel();
 }
 
-<<<<<<< HEAD
 boolean checkPlant(int row, int col){
   return (hasPlant[row][col] == true && hasZombie[0][row] == true);
-=======
-boolean checkPlant(int row, int col) {
-  return (!(hasPlant[row][col] == null) && hasZombie[row] == true);
->>>>>>> 9050093a7cc8002c981776fefd7392d210809abe
 }
