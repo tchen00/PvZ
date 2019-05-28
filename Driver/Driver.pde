@@ -1,6 +1,6 @@
 import java.util.*;
 // INSTANCE AND FIELDS 
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg;
 Plant next, peaNext;
 ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
@@ -10,7 +10,7 @@ ArrayList<greenProjectile> projectiles;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, setup, locked, cool = false;
-boolean[][] hasPlant = new boolean[5][9];
+Plant[][] hasPlant = new Plant[5][9];
 boolean[] hasZombie = {false, false, false, false, false}; 
 int time, coolT = millis();
 int ori_x = 260;
@@ -18,6 +18,13 @@ int ori_y = 100;
 int w = 99;
 int h = 118;
 float difx, dify = 0.0;
+Shovel s;
+
+class Shovel{
+  PImage image;
+  float x, y;
+  int row,target;
+}
 
 // MAKING THE GRID !!!
 void makeGrid() {
@@ -87,6 +94,8 @@ void setup() {
   squash = loadImage("squash.png");
   snow = loadImage("snowpea.png");
   end = loadImage("end.png");
+  shovel = loadImage("Shovel.png");
+  shovel_bg = loadImage("Shovel_bg.jpg");
   image(start, 0, 0, width, height);
   instZombies();
   instPlants();
@@ -113,6 +122,10 @@ void draw() {
       setup = true;
     }
     image(lawn, 0, 0, width, height);
+    imageMode(CENTER);
+    image(shovel_bg, shovel_bg.width/2, shovel_bg.height/2);
+    image(shovel, 100, 100);
+    imageMode(CORNER);
     pushMatrix();
     fill(255, 240, 179);
     stroke(0);
@@ -141,6 +154,7 @@ void draw() {
     for (Plant pla : plants) {
       pla.display();
       if (pla.health <= 0) {
+        hasPlant[pla.row][pla.col] = null;
         plantRemove.add(pla);
       }
       if (hasZombie[pla.getRow()]){
@@ -184,7 +198,8 @@ void draw() {
       zzz.move();
       zzz.attack();
       for (Plant pla : plants) {
-        if (plants.contains(pla) && (pla.row  == zzz.row) && (zzz.x <= pla.x + pla.pw / 2)) {
+        if (plants.contains(pla) && (pla.row  == zzz.row) && 
+        (zzz.x <= pla.x + pla.pw / 2) && (zzz.x >= pla.x - pla.pw / 2)) {
           if (zzz.target == null){
             zzz.target = pla;
           }
@@ -246,10 +261,10 @@ void mouseReleased() {
   int coll = (int)(next.x - ori_x) / w;
   int roww = (int)(next.y - ori_y) / h;
   if (next.x > ori_x && next.x < ori_x + 9 * w && 
-    next.y > ori_y && next.y < ori_y + 5 * h && !hasPlant[roww][coll] ) {
+    next.y > ori_y && next.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
     next.row = roww;
     next.col = coll;
-    hasPlant[roww][coll] = true;
+    hasPlant[roww][coll] = next;
     next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
     next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
     plants.add(next);
@@ -263,5 +278,5 @@ void mouseReleased() {
 }
 
 boolean checkPlant(int row, int col){
-  return (hasPlant[row][col] == true && hasZombie[row] == true);
+  return (!(hasPlant[row][col] == null) && hasZombie[row] == true);
 }
