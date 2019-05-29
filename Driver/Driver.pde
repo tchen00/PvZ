@@ -1,6 +1,6 @@
 import java.util.*;
 // INSTANCE AND FIELDS 
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money;
 Plant next, peaNext;
 ArrayList<Plant> menu;
 ArrayList<Plant> plants;
@@ -230,9 +230,15 @@ void updateTimes() {
   timess = new int[]{millis(), millis(), millis(), millis(), millis(), millis()};
 }
 
-// SETUP METHOD 
-void setup() {
-  size(1280, 720);
+void set_bg() {
+  image(lawn, 0, 0, width, height);
+  pushMatrix();
+  translate(120, 0);
+  image(shovel_bg, 0, 0, 120, 120);
+  popMatrix();
+}
+
+void loadImages() {
   start = loadImage("start_screen.png");
   lawn = loadImage("lawn.png");
   zombie1 = loadImage("basiczombie.png");
@@ -246,10 +252,10 @@ void setup() {
   end = loadImage("end.png");
   shovel = loadImage("Shovel.png");
   shovel_bg = loadImage("Shovel_bg.jpg");
-  image(start, 0, 0, width, height);
-  instZombies();
-  instPlants();
-  next = nextPlants.remove();
+  sun_money = loadImage("sun.png");
+}
+
+void instArraysLists() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   projectiles = new ArrayList<greenProjectile>(5); 
@@ -268,6 +274,17 @@ void setup() {
     locks = new boolean[6];
     cools = new boolean[6];
   }
+}
+
+// SETUP METHOD 
+void setup() {
+  size(1280, 720);
+  loadImages();
+  image(start, 0, 0, width, height);
+  instZombies();
+  instPlants();
+  next = nextPlants.remove();
+  instArraysLists();
   s = new Shovel();
 }
 
@@ -283,11 +300,7 @@ void draw() {
     if (!setup) {
       updateTimes();
     }
-    image(lawn, 0, 0, width, height);
-    pushMatrix();
-    translate(120, 0);
-    image(shovel_bg, 0, 0, 120, 120);
-    popMatrix();
+    set_bg();
     if (!randomMode) {
       for (int i = 0; i < 6; i++) {
         stroke(0);
@@ -313,7 +326,7 @@ void draw() {
       rect(0, 0, 150, 200);
       popMatrix();
       //makeGrid();
-      
+
       if (millis() > coolT + 3000) {
         cool = true;
       }
