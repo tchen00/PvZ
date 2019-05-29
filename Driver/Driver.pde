@@ -14,7 +14,8 @@ boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 Plant[][] hasPlant = new Plant[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
 boolean randomMode = false;
-int time, coolT, projectileT = millis();
+int time, coolT= millis();
+int projectileT; 
 int[] timess;
 boolean[] overs, locks, cools;
 float[][] dxys;
@@ -218,13 +219,25 @@ void draw() {
         hasPlant[pla.row][pla.col] = null;
         plantRemove.add(pla);
       }
-      if (hasZombie[0][pla.getRow()] && pla.getType() == 1) {
+      if (hasZombie[0][pla.getRow()] && pla.getType() == 1 ) {
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
         if (!hasZombie[1][pla.getRow()]) {
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-          hasZombie[1][pla.getRow()] = true; 
-          print("projectile"); 
-          proj++; 
+          //projectileT = millis(); 
+          if (pla.firstS()){
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            pla.startTime();
+            hasZombie[1][pla.getRow()] = true; 
+            proj++;
+            pla.firstSetter(); 
+          }
+          print(pla.checkTime()); 
+          if (pla.checkTime() > 50000){
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            print("new projectile made"); 
+
+          }
+          //print("projectile"); 
+           
           //g.display(); 
           //g.get 
           //g.move(); 

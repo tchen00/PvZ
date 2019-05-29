@@ -3,7 +3,9 @@ abstract class Plant {
   int price, cooldown, row, col, health, type; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
-
+  int projectileT; 
+  boolean firstShot = true; 
+  
   Plant() {
   }
 
@@ -42,6 +44,28 @@ abstract class Plant {
   
   int getType(){
    return type;  
+  }
+  
+  void startTime(){
+    projectileT = millis(); 
+    print("time started"); 
+  }
+  
+  int checkTime(){
+    return projectileT; 
+  }
+  
+  boolean firstS(){
+    return firstShot; 
+  }
+  
+  void firstSetter(){
+    firstShot = false;
+  }
+  
+  void resetProjectile(){
+    projectileT = 0; 
+    projectileT = millis(); 
   }
 }
 
@@ -92,6 +116,7 @@ class Peashooter extends Plant {
   int getType(){
     return type; 
   }
+  
 }
 
 class CherryBomb extends Plant {
