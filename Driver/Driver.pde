@@ -42,7 +42,7 @@ class Shovel {
   void display() {
     imageMode(CENTER);
     image(img, x, y, img.width / 7.0 * 6, img.height / 7.0 * 6);
-    imageMode(CENTER);
+    imageMode(CORNER);
   }
 }
 
@@ -57,6 +57,127 @@ void makeGrid() {
     }
   }
   popMatrix();
+}
+
+void updatePlantRowCol() {
+  if (randomMode) {
+    locked = false;
+    int coll = (int)(next.x - ori_x) / w;
+    int roww = (int)(next.y - ori_y) / h;
+    if (next.x > ori_x && next.x < ori_x + 9 * w && 
+      next.y > ori_y && next.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
+      next.row = roww;
+      next.col = coll;
+      hasPlant[roww][coll] = next;
+      next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
+      next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
+      plants.add(next);
+      coolT = millis();
+      cool = false;
+      next = nextPlants.remove();
+    } else {
+      next.x = 125;
+      next.y = 300;
+    }
+  } else {
+    for (int i = 0; i < 6; i++) {
+      locks[i] = false;
+      Plant p = menu.get(i);
+      int coll = (int)(p.x - ori_x) / w;
+      int roww = (int)(p.y - ori_y) / h;
+      if (p.x > ori_x && p.x < ori_x + 9 * w && 
+        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
+        p.row = roww;
+        p.col = coll;
+        hasPlant[roww][coll] = p;
+        p.x = ((ori_x + w * p.col) + (ori_x + w * (p.col + 1))) / 2;
+        p.y = ((ori_y + h * p.row) + (ori_y + h * (p.row + 1))) / 2;
+        plants.add(p);
+        timess[i] = millis();
+        cools[i] = false;
+        if (i == 0) {
+          menu.set(i, new Sunflower(60, 60, sun));
+        } else if (i == 1) {
+          menu.set(i, new Peashooter(60, 180, pea));
+        } else if (i == 2) {
+          menu.set(i, new CherryBomb(60, 300, cherry));
+        } else if (i == 3) {
+          menu.set(i, new WallNut(60, 420, wall));
+        } else if (i == 4) {
+          menu.set(i, new Squash(60, 540, squash));
+        } else {
+          menu.set(i, new SnowPea(60, 660, snow));
+        }
+      } else {
+        p.x = 60;
+        p.y = 60 + 120 * i;
+      }
+    }
+  }
+}
+
+void updateShovelRowCol() {
+  slocked = false;
+  int ccol = (int)(s.x - ori_x) / w;
+  int rrow = (int)(s.y - ori_y) / h;
+  if (s.x > ori_x && s.x < ori_x + 9 * w && 
+    s.y > ori_y && s.y < ori_y + 5 * h && !(hasPlant[rrow][ccol] == null) ) {
+    plants.remove(hasPlant[rrow][ccol]);
+    hasPlant[rrow][ccol] = null;
+  }
+  s = new Shovel();
+}
+
+void updateXY() {
+  if (randomMode) {
+    if (locked) {
+      next.x = mouseX - difx;
+      next.y = mouseY - dify;
+    }
+  } else {
+    for (int i = 0; i < 6; i++) {
+      if (locks[i]) {
+        menu.get(i).x = mouseX - dxys[0][i];
+        menu.get(i).y = mouseY - dxys[1][i];
+      }
+    }
+  }
+  if (slocked) {
+    s.x = mouseX - sdifx;
+    s.y = mouseY - sdify;
+  }
+}
+
+void updateChangeXY() {
+  //print("pressed " + true);
+  //print("bover " + bover);
+  if (randomMode) {
+    if (bover) {
+      locked = true;
+    } else {
+      locked = false;
+    }
+    difx = mouseX - next.x;
+    dify = mouseY - next.y;
+  } else {
+    for (int i = 0; i < 6; i++) {
+      if (overs[i]) {
+        locks[i] = true;
+      } else {
+        locks[i] = false;
+      }
+      dxys[0][i] = mouseX - menu.get(i).x;
+      dxys[1][i] = mouseY - menu.get(i).y;
+    }
+  }
+
+  if (sover) {
+    slocked = true;
+  } else {
+    slocked = false;
+  }
+  sdifx = mouseX - s.x;
+  sdify = mouseY - s.y;
 }
 
 // RANDOMIZING THE ZOMBIES 
@@ -99,6 +220,14 @@ void instPlants() {
       nextPlants.add(new SnowPea(125, 300, snow));
     }
   }
+}
+
+void updateTimes() {
+  time = millis();
+  coolT = millis();
+  projectileT = millis(); 
+  setup = true;
+  timess = new int[]{millis(), millis(), millis(), millis(), millis(), millis()};
 }
 
 // SETUP METHOD 
@@ -152,11 +281,7 @@ void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
   if (startGame) {
     if (!setup) {
-      time = millis();
-      coolT = millis();
-      projectileT = millis(); 
-      setup = true;
-      timess = new int[]{millis(), millis(), millis(), millis(), millis(), millis()};
+      updateTimes();
     }
     image(lawn, 0, 0, width, height);
     pushMatrix();
@@ -188,7 +313,7 @@ void draw() {
       rect(0, 0, 150, 200);
       popMatrix();
       //makeGrid();
-      s.display();
+      
       if (millis() > coolT + 3000) {
         cool = true;
       }
@@ -200,6 +325,7 @@ void draw() {
       }
       next.display();
     }
+    s.display();
     if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
       mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
       sover = true;
@@ -316,122 +442,17 @@ void draw() {
 
 
 void mousePressed() {
-  //print("pressed " + true);
-  //print("bover " + bover);
-  if (randomMode) {
-    if (bover) {
-      locked = true;
-    } else {
-      locked = false;
-    }
-    difx = mouseX - next.x;
-    dify = mouseY - next.y;
-  } else {
-    for (int i = 0; i < 6; i++) {
-      if (overs[i]) {
-        locks[i] = true;
-      } else {
-        locks[i] = false;
-      }
-      dxys[0][i] = mouseX - menu.get(i).x;
-      dxys[1][i] = mouseY - menu.get(i).y;
-    }
-  }
-
-  if (sover) {
-    slocked = true;
-  } else {
-    slocked = false;
-  }
-  sdifx = mouseX - s.x;
-  sdify = mouseY - s.y;
+  updateChangeXY();
 }
 
 void mouseDragged() {
-  if (randomMode) {
-    if (locked) {
-      next.x = mouseX - difx;
-      next.y = mouseY - dify;
-    }
-  } else {
-    for (int i = 0; i < 6; i++) {
-      if (locks[i]) {
-        menu.get(i).x = mouseX - dxys[0][i];
-        menu.get(i).y = mouseY - dxys[1][i];
-      }
-    }
-  }
-  if (slocked) {
-    s.x = mouseX - sdifx;
-    s.y = mouseY - sdify;
-  }
+  updateXY();
 }
 
 void mouseReleased() {
-  if (randomMode) {
-    locked = false;
-    int coll = (int)(next.x - ori_x) / w;
-    int roww = (int)(next.y - ori_y) / h;
-    if (next.x > ori_x && next.x < ori_x + 9 * w && 
-      next.y > ori_y && next.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
-      next.row = roww;
-      next.col = coll;
-      hasPlant[roww][coll] = next;
-      next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
-      next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
-      plants.add(next);
-      coolT = millis();
-      cool = false;
-      next = nextPlants.remove();
-    } else {
-      next.x = 125;
-      next.y = 300;
-    }
-  } else {
-    for (int i = 0; i < 6; i++) {
-      locks[i] = false;
-      Plant p = menu.get(i);
-      int coll = (int)(p.x - ori_x) / w;
-      int roww = (int)(p.y - ori_y) / h;
-      if (p.x > ori_x && p.x < ori_x + 9 * w && 
-        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
-        p.row = roww;
-        p.col = coll;
-        hasPlant[roww][coll] = p;
-        p.x = ((ori_x + w * p.col) + (ori_x + w * (p.col + 1))) / 2;
-        p.y = ((ori_y + h * p.row) + (ori_y + h * (p.row + 1))) / 2;
-        plants.add(p);
-        timess[i] = millis();
-        cools[i] = false;
-        if (i == 0) {
-          menu.set(i, new Sunflower(60, 60, sun));
-        } else if (i == 1) {
-          menu.set(i, new Peashooter(60, 180, pea));
-        } else if (i == 2) {
-          menu.set(i, new CherryBomb(60, 300, cherry));
-        } else if (i == 3) {
-          menu.set(i, new WallNut(60, 420, wall));
-        } else if (i == 4) {
-          menu.set(i, new Squash(60, 540, squash));
-        } else {
-          menu.set(i, new SnowPea(60, 660, snow));
-        }
-      } else {
-        p.x = 60;
-        p.y = 60 + 120 * i;
-      }
-    }
-  }
+  updatePlantRowCol();
 
-  slocked = false;
-  int ccol = (int)(s.x - ori_x) / w;
-  int rrow = (int)(s.y - ori_y) / h;
-  if (s.x > ori_x && s.x < ori_x + 9 * w && 
-    s.y > ori_y && s.y < ori_y + 5 * h && !(hasPlant[rrow][ccol] == null) ) {
-    plants.remove(hasPlant[rrow][ccol]);
-    hasPlant[rrow][ccol] = null;
-  }
-  s = new Shovel();
+  updateShovelRowCol();
 }
 
 boolean checkPlant(int row, int col) {
