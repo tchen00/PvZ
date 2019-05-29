@@ -69,4 +69,8 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 - **Peihua**  
     Continued working on Zombie attack. Fixed the bug where if one Zombie attacks, the whole screen freezes. Also fixed the bug where only one Zombie can attack at a time (because there was only one timer) by moving most of the attack code from the draw method to the actual attack method itself.
 - **Tammy**
-    Added projectile in the master branch -- still has a bit of technical issues with display (will fix tomorrow) 
+    Added projectile in the master branch -- still has a bit of technical issues with display (will fix tomorrow)
+
+### DAY 13: May 28 2019  
+- **Peihua**  
+    Added a Shovel class so that plants can be removed from the grid. Also worked on the normal game mode(player can choose plants instead of it being random). Got the boxes to setup and plants to move (coordinates do not align too well, to be fixed tomorrow).
