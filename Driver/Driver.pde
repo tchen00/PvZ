@@ -42,7 +42,7 @@ class Shovel {
   }
 }
 
-// MAKING THE GRID !!!
+// MAKING THE GRID ! ! !
 void makeGrid() {
   noFill();
   pushMatrix();
