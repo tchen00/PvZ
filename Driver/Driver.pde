@@ -11,8 +11,8 @@ ArrayList<greenProjectile> projectiles;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
-boolean[][] hasPlant = new boolean[5][9];
-boolean[][] hasZombie = {{true, true, true, true, true},{false, false, false, false, false}}; 
+Plant[][] hasPlant = new Plant[5][9];
+boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
 boolean randomMode = true;
 int time, coolT, projectileT = millis();
 int ori_x = 260;
@@ -67,13 +67,12 @@ void instZombies() {
       //print("zombie here");
       hasZombie[0][random] = true; 
       //print(hasZombie[0][random]); 
-      //print("basictrue"); 
-
+      //print("basictrue");
     } else {
       int random = (int)(random(5)); 
       nextZombies.add(new ConeheadZombie(width, random, zombie2));
       hasZombie[0][random] = true; 
-      //print("true"); 
+      //print("true");
     }
   }
 }
@@ -203,12 +202,12 @@ void draw() {
     for (Plant pla : plants) {
       pla.display();
       if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = true;
+        hasPlant[pla.row][pla.col] = null;
         plantRemove.add(pla);
       }
-      if (hasZombie[0][pla.getRow()] && pla.getType() == 1){
+      if (hasZombie[0][pla.getRow()] && pla.getType() == 1) {
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
-        if (!hasZombie[1][pla.getRow()]){
+        if (!hasZombie[1][pla.getRow()]) {
           projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
           hasZombie[1][pla.getRow()] = true; 
           print("projectile"); 
@@ -216,7 +215,7 @@ void draw() {
           //g.display(); 
           //g.get 
           //g.move(); 
-          //print(g.getX()); 
+          //print(g.getX());
         }
       }
     }
@@ -356,6 +355,6 @@ void mouseReleased() {
   s = new Shovel();
 }
 
-boolean checkPlant(int row, int col){
-  return (hasPlant[row][col] == true && hasZombie[0][row] == true);
+boolean checkPlant(int row, int col) {
+  return (!(hasPlant[row][col] == null) && hasZombie[0][row] == true);
 }
