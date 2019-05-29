@@ -2,6 +2,7 @@ import java.util.*;
 // INSTANCE AND FIELDS 
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg;
 Plant next, peaNext;
+ArrayList<Plant> menu;
 ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
@@ -79,26 +80,22 @@ void instZombies() {
 
 // RANDOMIZING THE PLANTS 
 void instPlants() {
-  if (randomMode) {
-    nextPlants = new LinkedList<Plant>();
-    for (int i = 0; i < 10; i++) {
-      float rand = random(0, 6);
-      if (rand < 1) {
-        nextPlants.add(new Sunflower(125, 300, sun));
-      } else if (rand < 2) {
-        nextPlants.add(new Peashooter(125, 300, pea));
-      } else if (rand < 3) {
-        nextPlants.add(new CherryBomb(125, 300, cherry));
-      } else if (rand < 4) {
-        nextPlants.add(new WallNut(125, 300, wall));
-      } else if (rand < 5) {
-        nextPlants.add(new Squash(125, 300, squash));
-      } else {
-        nextPlants.add(new SnowPea(125, 300, snow));
-      }
+  nextPlants = new LinkedList<Plant>();
+  for (int i = 0; i < 10; i++) {
+    float rand = random(0, 6);
+    if (rand < 1) {
+      nextPlants.add(new Sunflower(125, 300, sun));
+    } else if (rand < 2) {
+      nextPlants.add(new Peashooter(125, 300, pea));
+    } else if (rand < 3) {
+      nextPlants.add(new CherryBomb(125, 300, cherry));
+    } else if (rand < 4) {
+      nextPlants.add(new WallNut(125, 300, wall));
+    } else if (rand < 5) {
+      nextPlants.add(new Squash(125, 300, squash));
+    } else {
+      nextPlants.add(new SnowPea(125, 300, snow));
     }
-  } else {
-    plants.add(new Sunflower(60, 60, sun));
   }
 }
 
@@ -127,6 +124,15 @@ void setup() {
   projectiles = new ArrayList<greenProjectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
+  if (!randomMode) {
+    menu = new ArrayList<Plant>();
+    menu.add(new Sunflower(60, 60, sun));
+    menu.add(new Peashooter(60, 180, pea));
+    menu.add(new CherryBomb(60, 300, cherry));
+    menu.add(new WallNut(60, 420, wall));
+    menu.add(new Squash(60, 540, squash));
+    menu.add(new SnowPea(60, 660, snow));
+  }
   s = new Shovel();
 }
 
@@ -150,27 +156,34 @@ void draw() {
     translate(120, 0);
     image(shovel_bg, 0, 0, 120, 120);
     popMatrix();
-    for (int i = 0; i < 6; i++) {
-      stroke(0);
-      fill(255, 240, 179);
-      rect(0, 120 * i, 120, 120);
-    }
-    pushMatrix();
-    fill(255, 240, 179);
-    stroke(0);
-    translate(50, 200);
-    rect(0, 0, 150, 200);
-    popMatrix();
-    //makeGrid();
-    s.display();
-    if (millis() > coolT + 3000) {
-      cool = true;
-    }
-    if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
-      mouseY > (next.y - next.ph / 2) && mouseY < (next.y + next.ph / 2)) {
-      bover = true;
+    if (!randomMode) {
+      for (int i = 0; i < 6; i++) {
+        stroke(0);
+        fill(255, 240, 179);
+        rect(0, 120 * i, 120, 120);
+      }
+      for (Plant p : menu) {
+        p.display();
+      }
     } else {
-      bover = false;
+      pushMatrix();
+      fill(255, 240, 179);
+      stroke(0);
+      translate(50, 200);
+      rect(0, 0, 150, 200);
+      popMatrix();
+      //makeGrid();
+      s.display();
+      if (millis() > coolT + 3000) {
+        cool = true;
+      }
+      if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
+        mouseY > (next.y - next.ph / 2) && mouseY < (next.y + next.ph / 2)) {
+        bover = true;
+      } else {
+        bover = false;
+      }
+      next.display();
     }
     if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
       mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
@@ -178,7 +191,6 @@ void draw() {
     } else {
       sover = false;
     }
-    next.display();
     boolean game_over = false;
     if (millis() > time + 8000) {
       time = millis();
@@ -224,8 +236,10 @@ void draw() {
     fill(10, 80);
     noStroke();
     translate(50, 200);
-    if (!cool) {
-      rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
+    if (randomMode) {
+      if (!cool) {
+        rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
+      }
     }
     popMatrix();
     /*
