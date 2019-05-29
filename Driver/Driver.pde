@@ -324,7 +324,7 @@ void mousePressed() {
         locks[i] = false;
       }
       dxys[0][i] = mouseX - menu.get(i).x;
-      dxys[1][i] = mouseX - menu.get(i).y;
+      dxys[1][i] = mouseY - menu.get(i).y;
     }
   }
 
