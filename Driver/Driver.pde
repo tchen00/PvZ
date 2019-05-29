@@ -135,10 +135,10 @@ void setup() {
     menu.add(new WallNut(60, 420, wall));
     menu.add(new Squash(60, 540, squash));
     menu.add(new SnowPea(60, 660, snow));
-    overs = new boolean[]{false, false, false, false, false, false};
+    overs = new boolean[6];
     dxys = new float[2][6];
-    locks = new boolean[]{false, false, false, false, false, false};
-    cools = new boolean[]{false, false, false, false, false, false};
+    locks = new boolean[6];
+    cools = new boolean[6];
   }
   s = new Shovel();
 }
@@ -171,7 +171,10 @@ void draw() {
         rect(0, 120 * i, 120, 120);
         Plant p = menu.get(i);
         p.display();
-        if (millis() > timess[i] + 3000 && mouseX > (p.x - p.pw / 2) && mouseX < (p.x + p.pw / 2) &&
+        if (millis() > timess[i] + 6000) {
+          cools[i] = true;
+        }
+        if (cools[i] && mouseX > (p.x - p.pw / 2) && mouseX < (p.x + p.pw / 2) &&
           mouseY > (p.y - p.ph / 2) && mouseY < (p.y + p.ph / 2)) {
           overs[i] = true;
         } else {
@@ -267,6 +270,13 @@ void draw() {
       }
     }
     popMatrix();
+    if (!randomMode) {
+      for (int i = 0; i < 6; i++) {
+        if (!cools[i]) {
+          rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
+        }
+      }
+    }
     /*
     for (greenProjectile p : projectiles){
      p.display(); 
@@ -337,7 +347,7 @@ void mousePressed() {
         locks[i] = false;
       }
       dxys[0][i] = mouseX - menu.get(i).x;
-      dxys[1][i] = mouseX - menu.get(i).y;
+      dxys[1][i] = mouseY - menu.get(i).y;
     }
   }
 
