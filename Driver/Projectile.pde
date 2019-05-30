@@ -22,6 +22,10 @@ abstract class Projectile {
     return damage;
   }
 
+  void setX(int x){
+    this.x += x; 
+  }
+  
   abstract void display(); 
   abstract void move();
 }

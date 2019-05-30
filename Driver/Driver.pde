@@ -7,7 +7,7 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
-ArrayList<greenProjectile> projectiles; 
+ArrayList<Projectile> projectiles; 
 ArrayList<Sun> suns;
 ArrayList<Sun> sunRemove;
 Queue<Plant> nextPlants;
@@ -296,7 +296,7 @@ void loadImages() {
 void instLists() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  projectiles = new ArrayList<greenProjectile>(5); 
+  projectiles = new ArrayList<Projectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
   if (!randomMode) {
@@ -466,6 +466,59 @@ void fallingSuns(){
   }
 }
 
+void updatePlant(){
+  // FOR THE PLANTS 
+    for (Plant pla : plants) {
+      pla.display();
+      if (pla.health <= 0) {
+        hasPlant[pla.row][pla.col] = null;
+        plantRemove.add(pla);
+      }
+      
+      if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
+        //delay(5);
+        if (!hasZombie[1][pla.getRow()]) {
+          if (pla.firstS()) {
+            if (pla.getType() == 1){
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            } 
+            if (pla.getType() == 2) {
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
+            }
+            print(pla.checkTime()); // Should print out 0;
+            pla.startTime(); 
+            hasZombie[1][pla.getRow()] = true; 
+            proj++;
+            pla.firstSetter();
+          }
+          if (pla.checkTime() > 10000) {
+            if (pla.getType() == 1){
+              //delay(1);
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+              pla.resetProjectile(); 
+              print(pla.checkTime()); 
+            }
+            if (pla.getType() == 2){
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+              pla.resetProjectile(); 
+              print(pla.checkTime()); 
+            }
+            //print("new projectile made");
+          }
+        }
+      }
+    }
+}
+
+void updateProjectile(){
+    // FOR THE PROJECTILES -- IN THE WORKS ATM 
+    for (Projectile p : projectiles) {
+      print("projectile");
+      p.display(); 
+      p.setX(5);
+    }
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -507,58 +560,11 @@ void draw() {
     s.display();
     game_over = false;
     spawnZombies();
-    
-    // FOR THE PLANTS 
-    for (Plant pla : plants) {
-      pla.display();
-      if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = null;
-        plantRemove.add(pla);
-      }
-      if (hasZombie[0][pla.getRow()] && pla.getType() == 1 ) {
-        //print(hasZombie[1][pla.getRow()]); //debugging purposes 
-        if (!hasZombie[1][pla.getRow()]) {
-          //projectileT = millis(); 
-          if (pla.firstS()) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            pla.startTime();
-            hasZombie[1][pla.getRow()] = true; 
-            proj++;
-            pla.firstSetter();
-          }
-          print(pla.checkTime()); 
-          if (pla.checkTime() > 50000) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            print("new projectile made");
-          }
-          //print("projectile"); 
+    updatePlant();
+    updateProjectile();
 
-          //g.display(); 
-          //g.get 
-          //g.move(); 
-          //print(g.getX());
-        }
-      }
-    }
-    //boolean active = false; 
-    // FOR THE PROJECTILES -- IN THE WORKS ATM 
-    for (greenProjectile p : projectiles) {
-      p.display(); 
-      //background(2);
-      // p.clear; 
-      //projectiles.remove(p);
-      //projectiles.remove(p); 
-      //p.move();
-      p.setX(5);
-      //p.display();
-    }
     cooldownDisplay();
-    /*
-    for (greenProjectile p : projectiles){
-     p.display(); 
-     p.move(); 
-     }
-     */
+
     // ZOMBIES 
     zombieAction();
     removeAndUpdatePlantsZombies();

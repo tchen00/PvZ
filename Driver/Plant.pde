@@ -117,6 +117,8 @@ class Peashooter extends Plant {
     return type; 
   }
   
+  
+  
 }
 
 class CherryBomb extends Plant {
@@ -180,7 +182,7 @@ class SnowPea extends Plant {
 
   SnowPea(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200);
-    type = 1; 
+    type = 2; 
   }
 
   void display() { 
