@@ -423,24 +423,37 @@ void updatePlant(){
             if (pla.getType() == 2) {
               projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
             }
-            pla.startTime();
+            print(pla.checkTime()); // Should print out 0;
+            pla.startTime(); 
             hasZombie[1][pla.getRow()] = true; 
             proj++;
             pla.firstSetter();
           }
-          if (pla.checkTime() > 5000) {
+          if (pla.checkTime() > 10000) {
             if (pla.getType() == 1){
               //delay(1);
               projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+              pla.resetProjectile(); 
+              print(pla.checkTime()); 
             }
             if (pla.getType() == 2){
               projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+              pla.resetProjectile(); 
+              print(pla.checkTime()); 
             }
             //print("new projectile made");
           }
-
         }
       }
+    }
+}
+
+void updateProjectile(){
+    // FOR THE PROJECTILES -- IN THE WORKS ATM 
+    for (Projectile p : projectiles) {
+      print("projectile");
+      p.display(); 
+      p.setX(5);
     }
 }
 
@@ -484,12 +497,8 @@ void draw() {
     game_over = false;
     spawnZombies();
     updatePlant();
-    
-    // FOR THE PROJECTILES -- IN THE WORKS ATM 
-    for (Projectile p : projectiles) {
-      p.display(); 
-      p.setX(5);
-    }
+    updateProjectile();
+
     cooldownDisplay();
 
     // ZOMBIES 
