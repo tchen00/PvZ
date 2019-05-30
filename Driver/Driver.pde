@@ -9,6 +9,7 @@ ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
 ArrayList<greenProjectile> projectiles; 
 ArrayList<Sun> suns;
+ArrayList<Sun> sunRemove;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
@@ -60,12 +61,14 @@ class Sun {
   PImage img;
   float x, y;
   float target;
+  int deathTime;
   
   Sun() {
     img = sun_money;
     x = random(ori_x, ori_x + 9 * w - 100);
     y = 0;
     target = random(ori_y, ori_y + 5 * h - 100);
+    deathTime = 5000 + millis();
   }
   
   void display(){
@@ -311,6 +314,7 @@ void instLists() {
     //sunSum = 1000;
     costs = new int[]{50, 100, 150, 50, 50, 175};
     suns = new ArrayList<Sun>();
+    sunRemove = new ArrayList<Sun>();
   }
 }
 
@@ -450,6 +454,15 @@ void fallingSuns(){
   for (Sun sss: suns){
     sss.move();
     sss.display();
+    if (millis() > sss.deathTime){
+      sunRemove.add(sss);
+    }
+  }
+  for (Sun ss: sunRemove){
+    suns.remove(ss);
+  }
+  if (sunRemove.size() > 100){
+    sunRemove = new ArrayList<Sun>();
   }
 }
 
