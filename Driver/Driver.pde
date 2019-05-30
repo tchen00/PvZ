@@ -8,13 +8,14 @@ ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
 ArrayList<greenProjectile> projectiles; 
+ArrayList<Sun> suns;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
 Plant[][] hasPlant = new Plant[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
 boolean randomMode;
-int time, coolT= millis();
+int time, coolT, sunT = millis();
 int projectileT; 
 int[] timess, costs;
 int sunSum;
@@ -43,13 +44,36 @@ class Shovel {
 
   void display() {
     imageMode(CENTER);
-    image(img, x, y, img.width / 7.0 * 6, img.height / 7.0 * 6);
+    image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
     imageMode(CORNER);
     if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
       mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
       sover = true;
     } else {
       sover = false;
+    }
+  }
+}
+
+class Sun {
+  PImage img;
+  float x, y;
+  float target;
+  
+  Sun() {
+    img = sun_money;
+    x = random(ori_x, ori_x + 9 * w - 100);
+    y = 0;
+    target = random(ori_y, ori_y + 5 * h - 100);
+  }
+  
+  void display(){
+    image(img, this.x, this.y, 100, 100);
+  }
+  
+  void move(){
+    if (this.y < this.target){
+      this.y += 10;
     }
   }
 }
@@ -285,6 +309,7 @@ void instLists() {
     cools = new boolean[6];
     //sunSum = 1000;
     costs = new int[]{50, 100, 150, 50, 50, 175};
+    suns = new ArrayList<Sun>();
   }
 }
 
@@ -414,7 +439,16 @@ void setupSun(){
   textAlign(LEFT);
   textSize(12);
   text("Sunflower: 50 \n\nPeashooter: 100 \n\nCherry Bomb: 150 \n\nWall Nut: 50 \n\nSquash: 50 \n\nSnow Pea: 175", 130, sunH + 160);
-  
+}
+
+void fallingSuns(){
+  if (millis() > sunT + 10000){
+    suns.add(new Sun());
+  }
+  for (Sun sss: suns){
+    sss.move();
+    sss.display();
+  }
 }
 
 // SETUP METHOD 
@@ -451,12 +485,13 @@ void draw() {
     set_bg();
     if (!randomMode){
       setupSun();
+      fallingSuns();
     }
     displayPlantMenu();
     s.display();
     game_over = false;
     spawnZombies();
-
+    
     // FOR THE PLANTS 
     for (Plant pla : plants) {
       pla.display();
