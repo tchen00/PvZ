@@ -7,7 +7,7 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
-ArrayList<greenProjectile> projectiles; 
+ArrayList<Projectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
@@ -267,7 +267,7 @@ void loadImages() {
 void instArraysLists() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
-  projectiles = new ArrayList<greenProjectile>(5); 
+  projectiles = new ArrayList<Projectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
   if (!randomMode) {
@@ -451,12 +451,16 @@ void draw() {
         hasPlant[pla.row][pla.col] = null;
         plantRemove.add(pla);
       }
-      if (hasZombie[0][pla.getRow()] && pla.getType() == 1 ) {
-        //print(hasZombie[1][pla.getRow()]); //debugging purposes 
+      
+      if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
         if (!hasZombie[1][pla.getRow()]) {
-          //projectileT = millis(); 
           if (pla.firstS()) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            if (pla.getType() == 1){
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            } 
+            if (pla.getType() == 2) {
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
+            }
             pla.startTime();
             hasZombie[1][pla.getRow()] = true; 
             proj++;
@@ -478,7 +482,7 @@ void draw() {
     }
     //boolean active = false; 
     // FOR THE PROJECTILES -- IN THE WORKS ATM 
-    for (greenProjectile p : projectiles) {
+    for (Projectile p : projectiles) {
       p.display(); 
       //background(2);
       // p.clear; 
