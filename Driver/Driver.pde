@@ -16,7 +16,7 @@ boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, f
 boolean randomMode;
 int time, coolT= millis();
 int projectileT; 
-int[] timess;
+int[] timess, costs;
 int sunSum;
 boolean[] overs, locks, cools;
 float[][] dxys;
@@ -93,8 +93,8 @@ void updatePlantRowCol() {
       Plant p = menu.get(i);
       int coll = (int)(p.x - ori_x) / w;
       int roww = (int)(p.y - ori_y) / h;
-      if (p.x > ori_x && p.x < ori_x + 9 * w && 
-        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
+      if (sunSum >= costs[i] && p.x > ori_x && p.x < ori_x + 9 * w && 
+        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null) {
         p.row = roww;
         p.col = coll;
         hasPlant[roww][coll] = p;
@@ -103,6 +103,7 @@ void updatePlantRowCol() {
         plants.add(p);
         timess[i] = millis();
         cools[i] = false;
+        sunSum -= costs[i];
         if (i == 0) {
           menu.set(i, new Sunflower(60, 60, sun));
         } else if (i == 1) {
@@ -264,7 +265,7 @@ void loadImages() {
   sunTracker = loadImage("sunTracker.png");
 }
 
-void instArraysLists() {
+void instLists() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   projectiles = new ArrayList<greenProjectile>(5); 
@@ -282,6 +283,8 @@ void instArraysLists() {
     dxys = new float[2][6];
     locks = new boolean[6];
     cools = new boolean[6];
+    //sunSum = 1000;
+    costs = new int[]{50, 100, 150, 50, 50, 175};
   }
 }
 
@@ -422,7 +425,7 @@ void setup() {
   instZombies();
   instPlants();
   next = nextPlants.remove();
-  instArraysLists();
+  instLists();
   s = new Shovel();
 }
 
