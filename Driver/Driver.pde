@@ -7,12 +7,8 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
-<<<<<<< HEAD
 ArrayList<Projectile> projectiles; 
-=======
-ArrayList<greenProjectile> projectiles; 
 ArrayList<Sun> suns;
->>>>>>> d4ee1cae1fbf3fa6f5e53c08b40e105bb1a6e6ef
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
@@ -551,57 +547,9 @@ void draw() {
     s.display();
     game_over = false;
     spawnZombies();
-<<<<<<< HEAD
     updatePlant();
     updateProjectile();
 
-=======
-    
-    // FOR THE PLANTS 
-    for (Plant pla : plants) {
-      pla.display();
-      if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = null;
-        plantRemove.add(pla);
-      }
-      if (hasZombie[0][pla.getRow()] && pla.getType() == 1 ) {
-        //print(hasZombie[1][pla.getRow()]); //debugging purposes 
-        if (!hasZombie[1][pla.getRow()]) {
-          //projectileT = millis(); 
-          if (pla.firstS()) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            pla.startTime();
-            hasZombie[1][pla.getRow()] = true; 
-            proj++;
-            pla.firstSetter();
-          }
-          print(pla.checkTime()); 
-          if (pla.checkTime() > 50000) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            print("new projectile made");
-          }
-          //print("projectile"); 
-
-          //g.display(); 
-          //g.get 
-          //g.move(); 
-          //print(g.getX());
-        }
-      }
-    }
-    //boolean active = false; 
-    // FOR THE PROJECTILES -- IN THE WORKS ATM 
-    for (greenProjectile p : projectiles) {
-      p.display(); 
-      //background(2);
-      // p.clear; 
-      //projectiles.remove(p);
-      //projectiles.remove(p); 
-      //p.move();
-      p.setX(5);
-      //p.display();
-    }
->>>>>>> d4ee1cae1fbf3fa6f5e53c08b40e105bb1a6e6ef
     cooldownDisplay();
 
     // ZOMBIES 
