@@ -7,16 +7,22 @@ ArrayList<Plant> plants;
 ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
+<<<<<<< HEAD
 ArrayList<Projectile> projectiles; 
+=======
+ArrayList<greenProjectile> projectiles; 
+ArrayList<Sun> suns;
+>>>>>>> d4ee1cae1fbf3fa6f5e53c08b40e105bb1a6e6ef
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
 Plant[][] hasPlant = new Plant[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
 boolean randomMode;
-int time, coolT= millis();
+int time, coolT = millis();
+int sunT;
 int projectileT; 
-int[] timess;
+int[] timess, costs;
 int sunSum;
 boolean[] overs, locks, cools;
 float[][] dxys;
@@ -43,13 +49,36 @@ class Shovel {
 
   void display() {
     imageMode(CENTER);
-    image(img, x, y, img.width / 7.0 * 6, img.height / 7.0 * 6);
+    image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
     imageMode(CORNER);
     if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
       mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
       sover = true;
     } else {
       sover = false;
+    }
+  }
+}
+
+class Sun {
+  PImage img;
+  float x, y;
+  float target;
+  
+  Sun() {
+    img = sun_money;
+    x = random(ori_x, ori_x + 9 * w - 100);
+    y = 0;
+    target = random(ori_y, ori_y + 5 * h - 100);
+  }
+  
+  void display(){
+    image(img, this.x, this.y, 100, 100);
+  }
+  
+  void move(){
+    if (this.y < this.target){
+      this.y += 5;
     }
   }
 }
@@ -93,8 +122,8 @@ void updatePlantRowCol() {
       Plant p = menu.get(i);
       int coll = (int)(p.x - ori_x) / w;
       int roww = (int)(p.y - ori_y) / h;
-      if (p.x > ori_x && p.x < ori_x + 9 * w && 
-        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null ) {
+      if (sunSum >= costs[i] && p.x > ori_x && p.x < ori_x + 9 * w && 
+        p.y > ori_y && p.y < ori_y + 5 * h && hasPlant[roww][coll] == null) {
         p.row = roww;
         p.col = coll;
         hasPlant[roww][coll] = p;
@@ -103,6 +132,7 @@ void updatePlantRowCol() {
         plants.add(p);
         timess[i] = millis();
         cools[i] = false;
+        sunSum -= costs[i];
         if (i == 0) {
           menu.set(i, new Sunflower(60, 60, sun));
         } else if (i == 1) {
@@ -264,7 +294,7 @@ void loadImages() {
   sunTracker = loadImage("sunTracker.png");
 }
 
-void instArraysLists() {
+void instLists() {
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   projectiles = new ArrayList<Projectile>(5); 
@@ -282,6 +312,9 @@ void instArraysLists() {
     dxys = new float[2][6];
     locks = new boolean[6];
     cools = new boolean[6];
+    //sunSum = 1000;
+    costs = new int[]{50, 100, 150, 50, 50, 175};
+    suns = new ArrayList<Sun>();
   }
 }
 
@@ -397,11 +430,31 @@ void removeAndUpdatePlantsZombies() {
 }
 
 void setupSun(){
-  image(sunTracker, 120, 120, 120, sunTracker.height * 120.0 / sunTracker.width);
+  float sunH = sunTracker.height * 120.0 / sunTracker.width;
+  image(sunTracker, 120, 120, 120, sunH);
+  fill(255, 240, 179);
+  stroke(0);
+  rect(120, 120 + sunH, 120, 240);
   textAlign(CENTER);
   textSize(30);
   fill(0);
   text(sunSum, 180, 242);
+  textSize(18);
+  text("Cost", 180, sunH + 140);
+  textAlign(LEFT);
+  textSize(12);
+  text("Sunflower: 50 \n\nPeashooter: 100 \n\nCherry Bomb: 150 \n\nWall Nut: 50 \n\nSquash: 50 \n\nSnow Pea: 175", 130, sunH + 160);
+}
+
+void fallingSuns(){
+  if (millis() > sunT + 10000){
+    suns.add(new Sun());
+    sunT = millis();
+  }
+  for (Sun sss: suns){
+    sss.move();
+    sss.display();
+  }
 }
 
 void updatePlant(){
@@ -465,7 +518,7 @@ void setup() {
   instZombies();
   instPlants();
   next = nextPlants.remove();
-  instArraysLists();
+  instLists();
   s = new Shovel();
 }
 
@@ -487,18 +540,68 @@ void draw() {
   if (startGame) {
     if (!setup) {
       updateTimes();
+      suns.add(new Sun());
     }
     set_bg();
     if (!randomMode){
       setupSun();
+      fallingSuns();
     }
     displayPlantMenu();
     s.display();
     game_over = false;
     spawnZombies();
+<<<<<<< HEAD
     updatePlant();
     updateProjectile();
 
+=======
+    
+    // FOR THE PLANTS 
+    for (Plant pla : plants) {
+      pla.display();
+      if (pla.health <= 0) {
+        hasPlant[pla.row][pla.col] = null;
+        plantRemove.add(pla);
+      }
+      if (hasZombie[0][pla.getRow()] && pla.getType() == 1 ) {
+        //print(hasZombie[1][pla.getRow()]); //debugging purposes 
+        if (!hasZombie[1][pla.getRow()]) {
+          //projectileT = millis(); 
+          if (pla.firstS()) {
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            pla.startTime();
+            hasZombie[1][pla.getRow()] = true; 
+            proj++;
+            pla.firstSetter();
+          }
+          print(pla.checkTime()); 
+          if (pla.checkTime() > 50000) {
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            print("new projectile made");
+          }
+          //print("projectile"); 
+
+          //g.display(); 
+          //g.get 
+          //g.move(); 
+          //print(g.getX());
+        }
+      }
+    }
+    //boolean active = false; 
+    // FOR THE PROJECTILES -- IN THE WORKS ATM 
+    for (greenProjectile p : projectiles) {
+      p.display(); 
+      //background(2);
+      // p.clear; 
+      //projectiles.remove(p);
+      //projectiles.remove(p); 
+      //p.move();
+      p.setX(5);
+      //p.display();
+    }
+>>>>>>> d4ee1cae1fbf3fa6f5e53c08b40e105bb1a6e6ef
     cooldownDisplay();
 
     // ZOMBIES 
