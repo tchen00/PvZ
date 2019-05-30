@@ -62,7 +62,8 @@ class Sun {
   float x, y;
   float target;
   int deathTime;
-  
+  boolean over, lock;
+
   Sun() {
     img = sun_money;
     x = random(ori_x, ori_x + 9 * w - 100);
@@ -70,13 +71,13 @@ class Sun {
     target = random(ori_y, ori_y + 5 * h - 100);
     deathTime = 5000 + millis();
   }
-  
-  void display(){
+
+  void display() {
     image(img, this.x, this.y, 100, 100);
   }
-  
-  void move(){
-    if (this.y < this.target){
+
+  void move() {
+    if (this.y < this.target) {
       this.y += 5;
     }
   }
@@ -429,7 +430,7 @@ void removeAndUpdatePlantsZombies() {
   }
 }
 
-void setupSun(){
+void setupSun() {
   float sunH = sunTracker.height * 120.0 / sunTracker.width;
   image(sunTracker, 120, 120, 120, sunH);
   fill(255, 240, 179);
@@ -446,77 +447,92 @@ void setupSun(){
   text("Sunflower: 50 \n\nPeashooter: 100 \n\nCherry Bomb: 150 \n\nWall Nut: 50 \n\nSquash: 50 \n\nSnow Pea: 175", 130, sunH + 160);
 }
 
-void fallingSuns(){
-  if (millis() > sunT + 10000){
+void fallingSuns() {
+  if (millis() > sunT + 10000) {
     suns.add(new Sun());
     sunT = millis();
   }
-  for (Sun sss: suns){
+  for (Sun sss : suns) {
     sss.move();
     sss.display();
-    if (millis() > sss.deathTime){
+    if (millis() > sss.deathTime) {
       sunRemove.add(sss);
     }
+    if (mouseX > (sss.x) && mouseX < (sss.x + 100) &&
+      mouseY > (sss.y) && mouseY < (sss.y + 100)) {
+      sss.over = true;
+    } else {
+      sss.over = false;
+    }
   }
-  for (Sun ss: sunRemove){
+  for (Sun ss : sunRemove) {
     suns.remove(ss);
   }
-  if (sunRemove.size() > 100){
+  if (sunRemove.size() > 100) {
     sunRemove = new ArrayList<Sun>();
   }
 }
 
-void updatePlant(){
+void collectSun() {
+  for (Sun sss : suns) {
+    if (sss.over) {
+      sunSum += 25;
+      sunRemove.add(sss);
+    }
+  }
+}
+
+void updatePlant() {
   // FOR THE PLANTS 
-    for (Plant pla : plants) {
-      pla.display();
-      if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = null;
-        plantRemove.add(pla);
-      }
-      
-      if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
-        //delay(5);
-        if (!hasZombie[1][pla.getRow()]) {
-          if (pla.firstS()) {
-            if (pla.getType() == 1){
-              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            } 
-            if (pla.getType() == 2) {
-              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
-            }
-            print(pla.checkTime()); // Should print out 0;
-            pla.startTime(); 
-            hasZombie[1][pla.getRow()] = true; 
-            proj++;
-            pla.firstSetter();
+  for (Plant pla : plants) {
+    pla.display();
+    if (pla.health <= 0) {
+      hasPlant[pla.row][pla.col] = null;
+      plantRemove.add(pla);
+    }
+
+    if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
+      //delay(5);
+      if (!hasZombie[1][pla.getRow()]) {
+        if (pla.firstS()) {
+          if (pla.getType() == 1) {
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
+          } 
+          if (pla.getType() == 2) {
+            projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
           }
-          if (pla.checkTime() > 10000) {
-            if (pla.getType() == 1){
-              //delay(1);
-              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-              pla.resetProjectile(); 
-              print(pla.checkTime()); 
-            }
-            if (pla.getType() == 2){
-              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
-              pla.resetProjectile(); 
-              print(pla.checkTime()); 
-            }
-            //print("new projectile made");
+          print(pla.checkTime()); // Should print out 0;
+          pla.startTime(); 
+          hasZombie[1][pla.getRow()] = true; 
+          proj++;
+          pla.firstSetter();
+        }
+        if (pla.checkTime() > 10000) {
+          if (pla.getType() == 1) {
+            //delay(1);
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            pla.resetProjectile(); 
+            print(pla.checkTime());
           }
+          if (pla.getType() == 2) {
+            projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+            pla.resetProjectile(); 
+            print(pla.checkTime());
+          }
+          //print("new projectile made");
         }
       }
     }
+  }
 }
 
-void updateProjectile(){
-    // FOR THE PROJECTILES -- IN THE WORKS ATM 
-    for (Projectile p : projectiles) {
-      print("projectile");
-      p.display(); 
-      p.setX(5);
-    }
+void updateProjectile() {
+  // FOR THE PROJECTILES -- IN THE WORKS ATM 
+  for (Projectile p : projectiles) {
+    print("projectile");
+    p.display(); 
+    p.setX(5);
+  }
 }
 
 // SETUP METHOD 
@@ -552,7 +568,7 @@ void draw() {
       suns.add(new Sun());
     }
     set_bg();
-    if (!randomMode){
+    if (!randomMode) {
       setupSun();
       fallingSuns();
     }
@@ -578,6 +594,7 @@ void draw() {
 
 void mousePressed() {
   updateChangeXY();
+  collectSun();
 }
 
 void mouseDragged() {
