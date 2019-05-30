@@ -5,7 +5,7 @@ abstract class Plant {
   boolean is_planted = false; 
   int projectileT; 
   boolean firstShot = true; 
-  
+
   Plant() {
   }
 
@@ -29,50 +29,59 @@ abstract class Plant {
   void getDamage() {
     health -= 5;
   }
-  
-  int getRow(){
-   return row;  
+
+  int getRow() {
+    return row;
   }
-  
-  float getX(){
-   return x;  
+
+  float getX() {
+    return x;
   }
-  
-  float getY(){
+
+  float getY() {
     return y;
   }
-  
-  int getType(){
-   return type;  
+
+  int getType() {
+    return type;
   }
-  
-  void startTime(){
+
+  void startTime() {
     projectileT = millis(); 
-    print("time started"); 
+    print("time started");
   }
-  
-  int checkTime(){
-    return projectileT; 
+
+  int checkTime() {
+    return projectileT;
   }
-  
-  boolean firstS(){
-    return firstShot; 
+
+  boolean firstS() {
+    return firstShot;
   }
-  
-  void firstSetter(){
+
+  void firstSetter() {
     firstShot = false;
   }
-  
-  void resetProjectile(){
+
+  void resetProjectile() {
     projectileT = 0; 
-    projectileT = millis(); 
+    projectileT = millis();
   }
+
+  abstract void attack();
 }
 
 class Sunflower extends Plant {
   int speed, time, cost;
   //PImage img; 
-  void produce() {
+  void attack() {
+    if (this.time == 0){
+      this.time = millis();
+    }
+    if (millis() > this.time + 7000) {
+      suns.add(new Sun(this.x, this.y));
+      this.time = millis();
+    }
   }
 
   Sunflower(float x_co, float y_co, PImage imgx) {
@@ -104,7 +113,7 @@ class Peashooter extends Plant {
 
   Peashooter(float x_co, float y_co, PImage imgx) {
     super(imgx, 100, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
-    type = 1; 
+    type = 1;
   }
 
   void display() { 
@@ -112,13 +121,10 @@ class Peashooter extends Plant {
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
-  
-  int getType(){
-    return type; 
+
+  int getType() {
+    return type;
   }
-  
-  
-  
 }
 
 class CherryBomb extends Plant {
@@ -155,6 +161,9 @@ class WallNut extends Plant {
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
+
+  void attack() {
+  }
 }
 
 class Squash extends Plant {
@@ -170,6 +179,9 @@ class Squash extends Plant {
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
+
+  void attack() {
+  }
 }
 
 class SnowPea extends Plant {
@@ -182,7 +194,7 @@ class SnowPea extends Plant {
 
   SnowPea(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200);
-    type = 2; 
+    type = 2;
   }
 
   void display() { 
@@ -190,8 +202,8 @@ class SnowPea extends Plant {
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
-  
-  int getType(){
-    return type; 
+
+  int getType() {
+    return type;
   }
 }

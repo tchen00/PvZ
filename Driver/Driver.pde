@@ -63,11 +63,22 @@ class Sun {
   float target;
   int deathTime;
   boolean over, lock;
+  int speed;
 
   Sun() {
     img = sun_money;
     x = random(ori_x, ori_x + 9 * w - 100);
     y = 0;
+    target = random(ori_y, ori_y + 5 * h - 100);
+    deathTime = 5000 + millis();
+    speed = 5;
+  }
+  
+  Sun(float a, float b){
+    img = sun_money;
+    x = a;
+    y = b;
+    speed = 0;
     target = random(ori_y, ori_y + 5 * h - 100);
     deathTime = 5000 + millis();
   }
@@ -78,7 +89,7 @@ class Sun {
 
   void move() {
     if (this.y < this.target) {
-      this.y += 5;
+      this.y += this.speed;
     }
   }
 }
@@ -486,6 +497,7 @@ void updatePlant() {
   // FOR THE PLANTS 
   for (Plant pla : plants) {
     pla.display();
+    pla.attack();
     if (pla.health <= 0) {
       hasPlant[pla.row][pla.col] = null;
       plantRemove.add(pla);
