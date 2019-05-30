@@ -466,17 +466,17 @@ void draw() {
             proj++;
             pla.firstSetter();
           }
-          print(pla.checkTime()); 
-          if (pla.checkTime() > 50000) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            print("new projectile made");
+          if (pla.checkTime() > 5000) {
+            if (pla.getType() == 1){
+              delay(1);
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            }
+            if (pla.getType() == 2){
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+            }
+            //print("new projectile made");
           }
-          //print("projectile"); 
 
-          //g.display(); 
-          //g.get 
-          //g.move(); 
-          //print(g.getX());
         }
       }
     }
@@ -484,21 +484,10 @@ void draw() {
     // FOR THE PROJECTILES -- IN THE WORKS ATM 
     for (Projectile p : projectiles) {
       p.display(); 
-      //background(2);
-      // p.clear; 
-      //projectiles.remove(p);
-      //projectiles.remove(p); 
-      //p.move();
       p.setX(5);
-      //p.display();
     }
     cooldownDisplay();
-    /*
-    for (greenProjectile p : projectiles){
-     p.display(); 
-     p.move(); 
-     }
-     */
+
     // ZOMBIES 
     zombieAction();
     removeAndUpdatePlantsZombies();
