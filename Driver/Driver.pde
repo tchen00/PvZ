@@ -404,6 +404,46 @@ void setupSun(){
   text(sunSum, 180, 242);
 }
 
+void updatePlant(){
+  // FOR THE PLANTS 
+    for (Plant pla : plants) {
+      pla.display();
+      if (pla.health <= 0) {
+        hasPlant[pla.row][pla.col] = null;
+        plantRemove.add(pla);
+      }
+      
+      if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
+        //delay(5);
+        if (!hasZombie[1][pla.getRow()]) {
+          if (pla.firstS()) {
+            if (pla.getType() == 1){
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            } 
+            if (pla.getType() == 2) {
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
+            }
+            pla.startTime();
+            hasZombie[1][pla.getRow()] = true; 
+            proj++;
+            pla.firstSetter();
+          }
+          if (pla.checkTime() > 5000) {
+            if (pla.getType() == 1){
+              //delay(1);
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            }
+            if (pla.getType() == 2){
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+            }
+            //print("new projectile made");
+          }
+
+        }
+      }
+    }
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -443,44 +483,8 @@ void draw() {
     s.display();
     game_over = false;
     spawnZombies();
-
-    // FOR THE PLANTS 
-    for (Plant pla : plants) {
-      pla.display();
-      if (pla.health <= 0) {
-        hasPlant[pla.row][pla.col] = null;
-        plantRemove.add(pla);
-      }
-      
-      if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
-        if (!hasZombie[1][pla.getRow()]) {
-          if (pla.firstS()) {
-            if (pla.getType() == 1){
-              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            } 
-            if (pla.getType() == 2) {
-              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
-            }
-            pla.startTime();
-            hasZombie[1][pla.getRow()] = true; 
-            proj++;
-            pla.firstSetter();
-          }
-          if (pla.checkTime() > 5000) {
-            if (pla.getType() == 1){
-              delay(1);
-              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            }
-            if (pla.getType() == 2){
-              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
-            }
-            //print("new projectile made");
-          }
-
-        }
-      }
-    }
-    //boolean active = false; 
+    updatePlant();
+    
     // FOR THE PROJECTILES -- IN THE WORKS ATM 
     for (Projectile p : projectiles) {
       p.display(); 
