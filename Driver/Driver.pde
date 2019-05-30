@@ -21,7 +21,7 @@ int sunT;
 int projectileT; 
 int[] timess, costs;
 int sunSum;
-boolean[] overs, locks, cools;
+boolean[] overs, locks, cools, hasEnoughSun;
 float[][] dxys;
 int ori_x = 260;
 int ori_y = 100;
@@ -73,8 +73,8 @@ class Sun {
     deathTime = 5000 + millis();
     speed = 5;
   }
-  
-  Sun(float a, float b){
+
+  Sun(float a, float b) {
     img = sun_money;
     x = a;
     y = b;
@@ -327,6 +327,7 @@ void instLists() {
     costs = new int[]{50, 100, 150, 50, 50, 175};
     suns = new ArrayList<Sun>();
     sunRemove = new ArrayList<Sun>();
+    hasEnoughSun = new boolean[6];
   }
 }
 
@@ -341,6 +342,7 @@ void displayPlantMenu() {
       if (millis() > timess[i] + 6000) {
         cools[i] = true;
       }
+      hasEnoughSun[i] = (sunSum >= costs[i]);
       if (cools[i] && mouseX > (p.x - p.pw / 2) && mouseX < (p.x + p.pw / 2) &&
         mouseY > (p.y - p.ph / 2) && mouseY < (p.y + p.ph / 2)) {
         overs[i] = true;
@@ -394,6 +396,9 @@ void cooldownDisplay() {
     for (int i = 0; i < 6; i++) {
       if (!cools[i]) {
         rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
+      }
+      if (!hasEnoughSun[i]) {
+        rect(0, 120 * i, 120, 120);
       }
     }
   }
@@ -578,6 +583,7 @@ void draw() {
     if (!setup) {
       updateTimes();
       suns.add(new Sun());
+      sunT = millis();
     }
     set_bg();
     if (!randomMode) {
