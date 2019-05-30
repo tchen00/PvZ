@@ -1,6 +1,6 @@
 import java.util.*;
 // INSTANCE AND FIELDS 
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker;
 Plant next, peaNext;
 ArrayList<Plant> menu;
 ArrayList<Plant> plants;
@@ -10,13 +10,14 @@ ArrayList<Zombie> zombieRemove;
 ArrayList<greenProjectile> projectiles; 
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
-boolean startGame, bover, sover, setup, locked, cool, slocked = false;
+boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
 Plant[][] hasPlant = new Plant[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
-boolean randomMode = false;
+boolean randomMode;
 int time, coolT= millis();
 int projectileT; 
 int[] timess;
+int sunSum;
 boolean[] overs, locks, cools;
 float[][] dxys;
 int ori_x = 260;
@@ -44,6 +45,12 @@ class Shovel {
     imageMode(CENTER);
     image(img, x, y, img.width / 7.0 * 6, img.height / 7.0 * 6);
     imageMode(CORNER);
+    if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
+      mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
+      sover = true;
+    } else {
+      sover = false;
+    }
   }
 }
 
@@ -254,6 +261,7 @@ void loadImages() {
   shovel = loadImage("Shovel.png");
   shovel_bg = loadImage("Shovel_bg.jpg");
   sun_money = loadImage("sun.png");
+  sunTracker = loadImage("sunTracker.png");
 }
 
 void instArraysLists() {
@@ -277,6 +285,125 @@ void instArraysLists() {
   }
 }
 
+void displayPlantMenu() {
+  if (!randomMode) {
+    for (int i = 0; i < 6; i++) {
+      stroke(0);
+      fill(255, 240, 179);
+      rect(0, 120 * i, 120, 120);
+      Plant p = menu.get(i);
+      p.display();
+      if (millis() > timess[i] + 6000) {
+        cools[i] = true;
+      }
+      if (cools[i] && mouseX > (p.x - p.pw / 2) && mouseX < (p.x + p.pw / 2) &&
+        mouseY > (p.y - p.ph / 2) && mouseY < (p.y + p.ph / 2)) {
+        overs[i] = true;
+      } else {
+        overs[i] = false;
+      }
+    }
+  } else {
+    pushMatrix();
+    fill(255, 240, 179);
+    stroke(0);
+    translate(50, 200);
+    rect(0, 0, 150, 200);
+    popMatrix();
+    //makeGrid();
+
+    if (millis() > coolT + 3000) {
+      cool = true;
+    }
+    if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
+      mouseY > (next.y - next.ph / 2) && mouseY < (next.y + next.ph / 2)) {
+      bover = true;
+    } else {
+      bover = false;
+    }
+    next.display();
+  }
+}
+
+void spawnZombies() {
+  if (millis() > time + 8000) {
+    time = millis();
+    if (nextZombies.peek() != null) {
+      zombies.add(nextZombies.remove());
+    }
+  }
+}
+
+void cooldownDisplay() {
+  pushMatrix();
+  fill(10, 80);
+  noStroke();
+  translate(50, 200);
+  if (randomMode) {
+    if (!cool) {
+      rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
+    }
+  }
+  popMatrix();
+  if (!randomMode) {
+    for (int i = 0; i < 6; i++) {
+      if (!cools[i]) {
+        rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
+      }
+    }
+  }
+}
+
+void zombieAction() {
+  for (Zombie zzz : zombies) {
+    zzz.display();
+    zzz.move();
+    zzz.attack();
+    for (Plant pla : plants) {
+      if (plants.contains(pla) && (pla.row  == zzz.row) && 
+        (zzz.x <= pla.x + pla.pw / 2) && (zzz.x >= pla.x - pla.pw / 2)) {
+        if (zzz.target == null) {
+          zzz.target = pla;
+        }
+      }
+    }
+    if (zzz.hp <= 0) {
+      zombieRemove.add(zzz);
+    }
+    if (zzz.x < 161) {
+      game_over = true;
+    }
+  }
+}
+
+void removeAndUpdatePlantsZombies() {
+  for (Zombie z : zombieRemove) {
+    if (zombies.contains(z)) {
+      zombies.remove(z);
+    }
+  }
+  if (plantRemove.size() > 100 || zombieRemove.size() > 100) {
+    zombieRemove = new ArrayList<Zombie>();
+    plantRemove = new ArrayList<Plant>();
+  }
+  for (Plant p : plantRemove) {
+    if (plants.contains(p)) {
+      plants.remove(p);
+    }
+    if (nextPlants.size() < 1) {
+      instPlants();
+    }
+  }
+}
+
+void setupSun(){
+  image(sunTracker, 120, 120, 120, sunTracker.height * 120.0 / sunTracker.width);
+  textAlign(CENTER);
+  textSize(30);
+  fill(0);
+  text(sunSum, 180, 242);
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -291,7 +418,14 @@ void setup() {
 
 // IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
-  startGame = true;
+  if (!startGame) {
+    if (mouseX < width/2) {
+      randomMode = true;
+    } else {
+      randomMode = false;
+    }
+    startGame = true;
+  }
 }
 
 // DRAW METHOD 
@@ -302,57 +436,13 @@ void draw() {
       updateTimes();
     }
     set_bg();
-    if (!randomMode) {
-      for (int i = 0; i < 6; i++) {
-        stroke(0);
-        fill(255, 240, 179);
-        rect(0, 120 * i, 120, 120);
-        Plant p = menu.get(i);
-        p.display();
-        if (millis() > timess[i] + 6000) {
-          cools[i] = true;
-        }
-        if (cools[i] && mouseX > (p.x - p.pw / 2) && mouseX < (p.x + p.pw / 2) &&
-          mouseY > (p.y - p.ph / 2) && mouseY < (p.y + p.ph / 2)) {
-          overs[i] = true;
-        } else {
-          overs[i] = false;
-        }
-      }
-    } else {
-      pushMatrix();
-      fill(255, 240, 179);
-      stroke(0);
-      translate(50, 200);
-      rect(0, 0, 150, 200);
-      popMatrix();
-      //makeGrid();
-
-      if (millis() > coolT + 3000) {
-        cool = true;
-      }
-      if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
-        mouseY > (next.y - next.ph / 2) && mouseY < (next.y + next.ph / 2)) {
-        bover = true;
-      } else {
-        bover = false;
-      }
-      next.display();
+    if (!randomMode){
+      setupSun();
     }
+    displayPlantMenu();
     s.display();
-    if (mouseX > (s.x - s.img.width / 2) && mouseX < (s.x + s.img.width / 2) &&
-      mouseY > (s.y - s.img.height / 2) && mouseY < (s.y + s.img.height / 2)) {
-      sover = true;
-    } else {
-      sover = false;
-    }
-    boolean game_over = false;
-    if (millis() > time + 8000) {
-      time = millis();
-      if (nextZombies.peek() != null) {
-        zombies.add(nextZombies.remove());
-      }
-    }
+    game_over = false;
+    spawnZombies();
 
     // FOR THE PLANTS 
     for (Plant pla : plants) {
@@ -365,21 +455,20 @@ void draw() {
         //print(hasZombie[1][pla.getRow()]); //debugging purposes 
         if (!hasZombie[1][pla.getRow()]) {
           //projectileT = millis(); 
-          if (pla.firstS()){
+          if (pla.firstS()) {
             projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
             pla.startTime();
             hasZombie[1][pla.getRow()] = true; 
             proj++;
-            pla.firstSetter(); 
+            pla.firstSetter();
           }
           print(pla.checkTime()); 
-          if (pla.checkTime() > 50000){
+          if (pla.checkTime() > 50000) {
             projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            print("new projectile made"); 
-
+            print("new projectile made");
           }
           //print("projectile"); 
-           
+
           //g.display(); 
           //g.get 
           //g.move(); 
@@ -399,23 +488,7 @@ void draw() {
       p.setX(5);
       //p.display();
     }
-    pushMatrix();
-    fill(10, 80);
-    noStroke();
-    translate(50, 200);
-    if (randomMode) {
-      if (!cool) {
-        rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
-      }
-    }
-    popMatrix();
-    if (!randomMode) {
-      for (int i = 0; i < 6; i++) {
-        if (!cools[i]) {
-          rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
-        }
-      }
-    }
+    cooldownDisplay();
     /*
     for (greenProjectile p : projectiles){
      p.display(); 
@@ -423,45 +496,11 @@ void draw() {
      }
      */
     // ZOMBIES 
-    for (Zombie zzz : zombies) {
-      zzz.display();
-      zzz.move();
-      zzz.attack();
-      for (Plant pla : plants) {
-        if (plants.contains(pla) && (pla.row  == zzz.row) && 
-          (zzz.x <= pla.x + pla.pw / 2) && (zzz.x >= pla.x - pla.pw / 2)) {
-          if (zzz.target == null) {
-            zzz.target = pla;
-          }
-        }
-      }
-      if (zzz.hp <= 0) {
-        zombieRemove.add(zzz);
-      }
-      if (zzz.x < 161) {
-        game_over = true;
-      }
-      for (Zombie z : zombieRemove) {
-        if (zombies.contains(z)) {
-          zombies.remove(z);
-        }
-      }
-      if (plantRemove.size() > 100 || zombieRemove.size() > 100) {
-        zombieRemove = new ArrayList<Zombie>();
-        plantRemove = new ArrayList<Plant>();
-      }
-      for (Plant p : plantRemove) {
-        if (plants.contains(p)) {
-          plants.remove(p);
-        }
-        if (nextPlants.size() < 1) {
-          instPlants();
-        }
-      }
-      if (game_over) {
-        noLoop();
-        image(end, 0, 0);
-      }
+    zombieAction();
+    removeAndUpdatePlantsZombies();
+    if (game_over) {
+      noLoop();
+      image(end, 0, 0);
     }
   }
 }
