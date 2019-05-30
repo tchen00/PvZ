@@ -74,3 +74,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 13: May 28 2019  
 - **Peihua**  
     Added a Shovel class so that plants can be removed from the grid. Also worked on the normal game mode(player can choose plants instead of it being random). Got the boxes to setup and plants to move (coordinates do not align too well, to be fixed tomorrow).
+
+### DAY 14: May 29 2019
+- **Peihua**  
+    Found and fixed mistake that caused the coordinates of Plant to not align with the mouse. Decluttered the setup and draw methods. Added Sun Tracker (falling sun to be added later). Also setup game so that clicking start on the left vs right will produce two different game modes.
