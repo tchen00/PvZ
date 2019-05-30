@@ -15,7 +15,8 @@ boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false
 Plant[][] hasPlant = new Plant[5][9];
 boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
 boolean randomMode;
-int time, coolT, sunT = millis();
+int time, coolT = millis();
+int sunT;
 int projectileT; 
 int[] timess, costs;
 int sunSum;
@@ -73,7 +74,7 @@ class Sun {
   
   void move(){
     if (this.y < this.target){
-      this.y += 10;
+      this.y += 5;
     }
   }
 }
@@ -444,6 +445,7 @@ void setupSun(){
 void fallingSuns(){
   if (millis() > sunT + 10000){
     suns.add(new Sun());
+    sunT = millis();
   }
   for (Sun sss: suns){
     sss.move();
@@ -481,6 +483,7 @@ void draw() {
   if (startGame) {
     if (!setup) {
       updateTimes();
+      suns.add(new Sun());
     }
     set_bg();
     if (!randomMode){
