@@ -397,11 +397,21 @@ void removeAndUpdatePlantsZombies() {
 }
 
 void setupSun(){
-  image(sunTracker, 120, 120, 120, sunTracker.height * 120.0 / sunTracker.width);
+  float sunH = sunTracker.height * 120.0 / sunTracker.width;
+  image(sunTracker, 120, 120, 120, sunH);
+  fill(255, 240, 179);
+  stroke(0);
+  rect(120, 120 + sunH, 120, 240);
   textAlign(CENTER);
   textSize(30);
   fill(0);
   text(sunSum, 180, 242);
+  textSize(18);
+  text("Cost", 180, sunH + 140);
+  textAlign(LEFT);
+  textSize(12);
+  text("Sunflower: 50 \n\nPeashooter: 100 \n\nCherry Bomb: 150 \n\nWall Nut: 50 \n\nSquash: 50 \n\nSnow Pea: 175", 130, sunH + 160);
+  
 }
 
 // SETUP METHOD 
