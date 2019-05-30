@@ -85,4 +85,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ### DAY 15: May 30 2019
 - **Tammy**
-    Had to uncommit the commits made last night because of BIG MERGE CONFLICT; Will merge everything in today + last two days dev log was also uncommited so updated today!; 
+    Had to uncommit the commits made last night because of BIG MERGE CONFLICT; Will merge everything in today + last two days dev log was also uncommited so updated today!;   
+- **Peihua**  
+    Added the cost of the Plants to the screen. Updated Plants so that they can only be placed if there is enough suns. Added suns that fall every 10 seconds and disappears 5 seconds later if it is not clicked on. Also got sunflower to produce a sun every 7 seconds after it is placed onto the grid.
