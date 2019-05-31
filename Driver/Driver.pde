@@ -509,7 +509,6 @@ void updatePlant() {
     }
 
     if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
-      if (!hasZombie[1][pla.getRow()]) {
         if (pla.firstS()) {
           if (pla.getType() == 1) {
             projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
@@ -518,12 +517,11 @@ void updatePlant() {
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
           }
           print(pla.checkTime());
-          hasZombie[1][pla.getRow()] = true; 
+          //hasZombie[1][pla.getRow()] = true; 
           proj++;
           pla.startTime(); 
           pla.firstSetter();
         }
-        else {
           if (millis() >=  5000 + pla.checkTime() ) {
             print("reached");
             if (pla.getType() == 1) {
@@ -531,7 +529,7 @@ void updatePlant() {
               print("in here");
               projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
               //print(projectiles.size()); 
-              //pla.resetProjectile(); 
+              pla.resetProjectile(); 
               //print(pla.checkTime());
             }
             if (pla.getType() == 2) {
@@ -544,8 +542,6 @@ void updatePlant() {
           }
         }
       }
-    }
-  }
 }
 
 void updateProjectile() {
