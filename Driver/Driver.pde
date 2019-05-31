@@ -518,19 +518,19 @@ void updatePlant() {
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
           }
           //print(pla.checkTime()); // Should print out 0;
-          pla.startTime(); 
           print(pla.checkTime());
           hasZombie[1][pla.getRow()] = true; 
           proj++;
           pla.firstSetter();
         }
-        if (millis() >=  5000 ) {
+        if (millis() >=  5000 + pla.checkTime() ) {
+          pla.startTime(); 
           print("reached");
           if (pla.getType() == 1) {
             //delay(1);
             print("in here");
             projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            print(projectiles.size()); 
+            //print(projectiles.size()); 
             pla.resetProjectile(); 
             //print(pla.checkTime());
           }
@@ -552,8 +552,9 @@ void updateProjectile() {
   for (Projectile p : projectiles) {
     //print("projectile");
     p.display(); 
-    p.setX(5);
+    p.move();
   }
+  
 }
 
 // SETUP METHOD 
