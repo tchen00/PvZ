@@ -19,8 +19,24 @@ abstract class Zombie {
   }
 
   abstract void display();
-  abstract void move();
-  abstract void attack();
+  void move() {
+    if (this.target == null) {
+      this.x = this.x - 0.3;
+    }
+  }
+  
+  void attack() {
+    if (this.target != null) {
+      if (plants.contains(this.target)) {
+        if (millis() > this.t + 2000) {
+          this.target.health = this.target.health - 40;
+          this.t = millis();
+        }
+      } else {
+        this.target = null;
+      }
+    }
+  }
   
   float getX(){
     return x; 
@@ -44,28 +60,12 @@ class BasicZombie extends Zombie {
     super(img1, 200, 100, 20, xx, row * 118 + 100, row);
   }
 
-  void move() {
-    if (this.target == null) {
-      this.x = this.x - 0.3;
-    }
-  }
+  
 
   void display() {
     image(this.img, this.x, this.y, 99, 118);
   }
 
-  void attack() {
-    if (this.target != null) {
-      if (plants.contains(this.target)) {
-        if (millis() > this.t + 2000) {
-          this.target.health = this.target.health - 40;
-          this.t = millis();
-        }
-      } else {
-        this.target = null;
-      }
-    }
-  }
 }
 
 class ConeheadZombie extends Zombie {
@@ -73,26 +73,9 @@ class ConeheadZombie extends Zombie {
     super(img1, 560, 100, 20, xx, row * 118 + 78, row);
   }
 
-  void move() {
-    if (this.target == null) {
-      this.x = this.x - 0.3;
-    }
-  }
-
   void display() {
     image(this.img, this.x, this.y, 99, 140);
   }
 
-  void attack() {
-    if (this.target != null) {
-      if (plants.contains(this.target)) {
-        if (millis() > this.t + 2000) {
-          this.target.health = this.target.health - 40;
-          this.t = millis();
-        }
-      } else {
-        this.target = null;
-      }
-    }
-  }
+  
 }
