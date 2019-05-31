@@ -566,6 +566,7 @@ void updateProjectile() {
 
 void checkMotion() {
   for (Projectile p : projectiles) {
+<<<<<<< HEAD
     for (Zombie z : zombies) {
       if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
         (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
@@ -575,6 +576,16 @@ void checkMotion() {
         projectileRemove.add(p); 
         print(z.getHP());
       }
+=======
+    for (Zombie z : zombies){
+      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3)) {
+            print(z.getHP() + "\n");
+            //print("in this loop");
+            z.damage(); 
+            projectileRemove.add(p); 
+            print(z.getHP());
+          }
+>>>>>>> 2f6a1e782b845dad73068611912d8d881c7cc346
     }
   }
 }
@@ -647,7 +658,6 @@ void mouseDragged() {
 
 void mouseReleased() {
   updatePlantRowCol();
-
   updateShovelRowCol();
 }
 
