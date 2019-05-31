@@ -560,8 +560,10 @@ void checkMotion(){
     for (Zombie z : zombies){
       if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
           (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
-            print("in this loop");
-            zombieRemove.add(z); 
+            print(z.getHP() + "\n");
+            //print("in this loop");
+            z.damage(); 
+            print(z.getHP());
           }
     }
   }
@@ -613,8 +615,6 @@ void draw() {
     updateProjectile();
     checkMotion();
     cooldownDisplay();
-
-    // ZOMBIES 
     zombieAction();
     removeAndUpdatePlantsZombies();
     if (game_over) {

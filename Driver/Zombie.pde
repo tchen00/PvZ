@@ -29,6 +29,14 @@ abstract class Zombie {
   float getY(){
     return y;
   }
+  
+  int getHP(){
+    return hp; 
+  }
+  
+  void damage(){
+    hp -= 10;
+  }
 }
 
 class BasicZombie extends Zombie {
