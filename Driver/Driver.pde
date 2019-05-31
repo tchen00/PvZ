@@ -1,5 +1,7 @@
 import java.util.*;
-// INSTANCE AND FIELDS 
+/* ------------------------------------------------------------------- 
+                        VARIABLES AND FIELDS                      
+ ------------------------------------------------------------------- */
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker;
 Plant next, peaNext;
 ArrayList<Plant> menu;
@@ -31,7 +33,9 @@ int h = 118;
 int proj = -1;
 float difx, dify, sdifx, sdify = 0.0;
 Shovel s;
-
+/* ------------------------------------------------------------------- 
+                        SHOVEL CLASS                      
+ ------------------------------------------------------------------- */
 class Shovel {
   PImage img;
   float x, y;
@@ -44,7 +48,10 @@ class Shovel {
     row = -1;
     col = -1;
   }
-
+  
+/* ------------------------------------------------------------------- 
+                        DISPLAY METHOD                       
+ ------------------------------------------------------------------- */
   void display() {
     imageMode(CENTER);
     image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
@@ -58,6 +65,9 @@ class Shovel {
   }
 }
 
+/* ------------------------------------------------------------------- 
+                        SUN CLASS                      
+ ------------------------------------------------------------------- */
 class Sun {
   PImage img;
   float x, y;
@@ -95,7 +105,10 @@ class Sun {
   }
 }
 
-// MAKING THE GRID ! ! !
+/* ------------------------------------------------------------------- 
+                        MAKE THE GRID                      
+ ------------------------------------------------------------------- */
+ 
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -454,7 +467,6 @@ void removeProjectile(){
       projectiles.remove(p);
     }
   }
-  
 } 
 
 void setupSun() {
@@ -522,7 +534,7 @@ void updatePlant() {
     if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
         if (pla.firstS()) {
           if (pla.getType() == 1) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
+            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 20));
           } 
           if (pla.getType() == 2) {
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
@@ -534,7 +546,7 @@ void updatePlant() {
           pla.firstSetter();
         }
           if (millis() >=  3000 + pla.checkTime() ) {
-            print("reached");
+            //print("reached");
             if (pla.getType() == 1) {
               //delay(1);
               print("in here");
