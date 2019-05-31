@@ -492,7 +492,7 @@ void fallingSuns() {
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
-      sunSum += 25;
+      sunSum += 500; // will change later 
       sunRemove.add(sss);
     }
   }
@@ -517,30 +517,31 @@ void updatePlant() {
           if (pla.getType() == 2) {
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
           }
-          //print(pla.checkTime()); // Should print out 0;
           print(pla.checkTime());
           hasZombie[1][pla.getRow()] = true; 
           proj++;
+          pla.startTime(); 
           pla.firstSetter();
         }
-        if (millis() >=  5000 + pla.checkTime() ) {
-          pla.startTime(); 
-          print("reached");
-          if (pla.getType() == 1) {
-            //delay(1);
-            print("in here");
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-            //print(projectiles.size()); 
-            pla.resetProjectile(); 
-            //print(pla.checkTime());
+        else {
+          if (millis() >=  5000 + pla.checkTime() ) {
+            print("reached");
+            if (pla.getType() == 1) {
+              //delay(1);
+              print("in here");
+              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+              //print(projectiles.size()); 
+              //pla.resetProjectile(); 
+              //print(pla.checkTime());
+            }
+            if (pla.getType() == 2) {
+              print("in blue"); 
+              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+              pla.resetProjectile(); 
+              //print(pla.checkTime());
+            }
+            //print("new projectile made");
           }
-          if (pla.getType() == 2) {
-            print("in blue"); 
-            projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
-            pla.resetProjectile(); 
-            //print(pla.checkTime());
-          }
-          //print("new projectile made");
         }
       }
     }
