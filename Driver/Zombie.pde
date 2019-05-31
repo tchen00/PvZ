@@ -21,6 +21,14 @@ abstract class Zombie {
   abstract void display();
   abstract void move();
   abstract void attack();
+  
+  float getX(){
+    return x; 
+  }
+  
+  float getY(){
+    return y;
+  }
 }
 
 class BasicZombie extends Zombie {

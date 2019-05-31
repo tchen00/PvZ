@@ -555,6 +555,18 @@ void updateProjectile() {
   
 }
 
+void checkMotion(){
+  for (Projectile p : projectiles) {
+    for (Zombie z : zombies){
+      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
+          (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
+            print("in this loop");
+            zombieRemove.add(z); 
+          }
+    }
+  }
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -599,7 +611,7 @@ void draw() {
     spawnZombies();
     updatePlant();
     updateProjectile();
-
+    checkMotion();
     cooldownDisplay();
 
     // ZOMBIES 
