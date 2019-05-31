@@ -15,7 +15,7 @@ Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
 Plant[][] hasPlant = new Plant[5][9];
-boolean[][] hasZombie = {{true, true, true, true, true}, {false, false, false, false, false}}; 
+int[] zombieNum = new int[5];
 boolean randomMode;
 int time, coolT = millis();
 int sunT;
@@ -239,13 +239,13 @@ void instZombies() {
       int random = (int)(random(5)); 
       nextZombies.add(new BasicZombie(width, random, zombie1));
       //print("zombie here");
-      hasZombie[0][random] = true; 
+      zombieNum[random]++; 
       //print(hasZombie[0][random]); 
       //print("basictrue");
     } else {
       int random = (int)(random(5)); 
       nextZombies.add(new ConeheadZombie(width, random, zombie2));
-      hasZombie[0][random] = true; 
+      zombieNum[random]++; 
       //print("true");
     }
   }
@@ -325,7 +325,7 @@ void instLists() {
     dxys = new float[2][6];
     locks = new boolean[6];
     cools = new boolean[6];
-    sunSum = 100;
+    //sunSum = 100;
     costs = new int[]{50, 100, 150, 50, 50, 175};
     suns = new ArrayList<Sun>();
     sunRemove = new ArrayList<Sun>();
@@ -431,6 +431,7 @@ void zombieAction() {
 void removeAndUpdatePlantsZombies() {
   for (Zombie z : zombieRemove) {
     if (zombies.contains(z)) {
+      zombieNum[z.row]--;
       zombies.remove(z);
     }
   }
@@ -448,13 +449,12 @@ void removeAndUpdatePlantsZombies() {
   }
 }
 
-void removeProjectile(){
-  for (Projectile p : projectileRemove){
-    if (projectiles.contains(p)){
+void removeProjectile() {
+  for (Projectile p : projectileRemove) {
+    if (projectiles.contains(p)) {
       projectiles.remove(p);
     }
   }
-  
 } 
 
 void setupSun() {
@@ -519,40 +519,40 @@ void updatePlant() {
       plantRemove.add(pla);
     }
 
-    if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
-        if (pla.firstS()) {
-          if (pla.getType() == 1) {
-            projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
-          } 
-          if (pla.getType() == 2) {
-            projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
-          }
-          print(pla.checkTime());
-          //hasZombie[1][pla.getRow()] = true; 
-          proj++;
-          pla.startTime(); 
-          pla.firstSetter();
+    if ((zombieNum[pla.getRow()] > 0)&& (pla.getType() == 1 || pla.getType() == 2) ) {
+      if (pla.firstS()) {
+        if (pla.getType() == 1) {
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
+        } 
+        if (pla.getType() == 2) {
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
         }
-          if (millis() >=  3000 + pla.checkTime() ) {
-            print("reached");
-            if (pla.getType() == 1) {
-              //delay(1);
-              print("in here");
-              projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
-              //print(projectiles.size()); 
-              pla.resetProjectile(); 
-              //print(pla.checkTime());
-            }
-            if (pla.getType() == 2) {
-              print("in blue"); 
-              projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
-              pla.resetProjectile(); 
-              //print(pla.checkTime());
-            }
-            //print("new projectile made");
-          }
-        }
+        print(pla.checkTime());
+        //hasZombie[1][pla.getRow()] = true; 
+        proj++;
+        pla.startTime(); 
+        pla.firstSetter();
       }
+      if (millis() >=  3000 + pla.checkTime() ) {
+        print("reached");
+        if (pla.getType() == 1) {
+          //delay(1);
+          print("in here");
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+          //print(projectiles.size()); 
+          pla.resetProjectile(); 
+          //print(pla.checkTime());
+        }
+        if (pla.getType() == 2) {
+          print("in blue"); 
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+          pla.resetProjectile(); 
+          //print(pla.checkTime());
+        }
+        //print("new projectile made");
+      }
+    }
+  }
 }
 
 void updateProjectile() {
@@ -561,22 +561,20 @@ void updateProjectile() {
     //print("projectile");
     p.display(); 
     p.move();
-    
   }
-  
 }
 
-void checkMotion(){
+void checkMotion() {
   for (Projectile p : projectiles) {
-    for (Zombie z : zombies){
+    for (Zombie z : zombies) {
       if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
-          (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
-            print(z.getHP() + "\n");
-            //print("in this loop");
-            z.damage(); 
-            projectileRemove.add(p); 
-            print(z.getHP());
-          }
+        (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
+        print(z.getHP() + "\n");
+        //print("in this loop");
+        z.damage(); 
+        projectileRemove.add(p); 
+        print(z.getHP());
+      }
     }
   }
 }
@@ -654,5 +652,5 @@ void mouseReleased() {
 }
 
 boolean checkPlant(int row, int col) {
-  return (!(hasPlant[row][col] == null) && hasZombie[0][row] == true);
+  return (!(hasPlant[row][col] == null) && zombieNum[row] > 0);
 }
