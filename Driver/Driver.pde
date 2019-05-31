@@ -8,6 +8,7 @@ ArrayList<Plant> plantRemove;
 ArrayList<Zombie> zombies;
 ArrayList<Zombie> zombieRemove;
 ArrayList<Projectile> projectiles; 
+ArrayList<Projectile> projectileRemove;
 ArrayList<Sun> suns;
 ArrayList<Sun> sunRemove;
 Queue<Plant> nextPlants;
@@ -311,6 +312,7 @@ void instLists() {
   projectiles = new ArrayList<Projectile>(5); 
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
+  projectileRemove = new ArrayList<Projectile>();
   if (!randomMode) {
     menu = new ArrayList<Plant>();
     menu.add(new Sunflower(60, 60, sun));
@@ -446,6 +448,15 @@ void removeAndUpdatePlantsZombies() {
   }
 }
 
+void removeProjectile(){
+  for (Projectile p : projectileRemove){
+    if (projectiles.contains(p)){
+      projectiles.remove(p);
+    }
+  }
+  
+} 
+
 void setupSun() {
   float sunH = sunTracker.height * 120.0 / sunTracker.width;
   image(sunTracker, 120, 120, 120, sunH);
@@ -563,6 +574,7 @@ void checkMotion(){
             print(z.getHP() + "\n");
             //print("in this loop");
             z.damage(); 
+            projectileRemove.add(p); 
             print(z.getHP());
           }
     }
@@ -617,6 +629,7 @@ void draw() {
     cooldownDisplay();
     zombieAction();
     removeAndUpdatePlantsZombies();
+    removeProjectile();
     if (game_over) {
       noLoop();
       image(end, 0, 0);

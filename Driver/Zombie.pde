@@ -35,7 +35,7 @@ abstract class Zombie {
   }
   
   void damage(){
-    hp -= 10;
+    hp -= 100;
   }
 }
 
