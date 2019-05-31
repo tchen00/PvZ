@@ -325,7 +325,7 @@ void instLists() {
     dxys = new float[2][6];
     locks = new boolean[6];
     cools = new boolean[6];
-    //sunSum = 1000;
+    sunSum = 100;
     costs = new int[]{50, 100, 150, 50, 50, 175};
     suns = new ArrayList<Sun>();
     sunRemove = new ArrayList<Sun>();
@@ -503,7 +503,7 @@ void fallingSuns() {
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
-      sunSum += 500; // tammy cheated here  
+      sunSum += 25; // tammy cheated here  
       sunRemove.add(sss);
     }
   }
