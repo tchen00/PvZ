@@ -509,7 +509,6 @@ void updatePlant() {
     }
 
     if (hasZombie[0][pla.getRow()] && (pla.getType() == 1 || pla.getType() == 2) ) {
-      //delay(5);
       if (!hasZombie[1][pla.getRow()]) {
         if (pla.firstS()) {
           if (pla.getType() == 1) {
@@ -518,23 +517,28 @@ void updatePlant() {
           if (pla.getType() == 2) {
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
           }
-          print(pla.checkTime()); // Should print out 0;
+          //print(pla.checkTime()); // Should print out 0;
           pla.startTime(); 
+          print(pla.checkTime());
           hasZombie[1][pla.getRow()] = true; 
           proj++;
           pla.firstSetter();
         }
-        if (pla.checkTime() > 10000) {
+        if (millis() >=  5000 ) {
+          print("reached");
           if (pla.getType() == 1) {
             //delay(1);
+            print("in here");
             projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+            print(projectiles.size()); 
             pla.resetProjectile(); 
-            print(pla.checkTime());
+            //print(pla.checkTime());
           }
           if (pla.getType() == 2) {
+            print("in blue"); 
             projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
             pla.resetProjectile(); 
-            print(pla.checkTime());
+            //print(pla.checkTime());
           }
           //print("new projectile made");
         }
@@ -546,7 +550,7 @@ void updatePlant() {
 void updateProjectile() {
   // FOR THE PROJECTILES -- IN THE WORKS ATM 
   for (Projectile p : projectiles) {
-    print("projectile");
+    //print("projectile");
     p.display(); 
     p.setX(5);
   }
