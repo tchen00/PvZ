@@ -123,6 +123,9 @@ void updatePlantRowCol() {
       plants.add(next);
       coolT = millis();
       cool = false;
+      if (nextPlants.size() < 1) {
+        instPlants();
+      }
       next = nextPlants.remove();
     } else {
       next.x = 125;
@@ -443,9 +446,6 @@ void removeAndUpdatePlantsZombies() {
     if (plants.contains(p)) {
       plants.remove(p);
     }
-    if (nextPlants.size() < 1) {
-      instPlants();
-    }
   }
 }
 
@@ -522,10 +522,10 @@ void updatePlant() {
     if ((zombieNum[pla.getRow()] > 0)&& (pla.getType() == 1 || pla.getType() == 2) ) {
       if (pla.firstS()) {
         if (pla.getType() == 1) {
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10));
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 20, pla.row));
         } 
         if (pla.getType() == 2) {
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10));
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 20, pla.row));
         }
         print(pla.checkTime());
         //hasZombie[1][pla.getRow()] = true; 
@@ -538,14 +538,14 @@ void updatePlant() {
         if (pla.getType() == 1) {
           //delay(1);
           print("in here");
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 10)); 
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 20, pla.row)); 
           //print(projectiles.size()); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
         }
         if (pla.getType() == 2) {
           print("in blue"); 
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 10)); 
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 20, pla.row)); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
         }
@@ -566,26 +566,18 @@ void updateProjectile() {
 
 void checkMotion() {
   for (Projectile p : projectiles) {
-<<<<<<< HEAD
+    Zombie targ = null;
     for (Zombie z : zombies) {
-      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
-        (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
-        print(z.getHP() + "\n");
-        //print("in this loop");
-        z.damage(); 
-        projectileRemove.add(p); 
-        print(z.getHP());
+      if (p.row == z.row && (p.x < z.x + 3) && (p.x > z.x - 3)) {
+        targ = z;
       }
-=======
-    for (Zombie z : zombies){
-      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3)) {
-            print(z.getHP() + "\n");
-            //print("in this loop");
-            z.damage(); 
-            projectileRemove.add(p); 
-            print(z.getHP());
-          }
->>>>>>> 2f6a1e782b845dad73068611912d8d881c7cc346
+    }
+    if (targ != null) {
+      print(targ.getHP() + "\n");
+      //print("in this loop");
+      targ.hp -= p.damage;
+      projectileRemove.add(p); 
+      print(targ.getHP());
     }
   }
 }
