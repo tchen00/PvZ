@@ -4,10 +4,10 @@ abstract class Projectile {
   int damage; 
   int row;
 
-  Projectile(float x, float y, int damage, int row) {
+  Projectile(float x, float y, int row) {
     this.x = x; 
     this.y = y; 
-    this.damage = damage;
+    damage = 50;
     this.row = row;
   }
 
@@ -37,8 +37,8 @@ class greenProjectile extends Projectile {
   PImage img; 
   //float x, y; 
   
-  greenProjectile(float x, float y, int damage, int row) {
-    super(x, y, damage, row);
+  greenProjectile(float x, float y, int row) {
+    super(x, y, row);
   }
 
   void display() {
@@ -62,8 +62,8 @@ class greenProjectile extends Projectile {
 }
 
 class blueProjectile extends Projectile {
-  blueProjectile(float x, float y, int damage, int row) {
-    super(x, y, damage, row);
+  blueProjectile(float x, float y, int row) {
+    super(x, y, row);
   }
 
   void display() {
