@@ -569,8 +569,7 @@ void updateProjectile() {
 void checkMotion(){
   for (Projectile p : projectiles) {
     for (Zombie z : zombies){
-      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3) || 
-          (p.getY() < z.getY() + 3 && p.getY() > z.getY() - 3) ) {
+      if ((p.getX() < z.getX() + 3 && p.getX() > z.getX() - 3)) {
             print(z.getHP() + "\n");
             //print("in this loop");
             z.damage(); 
@@ -649,7 +648,6 @@ void mouseDragged() {
 
 void mouseReleased() {
   updatePlantRowCol();
-
   updateShovelRowCol();
 }
 

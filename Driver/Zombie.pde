@@ -4,7 +4,7 @@ abstract class Zombie {
   int hp, dmg, row;
   float x, y, t;
   float atk_speed;
-
+  
   Zombie() {
   }
 
