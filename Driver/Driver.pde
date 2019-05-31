@@ -492,7 +492,7 @@ void fallingSuns() {
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
-      sunSum += 500; // will change later 
+      sunSum += 500; // tammy cheated here  
       sunRemove.add(sss);
     }
   }
@@ -522,7 +522,7 @@ void updatePlant() {
           pla.startTime(); 
           pla.firstSetter();
         }
-          if (millis() >=  5000 + pla.checkTime() ) {
+          if (millis() >=  3000 + pla.checkTime() ) {
             print("reached");
             if (pla.getType() == 1) {
               //delay(1);
@@ -550,6 +550,7 @@ void updateProjectile() {
     //print("projectile");
     p.display(); 
     p.move();
+    
   }
   
 }
