@@ -534,10 +534,10 @@ void updatePlant() {
     if ((zombieNum[pla.getRow()] > 0)&& (pla.getType() == 1 || pla.getType() == 2) ) {
       if (pla.firstS()) {
         if (pla.getType() == 1) {
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 20, pla.row));
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row));
         } 
         if (pla.getType() == 2) {
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 20, pla.row));
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row));
         }
         print(pla.checkTime());
         //hasZombie[1][pla.getRow()] = true; 
@@ -550,14 +550,14 @@ void updatePlant() {
         if (pla.getType() == 1) {
           //delay(1);
           print("in here");
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), 20, pla.row)); 
+          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row)); 
           //print(projectiles.size()); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
         }
         if (pla.getType() == 2) {
           print("in blue"); 
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), 20, pla.row)); 
+          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row)); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
         }
