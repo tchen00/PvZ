@@ -88,3 +88,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
     Had to uncommit the commits made last night because of BIG MERGE CONFLICT; Will merge everything in today + last two days dev log was also uncommited so updated today!; MISSION ACCOMPLISHED -- got the PROJECTILES to finally SHOOT CONTINUOUSLY + made my code a bit more readible with some comments   
 - **Peihua**  
     Added the cost of the Plants to the screen. Updated Plants so that they can only be placed if there is enough suns. Added suns that fall every 10 seconds and disappears 5 seconds later if it is not clicked on. Also got sunflower to produce a sun every 7 seconds after it is placed onto the grid.
+
+### DAY 16: May 31 2019
+- **Peihua**  
+    Worked on debugging projectile for Peashooter. Got the projectile to not disappear until it reaches the Zombie. Will update the game so that a click of a certain key would put it in demo mode (aka cheat mode).
