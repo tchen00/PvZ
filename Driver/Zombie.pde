@@ -21,7 +21,7 @@ abstract class Zombie {
   abstract void display();
   void move() {
     if (this.target == null) {
-      this.x = this.x - 0.3;
+      this.x = this.x - 1;
     }
   }
   
@@ -49,10 +49,7 @@ abstract class Zombie {
   int getHP(){
     return hp; 
   }
-  
-  void damage(){
-    hp -= 20;
-  }
+
 }
 
 class BasicZombie extends Zombie {

@@ -2,11 +2,13 @@ abstract class Projectile {
   // PImage img = loadImage("projectile.png"); 
   float x, y; 
   int damage; 
+  int row;
 
-  Projectile(float x, float y, int damage) {
+  Projectile(float x, float y, int damage, int row) {
     this.x = x; 
     this.y = y; 
     this.damage = damage;
+    this.row = row;
   }
 
 
@@ -35,13 +37,13 @@ class greenProjectile extends Projectile {
   PImage img; 
   //float x, y; 
   
-  greenProjectile(float x, float y, int damage) {
-    super(x, y, damage);
+  greenProjectile(float x, float y, int damage, int row) {
+    super(x, y, damage, row);
   }
 
   void display() {
     fill(68, 224, 29);
-    ellipse(x, y, 25, 25);
+    ellipse(this.x, this.y, 25, 25);
   }
 
   void move() {
@@ -55,22 +57,22 @@ class greenProjectile extends Projectile {
   }
   
   void setX(int i){
-    x += i;
+    this.x += i;
   }
 }
 
 class blueProjectile extends Projectile {
-  blueProjectile(float x, float y, int damage) {
-    super(x, y, damage);
+  blueProjectile(float x, float y, int damage, int row) {
+    super(x, y, damage, row);
   }
 
   void display() {
     fill(36, 225, 242); 
-    ellipse(x, y, 25, 25);
+    ellipse(this.x, this.y, 25, 25);
   }
 
   void move() {
-    x += 10;
+    this.x += 10;
   }
   
   
