@@ -2,7 +2,7 @@ import java.util.*;
 /* ------------------------------------------------------------------- 
  VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless, winscreen;
 Plant next, peaNext;
 PGraphics pg;
 ArrayList<Plant> menu, plants, plantRemove;
@@ -315,6 +315,7 @@ void loadImages() {
   cmenu = loadImage("menu.jpg");
   starticon = loadImage("icon.png");
   headless = loadImage("headless.png");
+  winscreen = loadImage("winscreen.jpg");
 }
 
 void instLists() {
@@ -627,7 +628,7 @@ void enterGame() {
   if (hover[1] == true) {
     screen = 2;
   }
-  if (hover[2] == true) {
+  if (hover[2] == true || hover[3] == true) {
     reset();
     screen = 3;
   }
@@ -693,7 +694,14 @@ void draw() {
   if (screen == 3) {
     setupMenu();
   }
+  if (screen == 4) {
+    image(winscreen, 0, 0);
+    tryAgain();
+  }
   if (screen == 1 || screen == 2) {
+    if (nextZombies.size() == 0 && zombies.size() == 0) {
+      screen = 4;
+    }
     if (!setup) {
       updateTimes();
       suns.add(new Sun());
@@ -723,12 +731,7 @@ void draw() {
 
 
 void mousePressed() {
-  if (screen == -1 && hover[3] == true) {
-    screen = 3;
-  }
-  if (screen == 3 || screen == 0) {
-    enterGame();
-  }
+  enterGame();
   updateChangeXY();
   collectSun();
 }

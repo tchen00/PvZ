@@ -134,7 +134,10 @@ class CherryBomb extends Plant {
       for (Zombie zzz : zombies) {
         if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
           zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 ) {
+          tint(255, 0, 0);
           zzz.hp = 0;
+          zzz.display();
+          noTint();
         }
       }
       this.health = 0;
