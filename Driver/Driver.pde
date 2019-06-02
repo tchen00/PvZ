@@ -388,7 +388,7 @@ void displayPlantMenu() {
 }
 
 void spawnZombies() {
-  if (millis() > time - 3000 * demo + 8000) {
+  if (millis() > time - 6000 * demo + 8000) {
     time = millis();
     if (nextZombies.peek() != null) {
       zombies.add(nextZombies.remove());
