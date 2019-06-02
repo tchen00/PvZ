@@ -14,7 +14,7 @@ Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 Plant[][] hasPlant = new Plant[5][9];
 int[] zombieNum = new int[5];
-int screen = -1, sunT, projectileT, sunSum;
+int screen = -1, sunT, projectileT, sunSum, demo;
 int time, coolT = millis();
 int[] timess, costs;
 boolean[] overs, locks, cools, hasEnoughSun, hover;
@@ -350,7 +350,7 @@ void displayPlantMenu() {
       rect(0, 120 * i, 120, 120);
       Plant p = menu.get(i);
       p.display();
-      if (millis() > timess[i] + 6000) {
+      if (millis() > timess[i] + 6000 - 4000 * demo) {
         cools[i] = true;
       }
       hasEnoughSun[i] = (sunSum >= costs[i]);
@@ -370,7 +370,7 @@ void displayPlantMenu() {
     popMatrix();
     //makeGrid();
 
-    if (millis() > coolT + 3000) {
+    if (millis() > coolT + 3000 - 2000 * demo) {
       cool = true;
     }
     if (cool && mouseX > (next.x - next.pw / 2) && mouseX < (next.x + next.pw / 2) &&
@@ -384,7 +384,7 @@ void displayPlantMenu() {
 }
 
 void spawnZombies() {
-  if (millis() > time + 8000) {
+  if (millis() > time - 3000 * demo + 8000) {
     time = millis();
     if (nextZombies.peek() != null) {
       zombies.add(nextZombies.remove());
@@ -399,14 +399,14 @@ void cooldownDisplay() {
   translate(50, 200);
   if (screen == 1) {
     if (!cool) {
-      rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
+      rect(0, 0, 150, 200 - (millis() - coolT) / (3000.0 - 2000 * demo) * 200);
     }
   }
   popMatrix();
   if (screen == 2) {
     for (int i = 0; i < 6; i++) {
       if (!cools[i]) {
-        rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
+        rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / (6000.0 - 4000 * demo) * 120);
       }
       if (!hasEnoughSun[i]) {
         rect(0, 120 * i, 120, 120);
@@ -538,7 +538,7 @@ void updatePlant() {
         pla.startTime(); 
         pla.firstSetter();
       }
-      if (millis() >=  3000 + pla.checkTime() ) {
+      if (millis() >=  3000 - 2000 * demo + pla.checkTime() ) {
         print("reached");
         if (pla.getType() == 1) {
           //delay(1);
@@ -662,9 +662,9 @@ void startGame() {
   } else {
     hover[3] = false;
   }
-  if (hover[3]){
+  if (hover[3]) {
     image(starticon, 0, 0, width, height);
-  } else{
+  } else {
     image(start, 0, 0, width, height);
   }
 }
@@ -701,6 +701,7 @@ void draw() {
       updateTimes();
       suns.add(new Sun());
       sunT = millis();
+      sunSum = 1000 * demo;
     }
     set_bg();
     if (screen == 2) {
@@ -740,6 +741,16 @@ void mouseDragged() {
 void mouseReleased() {
   updatePlantRowCol();
   updateShovelRowCol();
+}
+
+void keyPressed() {
+  if (key == 'D' || key == 'd') {
+    demo = 1;
+    println("hi");
+  }
+  if (key == 'R' || key == 'r') {
+    demo = 0;
+  }
 }
 
 boolean checkPlant(int row, int col) {
