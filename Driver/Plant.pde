@@ -3,7 +3,7 @@ abstract class Plant {
   int price, cooldown, row, col, health, type; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
-  int projectileT; 
+  int projectileT, placed; 
   boolean firstShot = true; 
 
   Plant() {
@@ -75,7 +75,7 @@ class Sunflower extends Plant {
   int speed, time, cost;
   //PImage img; 
   void attack() {
-    if (this.time == 0){
+    if (this.time == 0) {
       this.time = millis();
     }
     if (millis() > this.time + 7000) {
@@ -130,6 +130,15 @@ class Peashooter extends Plant {
 class CherryBomb extends Plant {
   int time; 
   void attack() {
+    if (millis() > placed + 1200 ) {
+      for (Zombie zzz : zombies) {
+        if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
+          zzz.x > this.x - w * 3 / 2 && zzz.x < this.x + w * 3 / 2 ) {
+          zzz.hp = 0;
+        }
+      }
+      this.health = 0;
+    }
   }
 
   CherryBomb() {

@@ -151,6 +151,7 @@ void updatePlantRowCol() {
         p.x = ((ori_x + w * p.col) + (ori_x + w * (p.col + 1))) / 2;
         p.y = ((ori_y + h * p.row) + (ori_y + h * (p.row + 1))) / 2;
         plants.add(p);
+        p.placed = millis();
         timess[i] = millis();
         cools[i] = false;
         sunSum -= costs[i];
@@ -680,13 +681,6 @@ void setup() {
   pg = createGraphics(500, 100);
 }
 
-// IF MOUSE CLICKED -- LOAD NEXT SCREEN
-void mouseClicked() {
-  if (screen == -1 && hover[3] == true) {
-    screen = 3;
-  }
-}
-
 // DRAW METHOD 
 void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
@@ -701,7 +695,6 @@ void draw() {
       updateTimes();
       suns.add(new Sun());
       sunT = millis();
-      sunSum = 1000 * demo;
     }
     set_bg();
     if (screen == 2) {
@@ -727,6 +720,9 @@ void draw() {
 
 
 void mousePressed() {
+  if (screen == -1 && hover[3] == true) {
+    screen = 3;
+  }
   if (screen == 3 || screen == 0) {
     enterGame();
   }
@@ -746,7 +742,7 @@ void mouseReleased() {
 void keyPressed() {
   if (key == 'D' || key == 'd') {
     demo = 1;
-    println("hi");
+    sunSum = 1000;
   }
   if (key == 'R' || key == 'r') {
     demo = 0;

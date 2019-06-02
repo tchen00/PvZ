@@ -20,7 +20,7 @@ abstract class Zombie {
 
   abstract void display();
   void move() {
-    if (this.target == null) {
+    if (this.target == null || this.target instanceof CherryBomb) {
       this.x = this.x - 1;
     }
   }
