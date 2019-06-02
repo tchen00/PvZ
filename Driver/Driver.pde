@@ -13,7 +13,7 @@ Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 Plant[][] hasPlant = new Plant[5][9];
 int[] zombieNum = new int[5];
-int mode = -1, sunT, projectileT, sunSum;
+int screen = -1, sunT, projectileT, sunSum;
 int time, coolT = millis();
 int[] timess, costs;
 boolean[] overs, locks, cools, hasEnoughSun, hover;
@@ -114,7 +114,7 @@ void makeGrid() {
 }
 
 void updatePlantRowCol() {
-  if (mode == 1) {
+  if (screen == 1) {
     locked = false;
     int coll = (int)(next.x - ori_x) / w;
     int roww = (int)(next.y - ori_y) / h;
@@ -187,7 +187,7 @@ void updateShovelRowCol() {
 }
 
 void updateXY() {
-  if (mode == 1) {
+  if (screen == 1) {
     if (locked) {
       next.x = mouseX - difx;
       next.y = mouseY - dify;
@@ -209,7 +209,7 @@ void updateXY() {
 void updateChangeXY() {
   //print("pressed " + true);
   //print("bover " + bover);
-  if (mode == 1) {
+  if (screen == 1) {
     if (bover) {
       locked = true;
     } else {
@@ -340,7 +340,7 @@ void instLists() {
 }
 
 void displayPlantMenu() {
-  if (mode == 2) {
+  if (screen == 2) {
     for (int i = 0; i < 6; i++) {
       stroke(0);
       fill(255, 240, 179);
@@ -395,13 +395,13 @@ void cooldownDisplay() {
   fill(10, 80);
   noStroke();
   translate(50, 200);
-  if (mode == 1) {
+  if (screen == 1) {
     if (!cool) {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
   }
   popMatrix();
-  if (mode == 2) {
+  if (screen == 2) {
     for (int i = 0; i < 6; i++) {
       if (!cools[i]) {
         rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
@@ -430,7 +430,7 @@ void zombieAction() {
       zombieRemove.add(zzz);
     }
     if (zzz.x < 161) {
-      mode = 0;
+      screen = 0;
     }
   }
 }
@@ -598,7 +598,7 @@ void setupMenu() {
     strokeWeight(1);
     hover[0] = false;
   }
-  rect(640, 180, 500, 100, 10);
+  rect(640, 180, 500, 100);
   textAlign(CENTER);
   if (mouseX > 490 && mouseX < 890 && mouseY > 490 && mouseY < 590) {
     strokeWeight(5);
@@ -607,7 +607,7 @@ void setupMenu() {
     strokeWeight(1);
     hover[1] = false;
   }
-  rect(640, 540, 500, 100, 10);
+  rect(640, 540, 500, 100);
   rectMode(CORNER);
   fill(0);
   text("Random Mode", 640, 205);
@@ -616,18 +616,18 @@ void setupMenu() {
 
 void enterGame() {
   if (hover[0] == true) {
-    mode = 1;
+    screen = 1;
   }
   if (hover[1] == true) {
-    mode = 2;
+    screen = 2;
   }
   if (hover[2] == true) {
     reset();
-    mode = 3;
+    screen = 3;
   }
 }
 
-void reset(){
+void reset() {
   instZombies();
   instPlants();
   instLists();
@@ -648,7 +648,7 @@ void tryAgain() {
     hover[2] = false;
   }
   textAlign(CENTER);
-  rect(640, 600, 500, 80, 10);
+  rect(640, 600, 500, 80);
   rectMode(CORNER);
   fill(0);
   text("Return to Menu", 640, 630);
@@ -666,25 +666,25 @@ void setup() {
 
 // IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
-  if (mode == -1) {
-    mode = 3;
+  if (screen == -1) {
+    screen = 3;
   }
 }
 
 // DRAW METHOD 
 void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
-  if (mode == 3) {
+  if (screen == 3) {
     setupMenu();
   }
-  if (mode == 1 || mode == 2) {
+  if (screen == 1 || screen == 2) {
     if (!setup) {
       updateTimes();
       suns.add(new Sun());
       sunT = millis();
     }
     set_bg();
-    if (mode == 2) {
+    if (screen == 2) {
       setupSun();
       fallingSuns();
     }
@@ -699,7 +699,7 @@ void draw() {
     removeAndUpdatePlantsZombies();
     removeProjectile();
   }
-  if (mode == 0) {
+  if (screen == 0) {
     image(end, 0, 0);
     tryAgain();
   }
@@ -707,7 +707,7 @@ void draw() {
 
 
 void mousePressed() {
-  if (mode == 3 || mode == 0) {
+  if (screen == 3 || screen == 0) {
     enterGame();
   }
   updateChangeXY();
