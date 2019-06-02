@@ -92,3 +92,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 16: May 31 2019
 - **Peihua**  
     Worked on debugging projectile for Peashooter. Got the projectile to not disappear until it reaches the Zombie. Will update the game so that a click of a certain key would put it in demo mode (aka cheat mode).
+
+### DAY 17: June 1 2019
+- **Peihua**  
+    Removed sunflower from random mode (since that mode has no need for suns). Added menu for players to choose between the two game modes. Also added a button at the death screen allowing the player to return to menu and play again. Switching screen was done with hints from Vivian Huynh (She told me I can use a variable to store the different screens). Also made it possible to switch between demo mode and regular game mode. 
