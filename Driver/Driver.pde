@@ -1,30 +1,22 @@
 import java.util.*;
 /* ------------------------------------------------------------------- 
-                        VARIABLES AND FIELDS                      
+ VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu;
 Plant next, peaNext;
-ArrayList<Plant> menu;
-ArrayList<Plant> plants;
-ArrayList<Plant> plantRemove;
-ArrayList<Zombie> zombies;
-ArrayList<Zombie> zombieRemove;
-ArrayList<Projectile> projectiles; 
-ArrayList<Projectile> projectileRemove;
-ArrayList<Sun> suns;
-ArrayList<Sun> sunRemove;
+ArrayList<Plant> menu, plants, plantRemove;
+ArrayList<Zombie> zombies, zombieRemove;
+ArrayList<Projectile> projectiles, projectileRemove;
+ArrayList<Sun> suns, sunRemove;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked, game_over = false;
 Plant[][] hasPlant = new Plant[5][9];
 int[] zombieNum = new int[5];
-boolean randomMode;
+int mode = -1, sunT, projectileT, sunSum;
 int time, coolT = millis();
-int sunT;
-int projectileT; 
 int[] timess, costs;
-int sunSum;
-boolean[] overs, locks, cools, hasEnoughSun;
+boolean[] overs, locks, cools, hasEnoughSun, hover;
 float[][] dxys;
 int ori_x = 260;
 int ori_y = 100;
@@ -34,7 +26,7 @@ int proj = -1;
 float difx, dify, sdifx, sdify = 0.0;
 Shovel s;
 /* ------------------------------------------------------------------- 
-                        SHOVEL CLASS                      
+ SHOVEL CLASS                      
  ------------------------------------------------------------------- */
 class Shovel {
   PImage img;
@@ -48,10 +40,10 @@ class Shovel {
     row = -1;
     col = -1;
   }
-  
-/* ------------------------------------------------------------------- 
-                        DISPLAY METHOD                       
- ------------------------------------------------------------------- */
+
+  /* ------------------------------------------------------------------- 
+   DISPLAY METHOD                       
+   ------------------------------------------------------------------- */
   void display() {
     imageMode(CENTER);
     image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
@@ -66,7 +58,7 @@ class Shovel {
 }
 
 /* ------------------------------------------------------------------- 
-                        SUN CLASS                      
+ SUN CLASS                      
  ------------------------------------------------------------------- */
 class Sun {
   PImage img;
@@ -106,9 +98,9 @@ class Sun {
 }
 
 /* ------------------------------------------------------------------- 
-                        MAKE THE GRID                      
+ MAKE THE GRID                      
  ------------------------------------------------------------------- */
- 
+
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -122,7 +114,7 @@ void makeGrid() {
 }
 
 void updatePlantRowCol() {
-  if (randomMode) {
+  if (mode == 1) {
     locked = false;
     int coll = (int)(next.x - ori_x) / w;
     int roww = (int)(next.y - ori_y) / h;
@@ -195,7 +187,7 @@ void updateShovelRowCol() {
 }
 
 void updateXY() {
-  if (randomMode) {
+  if (mode == 1) {
     if (locked) {
       next.x = mouseX - difx;
       next.y = mouseY - dify;
@@ -217,7 +209,7 @@ void updateXY() {
 void updateChangeXY() {
   //print("pressed " + true);
   //print("bover " + bover);
-  if (randomMode) {
+  if (mode == 1) {
     if (bover) {
       locked = true;
     } else {
@@ -271,16 +263,14 @@ void instZombies() {
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
   for (int i = 0; i < 10; i++) {
-    float rand = random(0, 6);
+    float rand = random(0, 5);
     if (rand < 1) {
-      nextPlants.add(new Sunflower(125, 300, sun));
-    } else if (rand < 2) {
       nextPlants.add(new Peashooter(125, 300, pea));
-    } else if (rand < 3) {
+    } else if (rand < 2) {
       nextPlants.add(new CherryBomb(125, 300, cherry));
-    } else if (rand < 4) {
+    } else if (rand < 3) {
       nextPlants.add(new WallNut(125, 300, wall));
-    } else if (rand < 5) {
+    } else if (rand < 4) {
       nextPlants.add(new Squash(125, 300, squash));
     } else {
       nextPlants.add(new SnowPea(125, 300, snow));
@@ -320,6 +310,7 @@ void loadImages() {
   shovel_bg = loadImage("Shovel_bg.jpg");
   sun_money = loadImage("sun.png");
   sunTracker = loadImage("sunTracker.png");
+  cmenu = loadImage("menu.jpg");
 }
 
 void instLists() {
@@ -329,28 +320,27 @@ void instLists() {
   plantRemove = new ArrayList<Plant>();
   zombieRemove = new ArrayList<Zombie>();
   projectileRemove = new ArrayList<Projectile>();
-  if (!randomMode) {
-    menu = new ArrayList<Plant>();
-    menu.add(new Sunflower(60, 60, sun));
-    menu.add(new Peashooter(60, 180, pea));
-    menu.add(new CherryBomb(60, 300, cherry));
-    menu.add(new WallNut(60, 420, wall));
-    menu.add(new Squash(60, 540, squash));
-    menu.add(new SnowPea(60, 660, snow));
-    overs = new boolean[6];
-    dxys = new float[2][6];
-    locks = new boolean[6];
-    cools = new boolean[6];
-    //sunSum = 100;
-    costs = new int[]{50, 100, 150, 50, 50, 175};
-    suns = new ArrayList<Sun>();
-    sunRemove = new ArrayList<Sun>();
-    hasEnoughSun = new boolean[6];
-  }
+  menu = new ArrayList<Plant>();
+  menu.add(new Sunflower(60, 60, sun));
+  menu.add(new Peashooter(60, 180, pea));
+  menu.add(new CherryBomb(60, 300, cherry));
+  menu.add(new WallNut(60, 420, wall));
+  menu.add(new Squash(60, 540, squash));
+  menu.add(new SnowPea(60, 660, snow));
+  overs = new boolean[6];
+  dxys = new float[2][6];
+  locks = new boolean[6];
+  cools = new boolean[6];
+  //sunSum = 100;
+  costs = new int[]{50, 100, 150, 50, 50, 175};
+  suns = new ArrayList<Sun>();
+  sunRemove = new ArrayList<Sun>();
+  hasEnoughSun = new boolean[6];
+  hover = new boolean[2];
 }
 
 void displayPlantMenu() {
-  if (!randomMode) {
+  if (mode == 2) {
     for (int i = 0; i < 6; i++) {
       stroke(0);
       fill(255, 240, 179);
@@ -404,13 +394,13 @@ void cooldownDisplay() {
   fill(10, 80);
   noStroke();
   translate(50, 200);
-  if (randomMode) {
+  if (mode == 1) {
     if (!cool) {
       rect(0, 0, 150, 200 - (millis() - coolT) / 3000.0 * 200);
     }
   }
   popMatrix();
-  if (!randomMode) {
+  if (mode == 2) {
     for (int i = 0; i < 6; i++) {
       if (!cools[i]) {
         rect(0, 120 * i, 120, 120 - (millis() - timess[i]) / 6000.0 * 120);
@@ -594,6 +584,31 @@ void checkMotion() {
   }
 }
 
+void setupMenu() {
+  textSize(80);
+  image(cmenu, 0, 0);
+  rectMode(CENTER);
+  stroke(160, 82, 45);
+  fill(255, 240, 179);
+  if (mouseX > 440 && mouseX < 840 && mouseY > 130 && mouseY < 230) {
+    strokeWeight(5);
+  } else {
+    strokeWeight(1);
+  }
+  rect(640, 180, 400, 100, 10);
+  textAlign(CENTER);
+  text("
+  if (mouseX > 440 && mouseX < 840 && mouseY > 490 && mouseY < 590) {
+    strokeWeight(5);
+  } else {
+    strokeWeight(1);
+  }
+  rect(640, 540, 400, 100, 10);
+}
+
+void clickMenu() {
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -608,27 +623,26 @@ void setup() {
 
 // IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
-  if (!startGame) {
-    if (mouseX < width/2) {
-      randomMode = true;
-    } else {
-      randomMode = false;
-    }
-    startGame = true;
+  if (mode == -1) {
+    mode = 3;
   }
 }
 
 // DRAW METHOD 
 void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
-  if (startGame) {
+  if (mode == 3) {
+    setupMenu();
+    clickMenu();
+  }
+  if (mode == 1 || mode == 2) {
     if (!setup) {
       updateTimes();
       suns.add(new Sun());
       sunT = millis();
     }
     set_bg();
-    if (!randomMode) {
+    if (mode == 2) {
       setupSun();
       fallingSuns();
     }
