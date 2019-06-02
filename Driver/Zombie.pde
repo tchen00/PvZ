@@ -4,7 +4,7 @@ abstract class Zombie {
   int hp, dmg, row;
   float x, y, t;
   float atk_speed;
-  
+
   Zombie() {
   }
 
@@ -24,7 +24,7 @@ abstract class Zombie {
       this.x = this.x - 1;
     }
   }
-  
+
   void attack() {
     if (this.target != null) {
       if (plants.contains(this.target)) {
@@ -37,19 +37,18 @@ abstract class Zombie {
       }
     }
   }
-  
-  float getX(){
-    return x; 
-  }
-  
-  float getY(){
-    return y;
-  }
-  
-  int getHP(){
-    return hp; 
+
+  float getX() {
+    return x;
   }
 
+  float getY() {
+    return y;
+  }
+
+  int getHP() {
+    return hp;
+  }
 }
 
 class BasicZombie extends Zombie {
@@ -57,12 +56,14 @@ class BasicZombie extends Zombie {
     super(img1, 200, 100, 20, xx, row * 118 + 100, row);
   }
 
-  
+
 
   void display() {
+    if (this.hp <= 100) {
+      this.img = headless;
+    }
     image(this.img, this.x, this.y, 99, 118);
   }
-
 }
 
 class ConeheadZombie extends Zombie {
@@ -71,8 +72,15 @@ class ConeheadZombie extends Zombie {
   }
 
   void display() {
-    image(this.img, this.x, this.y, 99, 140);
+    if (this.hp <= 200) {
+      if (this.hp <= 100) {
+        this.img = headless;
+      } else {
+        this.img = zombie1;
+      }
+      image(this.img, this.x, this.y + 25, 97, 115);
+    } else {
+      image(this.img, this.x, this.y, 99, 140);
+    }
   }
-
-  
 }

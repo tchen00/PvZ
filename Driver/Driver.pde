@@ -2,7 +2,7 @@ import java.util.*;
 /* ------------------------------------------------------------------- 
  VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless;
 Plant next, peaNext;
 PGraphics pg;
 ArrayList<Plant> menu, plants, plantRemove;
@@ -12,8 +12,8 @@ ArrayList<Sun> suns, sunRemove;
 Queue<Plant> nextPlants;
 Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
-Plant[][] hasPlant = new Plant[5][9];
-int[] zombieNum = new int[5];
+Plant[][] hasPlant;
+int[] zombieNum;
 int screen = -1, sunT, projectileT, sunSum, demo;
 int time, coolT = millis();
 int[] timess, costs;
@@ -314,9 +314,12 @@ void loadImages() {
   sunTracker = loadImage("sunTracker.png");
   cmenu = loadImage("menu.jpg");
   starticon = loadImage("icon.png");
+  headless = loadImage("headless.png");
 }
 
 void instLists() {
+  zombieNum = new int[5];
+  hasPlant = new Plant[5][9];
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
   projectiles = new ArrayList<Projectile>(5); 
@@ -631,9 +634,9 @@ void enterGame() {
 }
 
 void reset() {
+  instLists();
   instZombies();
   instPlants();
-  instLists();
   setup = false;
   sunSum = 0;
 }
@@ -746,6 +749,7 @@ void keyPressed() {
   }
   if (key == 'R' || key == 'r') {
     demo = 0;
+    sunSum = 0;
   }
 }
 

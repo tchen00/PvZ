@@ -133,7 +133,7 @@ class CherryBomb extends Plant {
     if (millis() > placed + 1200 ) {
       for (Zombie zzz : zombies) {
         if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
-          zzz.x > this.x - w * 3 / 2 && zzz.x < this.x + w * 3 / 2 ) {
+          zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 ) {
           zzz.hp = 0;
         }
       }
