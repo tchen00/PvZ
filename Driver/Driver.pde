@@ -2,8 +2,9 @@ import java.util.*;
 /* ------------------------------------------------------------------- 
  VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
-PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu;
+PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon;
 Plant next, peaNext;
+PGraphics pg;
 ArrayList<Plant> menu, plants, plantRemove;
 ArrayList<Zombie> zombies, zombieRemove;
 ArrayList<Projectile> projectiles, projectileRemove;
@@ -311,6 +312,7 @@ void loadImages() {
   sun_money = loadImage("sun.png");
   sunTracker = loadImage("sunTracker.png");
   cmenu = loadImage("menu.jpg");
+  starticon = loadImage("icon.png");
 }
 
 void instLists() {
@@ -336,7 +338,7 @@ void instLists() {
   suns = new ArrayList<Sun>();
   sunRemove = new ArrayList<Sun>();
   hasEnoughSun = new boolean[6];
-  hover = new boolean[3];
+  hover = new boolean[4];
 }
 
 void displayPlantMenu() {
@@ -591,7 +593,7 @@ void setupMenu() {
   rectMode(CENTER);
   stroke(160, 82, 45);
   fill(255, 240, 179);
-  if (mouseX > 490 && mouseX < 890 && mouseY > 130 && mouseY < 230) {
+  if (mouseX > 390 && mouseX < 890 && mouseY > 130 && mouseY < 230) {
     strokeWeight(5);
     hover[0] = true;
   } else {
@@ -600,7 +602,7 @@ void setupMenu() {
   }
   rect(640, 180, 500, 100);
   textAlign(CENTER);
-  if (mouseX > 490 && mouseX < 890 && mouseY > 490 && mouseY < 590) {
+  if (mouseX > 390 && mouseX < 890 && mouseY > 490 && mouseY < 590) {
     strokeWeight(5);
     hover[1] = true;
   } else {
@@ -640,7 +642,7 @@ void tryAgain() {
   rectMode(CENTER);
   stroke(160, 82, 45);
   fill(255, 240, 179);
-  if (mouseX > 490 && mouseX < 890 && mouseY > 540 && mouseY < 640) {
+  if (mouseX > 390 && mouseX < 890 && mouseY > 540 && mouseY < 640) {
     strokeWeight(5);
     hover[2] = true;
   } else {
@@ -654,6 +656,19 @@ void tryAgain() {
   text("Return to Menu", 640, 630);
 }
 
+void startGame() {
+  if (mouseX > 200 && mouseX < 1030 && mouseY > 630 && mouseY < 710) {
+    hover[3] = true;
+  } else {
+    hover[3] = false;
+  }
+  if (hover[3]){
+    image(starticon, 0, 0, width, height);
+  } else{
+    image(start, 0, 0, width, height);
+  }
+}
+
 // SETUP METHOD 
 void setup() {
   size(1280, 720);
@@ -662,11 +677,12 @@ void setup() {
   reset();
   next = nextPlants.remove();
   s = new Shovel();
+  pg = createGraphics(500, 100);
 }
 
 // IF MOUSE CLICKED -- LOAD NEXT SCREEN
 void mouseClicked() {
-  if (screen == -1) {
+  if (screen == -1 && hover[3] == true) {
     screen = 3;
   }
 }
@@ -674,6 +690,9 @@ void mouseClicked() {
 // DRAW METHOD 
 void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
+  if (screen == -1) {
+    startGame();
+  }
   if (screen == 3) {
     setupMenu();
   }
