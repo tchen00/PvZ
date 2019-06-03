@@ -101,7 +101,6 @@ class Sun {
 /* ------------------------------------------------------------------- 
  MAKE THE GRID                      
  ------------------------------------------------------------------- */
-
 void makeGrid() {
   noFill();
   pushMatrix();
@@ -114,6 +113,9 @@ void makeGrid() {
   popMatrix();
 }
 
+/* ------------------------------------------------------------------- 
+UPDATING PLANTS (ROW + COL)                     
+ ------------------------------------------------------------------- */
 void updatePlantRowCol() {
   if (screen == 1) {
     locked = false;
@@ -175,7 +177,9 @@ void updatePlantRowCol() {
     }
   }
 }
-
+/* ------------------------------------------------------------------- 
+UPDATING SHOVEL                     
+ ------------------------------------------------------------------- */
 void updateShovelRowCol() {
   slocked = false;
   int ccol = (int)(s.x - ori_x) / w;
@@ -187,6 +191,10 @@ void updateShovelRowCol() {
   }
   s = new Shovel();
 }
+
+/* ------------------------------------------------------------------- 
+UPDATING X AND Y COORDINATES 
+------------------------------------------------------------------- */
 
 void updateXY() {
   if (screen == 1) {
@@ -208,6 +216,10 @@ void updateXY() {
   }
 }
 
+
+/* ------------------------------------------------------------------- 
+UPDATE CHANGE IN X AND Y                      
+ ------------------------------------------------------------------- */
 void updateChangeXY() {
   //print("pressed " + true);
   //print("bover " + bover);
@@ -240,7 +252,9 @@ void updateChangeXY() {
   sdify = mouseY - s.y;
 }
 
-// RANDOMIZING THE ZOMBIES 
+/* ------------------------------------------------------------------- 
+RANDOMIZING THE ZOMBIES                      
+ ------------------------------------------------------------------- */
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
   for (int i = 0; i < 10; i++) {
@@ -261,7 +275,9 @@ void instZombies() {
   }
 }
 
-// RANDOMIZING THE PLANTS 
+/* ------------------------------------------------------------------- 
+RANDOMIZING THE PLANTS                       
+ ------------------------------------------------------------------- */
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
   for (int i = 0; i < 10; i++) {
@@ -280,6 +296,9 @@ void instPlants() {
   }
 }
 
+/* ------------------------------------------------------------------- 
+ SETUP - time, background, images, lists, menu                      
+ ------------------------------------------------------------------- */
 void updateTimes() {
   time = millis();
   coolT = millis();
@@ -514,7 +533,7 @@ void fallingSuns() {
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
-      sunSum += 25; // tammy cheated here  
+      sunSum += 500; // tammy cheated here  
       sunRemove.add(sss);
     }
   }
