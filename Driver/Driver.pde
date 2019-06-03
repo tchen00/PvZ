@@ -1,6 +1,6 @@
 import java.util.*;
 /* ------------------------------------------------------------------- 
- VARIABLES AND FIELDS                      
+                           VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless, winscreen;
 Plant next, peaNext;
@@ -14,6 +14,7 @@ Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 Plant[][] hasPlant;
 int[] zombieNum;
+int[] zombieCount; 
 int screen = -1, sunT, projectileT, sunSum, demo;
 int time, coolT = millis();
 int[] timess, costs;
@@ -27,7 +28,7 @@ int proj = -1;
 float difx, dify, sdifx, sdify = 0.0;
 Shovel s;
 /* ------------------------------------------------------------------- 
- SHOVEL CLASS                      
+                               SHOVEL CLASS                      
  ------------------------------------------------------------------- */
 class Shovel {
   PImage img;
@@ -59,7 +60,7 @@ class Shovel {
 }
 
 /* ------------------------------------------------------------------- 
- SUN CLASS                      
+                                   SUN CLASS                      
  ------------------------------------------------------------------- */
 class Sun {
   PImage img;
@@ -99,7 +100,7 @@ class Sun {
 }
 
 /* ------------------------------------------------------------------- 
- MAKE THE GRID                      
+                             MAKE THE GRID                      
  ------------------------------------------------------------------- */
 void makeGrid() {
   noFill();
@@ -339,6 +340,7 @@ void loadImages() {
 
 void instLists() {
   zombieNum = new int[5];
+  zombieCount = new int[5];
   hasPlant = new Plant[5][9];
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();
@@ -581,6 +583,31 @@ void updatePlant() {
         //print("new projectile made");
       }
     }
+    if (pla.type == 3){
+      if (millis() > sunT + 10000) {
+        suns.add(new Sun(pla.x, pla.y));
+        sunT = millis();
+      }
+      for (Sun sss : suns) {
+        sss.move();
+        sss.display();
+        if (millis() > sss.deathTime) {
+          sunRemove.add(sss);
+        }
+        if (mouseX > (sss.x) && mouseX < (sss.x + 100) &&
+          mouseY > (sss.y) && mouseY < (sss.y + 100)) {
+          sss.over = true;
+        } else {
+          sss.over = false;
+        }
+      }
+      for (Sun ss : sunRemove) {
+        suns.remove(ss);
+      }
+      if (sunRemove.size() > 100) {
+        sunRemove = new ArrayList<Sun>();
+      }
+    }
   }
 }
 
@@ -588,8 +615,11 @@ void updateProjectile() {
   // FOR THE PROJECTILES -- IN THE WORKS ATM 
   for (Projectile p : projectiles) {
     //print("projectile");
-    p.display(); 
-    p.move();
+    if (zombieNum[p.row] > 0){
+      print(zombieNum[p.row]);
+      p.display(); 
+      p.move();
+    }
   }
 }
 

@@ -86,6 +86,7 @@ class Sunflower extends Plant {
 
   Sunflower(float x_co, float y_co, PImage imgx) {
     super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
+    type = 3;
   }
   /*
   Sunflower(){
