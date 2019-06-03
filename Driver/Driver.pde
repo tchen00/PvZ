@@ -565,24 +565,17 @@ void updatePlant() {
         pla.firstSetter();
       }
       if (millis() >=  3000 - 2000 * demo + pla.checkTime() ) {
-        print("reached");
         if (pla.getType() == 1) {
-          //delay(1);
-          //print("in here");
           projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row)); 
-          //print(projectiles.size()); 
           pla.resetProjectile(); 
-          //print(pla.checkTime());
         }
         if (pla.getType() == 2) {
-          //print("in blue"); 
           projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row)); 
           pla.resetProjectile(); 
-          //print(pla.checkTime());
         }
-        //print("new projectile made");
       }
     }
+    /*
     if (pla.type == 3){
       if (millis() > sunT + 10000) {
         suns.add(new Sun(pla.x, pla.y));
@@ -608,6 +601,7 @@ void updatePlant() {
         sunRemove = new ArrayList<Sun>();
       }
     }
+    */
   }
 }
 

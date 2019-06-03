@@ -92,11 +92,19 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 ### DAY 16: May 31 2019
 - **Peihua**  
     Worked on debugging projectile for Peashooter. Got the projectile to not disappear until it reaches the Zombie. Will update the game so that a click of a certain key would put it in demo mode (aka cheat mode).
+- **Tammy**
+    Worked on debugging projectile for Peashooter. Realized that y-coordinate is irrelevant and made zombies die if the HP is zero.
 
 ### DAY 17: June 1 2019
 - **Peihua**  
     Removed sunflower from random mode (since that mode has no need for suns). Added menu for players to choose between the two game modes. Also added a button at the death screen allowing the player to return to menu and play again. Switching screen was done with hints from Vivian Huynh (She told me I can use a variable to store the different screens). Also made it possible to switch between demo mode and regular game mode.
+- **Tammy**
+    Had some issues with merge conflicts
 
 ### DAY 18: June 2 2019
 - **Peihua**
     Added attack method for CherryBomb (it will explode 1.2 seconds after placed). Changed display so Zombie's head and cone will also fall off as it's hp decreases. Plant will change color every time it is attacked. Added a win screen.
+
+## DAY 19: June 3 2019
+- **Tammy**
+    Implemented the blue projectile so it would slow done the zombies speed (addeded a zombie variable); sunflower can now produce suns (jenny implemented this a while ago - in plant attack()); fixed bugs in projectiles
