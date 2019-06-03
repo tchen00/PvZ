@@ -43,9 +43,9 @@ class Shovel {
     col = -1;
   }
 
-  /* ------------------------------------------------------------------- 
-   DISPLAY METHOD                       
-   ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- 
+                               DISPLAY METHOD                       
+ ------------------------------------------------------------------- */
   void display() {
     imageMode(CENTER);
     image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
@@ -60,7 +60,7 @@ class Shovel {
 }
 
 /* ------------------------------------------------------------------- 
-                                   SUN CLASS                      
+                                 SUN CLASS                      
  ------------------------------------------------------------------- */
 class Sun {
   PImage img;
@@ -115,7 +115,7 @@ void makeGrid() {
 }
 
 /* ------------------------------------------------------------------- 
-UPDATING PLANTS (ROW + COL)                     
+                      UPDATING PLANTS (ROW + COL)                     
  ------------------------------------------------------------------- */
 void updatePlantRowCol() {
   if (screen == 1) {
@@ -179,7 +179,7 @@ void updatePlantRowCol() {
   }
 }
 /* ------------------------------------------------------------------- 
-UPDATING SHOVEL                     
+                             UPDATING SHOVEL                     
  ------------------------------------------------------------------- */
 void updateShovelRowCol() {
   slocked = false;
@@ -194,7 +194,7 @@ void updateShovelRowCol() {
 }
 
 /* ------------------------------------------------------------------- 
-UPDATING X AND Y COORDINATES 
+                        UPDATING X AND Y COORDINATES 
 ------------------------------------------------------------------- */
 
 void updateXY() {
@@ -219,7 +219,7 @@ void updateXY() {
 
 
 /* ------------------------------------------------------------------- 
-UPDATE CHANGE IN X AND Y                      
+                        UPDATE CHANGE IN X AND Y                      
  ------------------------------------------------------------------- */
 void updateChangeXY() {
   //print("pressed " + true);
@@ -254,7 +254,7 @@ void updateChangeXY() {
 }
 
 /* ------------------------------------------------------------------- 
-RANDOMIZING THE ZOMBIES                      
+                          RANDOMIZING THE ZOMBIES                      
  ------------------------------------------------------------------- */
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
@@ -277,7 +277,7 @@ void instZombies() {
 }
 
 /* ------------------------------------------------------------------- 
-RANDOMIZING THE PLANTS                       
+                          RANDOMIZING THE PLANTS                       
  ------------------------------------------------------------------- */
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
@@ -298,7 +298,7 @@ void instPlants() {
 }
 
 /* ------------------------------------------------------------------- 
- SETUP - time, background, images, lists, menu                      
+             SETUP - time, background, images, lists, menu                      
  ------------------------------------------------------------------- */
 void updateTimes() {
   time = millis();
@@ -568,14 +568,14 @@ void updatePlant() {
         print("reached");
         if (pla.getType() == 1) {
           //delay(1);
-          print("in here");
+          //print("in here");
           projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row)); 
           //print(projectiles.size()); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
         }
         if (pla.getType() == 2) {
-          print("in blue"); 
+          //print("in blue"); 
           projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row)); 
           pla.resetProjectile(); 
           //print(pla.checkTime());
@@ -630,13 +630,16 @@ void checkMotion() {
       if (p.row == z.row && (p.x < z.x + 3) && (p.x > z.x - 3)) {
         targ = z;
       }
+      if (p.type == 2 && z.row == p.row){
+        z.speed = 0.6;
+      }
     }
     if (targ != null) {
       print(targ.getHP() + "\n");
       //print("in this loop");
       targ.hp -= p.damage;
       projectileRemove.add(p); 
-      print(targ.getHP());
+      //print(targ.getHP());
     }
   }
 }

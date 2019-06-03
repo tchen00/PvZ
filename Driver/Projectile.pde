@@ -3,7 +3,8 @@ abstract class Projectile {
   float x, y; 
   int damage; 
   int row;
-
+  int type; 
+   
   Projectile(float x, float y, int row) {
     this.x = x; 
     this.y = y; 
@@ -39,6 +40,7 @@ class greenProjectile extends Projectile {
   
   greenProjectile(float x, float y, int row) {
     super(x, y, row);
+    type = 1;
   }
 
   void display() {
@@ -64,6 +66,7 @@ class greenProjectile extends Projectile {
 class blueProjectile extends Projectile {
   blueProjectile(float x, float y, int row) {
     super(x, y, row);
+    type = 2;
   }
 
   void display() {

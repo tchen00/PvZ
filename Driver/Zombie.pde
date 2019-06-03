@@ -4,6 +4,7 @@ abstract class Zombie {
   int hp, dmg, row;
   float x, y, t;
   float atk_speed;
+  float speed = 1; 
 
   Zombie() {
   }
@@ -21,7 +22,7 @@ abstract class Zombie {
   abstract void display();
   void move() {
     if (this.target == null || this.target instanceof CherryBomb) {
-      this.x = this.x - 1;
+      this.x = this.x - speed;
     }
   }
 
