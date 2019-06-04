@@ -180,6 +180,7 @@ class WallNut extends Plant {
 }
 
 class Squash extends Plant {
+  boolean not_found = true;
   Squash(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
@@ -194,6 +195,16 @@ class Squash extends Plant {
   }
 
   void attack() {
+    while (not_found){
+      for (Zombie zzz : zombies){
+        if (this.row == zzz.row && not_found){
+          zzz.hp = 0; 
+          zzz.display();
+          not_found = false;
+        }
+      }
+    }
+    this.health = 0;
   }
 }
 

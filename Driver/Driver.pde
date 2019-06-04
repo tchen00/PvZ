@@ -558,7 +558,7 @@ void updatePlant() {
         if (pla.getType() == 2) {
           projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row));
         }
-        print(pla.checkTime());
+        //print(pla.checkTime());
         //hasZombie[1][pla.getRow()] = true; 
         proj++;
         pla.startTime(); 
@@ -610,7 +610,7 @@ void updateProjectile() {
   for (Projectile p : projectiles) {
     //print("projectile");
     if (zombieNum[p.row] > 0){
-      print(zombieNum[p.row]);
+      //print(zombieNum[p.row]);
       p.display(); 
       p.move();
     }
