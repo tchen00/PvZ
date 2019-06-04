@@ -244,10 +244,8 @@ class CherryBomb extends Plant {
       for (Zombie zzz : zombies) {
         if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
           zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 && zzz.x < ori_x + 9 * w) {
-          tint(255, 0, 0);
           zzz.hp = 0;
           zzz.display();
-          noTint();
         }
       }
       this.health = 0;
@@ -306,7 +304,7 @@ class Squash extends Plant {
     if (this.target != null) {
       this.x = this.target.x;
       if (!jumped) {
-        this.y = this.y - 150;
+        this.y = this.y - 140;
         this.jumped = true;
       } else {
         this.y = this.y + 6;
