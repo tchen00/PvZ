@@ -13,7 +13,7 @@
 
 
 ## :star: PROJECT DESCRIPTION
-Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an interactive user game where the user can collect suns (money), place down plants (Peashooter, Sunflower, WallNut, Cherry Bomb, Snow Pea, and Squash), and remove plants, all in order to defend a house from zombies. There is a cooldown timer for the plants in order to increase the difficulty of the game. The plants placed down on the map will be used to defend/defeat the zombies (zombie/coned zombie), each of which have their attack and hp levels. Zombies will randomly spawn and walk down one of the 5 rows at regular intervals. The user wins when all of the zombies are defeated for that level, and the user loses if a zombie manages to get pass all the levels of defense.
+Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an interactive user game where the user can collect suns (money), place down plants (Peashooter, Sunflower, WallNut, Cherry Bomb, Snow Pea, and Squash), and remove plants, all in order to defend a house from zombies. There is a cooldown timer for the plants in order to increase the difficulty of the game. The plants placed down on the map will be used to defend/defeat the zombies (zombie/coned zombie), each of which have their attack and hp levels. Zombies will randomly spawn and walk down one of the 5 rows at regular intervals. We also have a shovel where if the user accidently puts the plant in the wrong location, they can remove. The user wins when all of the zombies are defeated for that level, and the user loses if a zombie manages to get pass all the levels of defense.
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
 
