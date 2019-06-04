@@ -107,4 +107,6 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ## DAY 19: June 3 2019
 - **Tammy**
-    Implemented the blue projectile so it would slow done the zombies speed (addeded a zombie variable); sunflower can now produce suns (jenny implemented this a while ago - in plant attack()); fixed bugs in projectiles
+    Implemented the blue projectile so it would slow done the zombies speed (added a zombie variable); sunflower can now produce suns (Peihua implemented this a while ago - in plant attack()); fixed bugs in projectiles
+- **Peihua**  
+    Moved the Peashooter and SnowPea's attacking code into their respective attack methods. Fixed bug in CherryBomb so that it can't attack Zombies outside of the grid. Fixed bugs in Squash so that it can't kill Zombies that passed it and so that it can't attack zombies not yet in the grid. Fixed bug in Sunflower so that the timer for producing suns only resets after the previous sun produced is either collected or is dead.

@@ -242,7 +242,7 @@ class Squash extends Plant {
 
   void attack() {
     for (Zombie zzz : zombies) {
-      if (this.row == zzz.row  && zzz.x > ori_x + this.col * w) {
+      if (this.row == zzz.row  && zzz.x > ori_x + this.col * w && zzz.x < ori_x + 9 * w) {
         if (this.target == null || zzz.x < this.target.x) {
           this.target = zzz;
         }
