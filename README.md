@@ -41,7 +41,11 @@ If you lose, you will see this screen, "THE ZOMBIES ATE YOUR BRAIN". Click "Retu
 ![Image of Win Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombieswon.PNG)
 If you win, you will see this screen, "CONGRATULATIONS, YOU WON!". Click "Return to Menu" to return to main menu and play again.   
 
-Note: If you press the key 'd', it will enter demo mode (which is basically a cheat mode with shorter cooldown times, more suns than you need, and faster zombies). If you press the key 'r', it will reset back to regular mode (BE WARNED: Your sun tracker will reset to 0 even if you were already in regular mode).
+Note: If you press the key 'd', it will enter demo mode (which is basically a cheat mode with shorter cooldown times, more suns than you need, and faster zombies). If you press the key 'r', it will reset back to regular mode (BE WARNED: Your sun tracker will reset to 0 even if you were already in regular mode).  
+
+
+Plant and Zombie Stats
+![Image of Stats](https://github.com/tchen00/PvZ/blob/master/images/plantvszombiesstats.PNG)  
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
 
