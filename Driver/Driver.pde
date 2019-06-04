@@ -550,31 +550,6 @@ void updatePlant() {
       hasPlant[pla.row][pla.col] = null;
       plantRemove.add(pla);
     }
-    if ((zombieNum[pla.getRow()] > 0)&& (pla.getType() == 1 || pla.getType() == 2) ) {
-      if (pla.firstS()) {
-        if (pla.getType() == 1) {
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row));
-        } 
-        if (pla.getType() == 2) {
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row));
-        }
-        //print(pla.checkTime());
-        //hasZombie[1][pla.getRow()] = true; 
-        proj++;
-        pla.startTime(); 
-        pla.firstSetter();
-      }
-      if (millis() >=  3000 - 2000 * demo + pla.checkTime() ) {
-        if (pla.getType() == 1) {
-          projectiles.add(new greenProjectile(pla.getX(), pla.getY(), pla.row)); 
-          pla.resetProjectile(); 
-        }
-        if (pla.getType() == 2) {
-          projectiles.add(new blueProjectile(pla.getX(), pla.getY(), pla.row)); 
-          pla.resetProjectile(); 
-        }
-      }
-    }
     /*
     if (pla.type == 3){
       if (millis() > sunT + 10000) {
@@ -728,7 +703,6 @@ void setup() {
   reset();
   next = nextPlants.remove();
   s = new Shovel();
-  pg = createGraphics(500, 100);
 }
 
 // DRAW METHOD 

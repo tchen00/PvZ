@@ -1,6 +1,7 @@
 abstract class Plant {
   PImage img; 
-  int price, cooldown, row, col, health, type; 
+  Zombie target;
+  int price, cooldown, row, col, health, type, time; 
   float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
   int projectileT, placed; 
@@ -72,7 +73,7 @@ abstract class Plant {
 }
 
 class Sunflower extends Plant {
-  int speed, time, cost;
+  int speed, cost;
   //PImage img; 
   void attack() {
     if (this.time == 0) {
@@ -106,7 +107,30 @@ class Sunflower extends Plant {
 
 class Peashooter extends Plant {
   int speed; 
+
   void attack() {
+    for (Zombie z : zombies) {
+      if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
+        if (this.target == null || z.x < this.target.x) {
+          this.target = z;
+        }
+      }
+    }
+    if (this.target != null) {
+      if (!zombies.contains(this.target)) {
+        this.target = null;
+      } else {
+        if (this.firstS()) {
+          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row));
+          proj++;
+          this.startTime(); 
+          this.firstSetter();
+        } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
+          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row)); 
+          this.resetProjectile();
+        }
+      }
+    }
   }
   Peashooter() {
     //super(imgx, 100, 5, x_co, y_co);
@@ -129,7 +153,6 @@ class Peashooter extends Plant {
 }
 
 class CherryBomb extends Plant {
-  int time; 
   void attack() {
     if (millis() > placed + 1200 ) {
       for (Zombie zzz : zombies) {
@@ -195,9 +218,9 @@ class Squash extends Plant {
   }
 
   void attack() {
-    while (not_found){
-      for (Zombie zzz : zombies){
-        if (this.row == zzz.row && not_found){
+    while (not_found) {
+      for (Zombie zzz : zombies) {
+        if (this.row == zzz.row && not_found) {
           zzz.hp = 0; 
           zzz.display();
           not_found = false;
