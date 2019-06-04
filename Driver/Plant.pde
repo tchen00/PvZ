@@ -27,10 +27,10 @@ abstract class Plant {
   }
 
   abstract void display(); 
-  void getDamage() {
-    health -= 5;
-  }
 
+  /*
+  if there is a zombie in the same row as the plant and the zombie has not passed the plant, set the plant's target to the closest zombie in front of it
+   */
   void setTarget() {
     for (Zombie z : zombies) {
       if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
@@ -41,6 +41,10 @@ abstract class Plant {
     }
   }
 
+  /*
+  if the plant has a target, shoot a projectile every 3 seconds (every 1 second in demo)
+   note: this helper method only for Peashooter and SnowPea
+   */
   void addProjectile() {
     if (this.target != null) {
       if (!zombies.contains(this.target)) {
@@ -67,41 +71,67 @@ abstract class Plant {
     }
   }
 
+  /*
+  return plant's row
+   */
   int getRow() {
     return row;
   }
 
+  /*
+  return plant's x coordinate
+   */
   float getX() {
     return x;
   }
 
+  /*
+  return plant's y coordinate
+   */
   float getY() {
     return y;
   }
 
+  /*
+  return plant's type
+   */
   int getType() {
     return type;
   }
 
+  /*
+  sets the start time of the projectile
+   */
   void startTime() {
     projectileT = millis(); 
-    print("time started");
+    //print("time started");
   }
 
+  /*
+  returns the current time of projectile
+   */
   int checkTime() {
     return projectileT;
   }
 
+  /*
+  checks if the plant has shot its first shot
+   */
   boolean firstS() {
     return firstShot;
   }
 
+  /*
+  set firstShot to false (after plant shot once already)
+   */
   void firstSetter() {
     firstShot = false;
   }
 
+  /*
+  reset projectile's time
+   */
   void resetProjectile() {
-    projectileT = 0; 
     projectileT = millis();
   }
 
@@ -112,6 +142,15 @@ class Sunflower extends Plant {
   int speed, cost;
   Sun product;
   //PImage img; 
+
+  Sunflower(float x_co, float y_co, PImage imgx) {
+    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
+    type = 3;
+  }
+
+  /*
+  produces a sun every 7 seconds (every 2 seconds in demo)
+   */
   void attack() {
     if (this.time == 0) {
       this.time = millis();
@@ -129,10 +168,6 @@ class Sunflower extends Plant {
     }
   }
 
-  Sunflower(float x_co, float y_co, PImage imgx) {
-    super(imgx, 50, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
-    type = 3;
-  }
   /*
   Sunflower(){
    PImage imgx = loadImage("sunflower.png"); 
@@ -141,6 +176,10 @@ class Sunflower extends Plant {
    time = 0; 
    cost = 50; 
    }
+   */
+
+  /*
+   displays Sunflower
    */
   void display() { 
     imageMode(CENTER);
@@ -161,22 +200,45 @@ class Peashooter extends Plant {
     type = 1;
   }
 
+  /*
+   find target and shoot projectile if the Peashooter has a target
+   */
   void attack() {
     this.setTarget();
     this.addProjectile();
   }
+
+  /*
+   display Peashooter
+   */
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
 
+  /*
+   return type (type 1 for Peashooter)
+   */
   int getType() {
     return type;
   }
 }
 
 class CherryBomb extends Plant {
+
+  CherryBomb() {
+    //super(imgx, 150, 5, x_co, y_co);
+  }
+
+  CherryBomb(float x_co, float y_co, PImage imgx) {
+    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
+  }
+
+  /*
+  explodes 1.2 seconds after it is placed, kills all zombies within a radius of 1 grid space
+   note: does not hurt zombies not yet on the grid
+   */
   void attack() {
     if (millis() > this.time + 1200) {
       for (Zombie zzz : zombies) {
@@ -192,14 +254,9 @@ class CherryBomb extends Plant {
     }
   }
 
-  CherryBomb() {
-    //super(imgx, 150, 5, x_co, y_co);
-  }
-
-  CherryBomb(float x_co, float y_co, PImage imgx) {
-    super(imgx, 150, 5, x_co, y_co, imgx.width * 2/10, imgx.height * 2/10, 200);
-  }
-
+  /*
+  display Cherry Bomb
+   */
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
@@ -216,12 +273,18 @@ class WallNut extends Plant {
     super(imgx, 100, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
 
+  /*
+  display Wallnut
+   */
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
 
+  /*
+  wallnut cannot attack so it's attack method is empty
+   */
   void attack() {
   }
 }
@@ -235,22 +298,29 @@ class Squash extends Plant {
     // super(imgx, 150, 5, x_co, y_co);
   }
 
+  /*
+  display Squash
+   shows crushing/jumping motion when it has a target
+   */
   void display() { 
     if (this.target != null) {
-        this.x = this.target.x;
-        if (!jumped){
+      this.x = this.target.x;
+      if (!jumped) {
         this.y = this.y - 150;
         this.jumped = true;
-        }
-        else{
-          this.y = this.y + 6;
-        }
+      } else {
+        this.y = this.y + 6;
+      }
     }
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
 
+  /*
+  finds a target in front of it and sits on it, crushing it.
+   both the squash and target dies
+   */
   void attack() {
     for (Zombie zzz : zombies) {
       if (this.row == zzz.row  && zzz.x > ori_x + this.col * w && zzz.x < ori_x + 9 * w) {
@@ -279,17 +349,26 @@ class SnowPea extends Plant {
     type = 2;
   }
 
+  /*
+  finds target and shoots peas
+   */
   void attack() {
     this.setTarget();
     this.addProjectile();
   }
 
+  /*
+  display SnowPea
+   */
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
   }
 
+  /*
+  return type (2 for SnowPea)
+   */
   int getType() {
     return type;
   }

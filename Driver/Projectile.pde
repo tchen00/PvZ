@@ -20,10 +20,6 @@ abstract class Projectile {
     return y;
   }
 
-  int getDamage() { 
-    return damage;
-  }
-
   void setX(int x){
     this.x += x; 
   }
