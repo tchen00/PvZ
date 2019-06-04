@@ -2,7 +2,7 @@ abstract class Plant {
   PImage img; 
   Zombie target;
   int price, cooldown, row, col, health, type, time; 
-  float x, y, ph, pw; 
+  float x, y, x_co, y_co, ph, pw; 
   boolean is_planted = false; 
   int projectileT; 
   boolean firstShot = true; 
@@ -122,7 +122,7 @@ class Sunflower extends Plant {
         suns.add(this.product);
       }
     } else {
-      if (!suns.contains(this.product)){
+      if (!suns.contains(this.product)) {
         this.product = null;
         this.time = millis();
       }
@@ -227,6 +227,7 @@ class WallNut extends Plant {
 }
 
 class Squash extends Plant {
+  boolean jumped;
   Squash(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
@@ -235,6 +236,16 @@ class Squash extends Plant {
   }
 
   void display() { 
+    if (this.target != null) {
+        this.x = this.target.x;
+        if (!jumped){
+        this.y = this.y - 150;
+        this.jumped = true;
+        }
+        else{
+          this.y = this.y + 6;
+        }
+    }
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
     imageMode(CORNER);
@@ -245,10 +256,11 @@ class Squash extends Plant {
       if (this.row == zzz.row  && zzz.x > ori_x + this.col * w && zzz.x < ori_x + 9 * w) {
         if (this.target == null || zzz.x < this.target.x) {
           this.target = zzz;
+          this.time = millis();
         }
       }
     }
-    if (this.target != null) {
+    if (this.target != null && millis() > this.time + 500) {
       this.target.hp = 0; 
       this.health = 0;
     }

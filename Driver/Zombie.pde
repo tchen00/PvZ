@@ -30,7 +30,9 @@ abstract class Zombie {
     if (this.target != null) {
       if (plants.contains(this.target)) {
         if (millis() > this.t + 2000) {
-          tint(255, 0, 0);
+          if (!(this.target instanceof CherryBomb) && !(this.target instanceof Squash)){
+            tint(255, 0, 0);
+          }
           this.target.health = this.target.health - 40;
           this.target.display();
           noTint();

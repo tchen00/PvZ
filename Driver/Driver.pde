@@ -127,6 +127,7 @@ void updatePlantRowCol() {
       hasPlant[roww][coll] = next;
       next.x = ((ori_x + w * next.col) + (ori_x + w * (next.col + 1))) / 2;
       next.y = ((ori_y + h * next.row) + (ori_y + h * (next.row + 1))) / 2;
+      next.time = millis();
       plants.add(next);
       coolT = millis();
       cool = false;
@@ -532,7 +533,7 @@ void fallingSuns() {
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
-      sunSum += 500; // tammy cheated here  
+      sunSum += 50 + 450 * demo; // tammy cheated here  
       sunRemove.add(sss);
     }
   }
