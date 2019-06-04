@@ -1,9 +1,13 @@
-# MKS22X FINAL PROJECT 
-**PROJECT NAME:** Plant vs. Zombies \
-**GROUP NAME:** Floofy Sleeping Ducks \
-**GROUP MEMBERS:** Peihua Huang, Tammy Chen (Period 5) 
-
-[Development Log](##Development-Log)
+# :collision::collision::collision::collision: MKS22X FINAL PROJECT :collision: :collision::collision::collision:
+<p align="center">
+	<b>PROJECT NAME: </b> Plant vs. Zombies 
+	<b> GROUP NAME: </b> Floofy Sleeping Ducks
+	<b> GROUP MEMBERS: </b> Peihua Huang, Tammy Chen (Period 5) 
+</p>
+## :bookmark_tabs:TABLE OF CONTENTS 
+1. :star:[Project Description](#star-project-description) 
+2. :video_game:[Phases of the Game (Project)](#video_game-phases-of-the-game-project) 
+3. :memo:[Development Log](#memo-development-log) 
 
 ## :star: PROJECT DESCRIPTION 
 Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an interactive user game where the user can collect suns (money), place down plants (Peashooter, Sunflower, WallNut, Cherry Bomb, Snow Pea, and Squash), and remove plants, all in order to defend a house from zombies. There is a cooldown timer for the plants in order to increase the difficulty of the game. The plants placed down on the map will be used to defend/defeat the zombies (zombie/coned zombie), each of which have their attack and hp levels. Zombies will randomly spawn and walk down one of the 5 rows at regular intervals. The user wins when all of the zombies are defeated for that level, and the user loses if a zombie manages to get pass all the levels of defense.
@@ -15,7 +19,7 @@ Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an 
 ![Image of Adventure Mode](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20startadventuremode.PNG)
 ![Image of End Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20endscreen.PNG)
 
-## Development Log
+## :memo: Development Log
 ### DAY 1: May 16 2019
 - **Peihua**  
     Set up the size of the game and start screen. Added transition from start screen to empty lawn, also added the box for the plant menu.
