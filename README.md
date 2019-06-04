@@ -1,8 +1,10 @@
-# Plant vs. Zombies
-mks22x-final project: floofy sleeping ducks
+# MKS22X FINAL PROJECT 
+**PROJECT NAME:** Plant vs. Zombies \
+**GROUP NAME:** Floofy Sleeping Ducks \
+**GROUP MEMBERS:** Peihua Huang, Tammy Chen (Period 5) 
 
-## :star: Project Description
-recreation of the plant vs zombies game - tbd [will be updated at a later time :sleepy:]
+## :star: PROJECT DESCRIPTION 
+Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an interactive user game where the user can collect suns (money), place down plants (Peashooter, Sunflower, WallNut, Cherry Bomb, Snow Pea, and Squash), and remove plants, all in order to defend a house from zombies. There is a cooldown timer for the plants in order to increase the difficulty of the game. The plants placed down on the map will be used to defend/defeat the zombies (zombie/coned zombie), each of which have their attack and hp levels. Zombies will randomly spawn and walk down one of the 5 rows at regular intervals. The user wins when all of the zombies are defeated for that level, and the user loses if a zombie manages to get pass all the levels of defense.
 
 ## :memo: Development Log
 ### DAY 1: May 16 2019
@@ -29,7 +31,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
 
 ### DAY 5: May 20 2019
 - **Tammy**
-    Started on the final project grind. Continued to work on the Plant classes (specifically the Sunflower and Peashooter classes). Got the display to work for plants. Experimented in the test/experiment folder about different ways to implement timers and mouse-clicks (mousePressed). Also added in plant PNG to the folder    
+Started on the final project grind. Continued to work on the Plant classes (specifically the Sunflower and Peashooter classes). Got the display to work for plants. Experimented in the test/experiment folder about different ways to implement timers and mouse-clicks (mousePressed). Also added in plant PNG to the folder    
 - **Peihua**  
     Continued working on Zombie display. Had Zombie classes implement interfaces Moveable and Displayable to make draw easier. Made a grid over the law for the purpose of debugging. Allowed for the random spawning of Zombie objects over regular intervals of time. Made draw stop looping once a Zombie gets past the lawn (to be updated with end screen).
 
@@ -110,3 +112,7 @@ recreation of the plant vs zombies game - tbd [will be updated at a later time :
     Implemented the blue projectile so it would slow done the zombies speed (added a zombie variable); sunflower can now produce suns (Peihua implemented this a while ago - in plant attack()); fixed bugs in projectiles
 - **Peihua**  
     Moved the Peashooter and SnowPea's attacking code into their respective attack methods. Fixed bug in CherryBomb so that it can't attack Zombies outside of the grid. Fixed bugs in Squash so that it can't kill Zombies that passed it and so that it can't attack zombies not yet in the grid. Fixed bug in Sunflower so that the timer for producing suns only resets after the previous sun produced is either collected or is dead. Made Zombies turn red when hit by peas.
+    
+## DAY 20: June 4 2019 
+- **Tammy** 
+
