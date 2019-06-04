@@ -7,13 +7,24 @@
 
 ## :bookmark_tabs:TABLE OF CONTENTS 
 1. :star:[Project Description](#star-project-description) 
-2. :video_game:[Phases of the Game (Project)](#video_game-phases-of-the-game-project) 
-3. :memo:[Development Log](#memo-development-log) 
+2. :pushpin:[Instructions](#pushpin-instructions)
+3. :video_game:[Phases of the Game (Project)](#video_game-phases-of-the-game-project) 
+4. :memo:[Development Log](#memo-development-log) 
+
 
 ## :star: PROJECT DESCRIPTION 
 Our project is an attempt at recreating the game, _Plant vs. Zombies_. It is an interactive user game where the user can collect suns (money), place down plants (Peashooter, Sunflower, WallNut, Cherry Bomb, Snow Pea, and Squash), and remove plants, all in order to defend a house from zombies. There is a cooldown timer for the plants in order to increase the difficulty of the game. The plants placed down on the map will be used to defend/defeat the zombies (zombie/coned zombie), each of which have their attack and hp levels. Zombies will randomly spawn and walk down one of the 5 rows at regular intervals. The user wins when all of the zombies are defeated for that level, and the user loses if a zombie manages to get pass all the levels of defense.
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
+
+## :pushpin: INSTRUCTIONS 
+:arrow_forward: In order to run our game, you have to first clone this repository! 
+``` 
+IN THE TERMINAL: 
+	git clone git@github.com:tchen00/PvZ.git 
+```
+:arrow_forward: Once you have cloned the repository, open the Driver.pde file located inside the Driver file. \
+:arrow_forward: Once you have opened that file, press run in Processing and enjoy! :smiley:
 
 ## :video_game: PHASES OF THE GAME (PROJECT) 
 ![Image of Start Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20start%20menu.PNG)
@@ -125,14 +136,14 @@ Started on the final project grind. Continued to work on the Plant classes (spec
 - **Peihua** \
     Added attack method for CherryBomb (it will explode 1.2 seconds after placed). Changed display so Zombie's head and cone will also fall off as it's hp decreases. Plant will change color every time it is attacked. Added a win screen.
 
-## DAY 19: June 3 2019
+### DAY 19: June 3 2019
 - **Tammy** \
     Implemented the blue projectile so it would slow done the zombies speed (added a zombie variable); sunflower can now produce suns (Peihua implemented this a while ago - in plant attack()); fixed bugs in projectiles
 - **Peihua**  
     Moved the Peashooter and SnowPea's attacking code into their respective attack methods. Fixed bug in CherryBomb so that it can't attack Zombies outside of the grid. Fixed bugs in Squash so that it can't kill Zombies that passed it and so that it can't attack zombies not yet in the grid. Fixed bug in Sunflower so that the timer for producing suns only resets after the previous sun produced is either collected or is dead. Made Zombies turn red when hit by peas.
     
-## DAY 20: June 4 2019 
+### DAY 20: June 4 2019 
 - **Tammy** \
-    Made README prettier and made final edits to the prototype 
+    Made README prettier and made final edits to the prototype; added/uploaded images onto the readme 
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
