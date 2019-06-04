@@ -5,6 +5,8 @@ abstract class Zombie {
   float x, y, t;
   float atk_speed;
   float speed = 1; 
+  boolean hurt;
+  boolean displayed;
 
   Zombie() {
   }
@@ -17,6 +19,7 @@ abstract class Zombie {
     x = xx;
     y = yy;
     row = rows;
+    hurt = false;
   }
 
   abstract void display();
@@ -66,7 +69,12 @@ class BasicZombie extends Zombie {
     if (this.hp <= 100) {
       this.img = headless;
     }
+    if (this.hurt && !this.displayed) {
+      tint(255, 0, 0);
+    }
     image(this.img, this.x, this.y, 99, 118);
+    this.displayed = true;
+    noTint();
   }
 }
 
@@ -76,6 +84,9 @@ class ConeheadZombie extends Zombie {
   }
 
   void display() {
+    if (this.hurt && !this.displayed) {
+      tint(255, 0, 0);
+    }
     if (this.hp <= 200) {
       if (this.hp <= 100) {
         this.img = headless;
@@ -86,5 +97,7 @@ class ConeheadZombie extends Zombie {
     } else {
       image(this.img, this.x, this.y, 99, 140);
     }
+    this.displayed = true;
+    noTint();
   }
 }

@@ -593,6 +593,8 @@ void updateProjectile() {
         if (p.type == 2) {
           p.target.speed = 0.6;
         }
+        p.target.hurt = true;
+        p.target.displayed = false;
         p.target.hp -= p.damage;
         projectileRemove.add(p);
       }
