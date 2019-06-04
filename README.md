@@ -156,6 +156,6 @@ Started on the final project grind. Continued to work on the Plant classes (spec
 - **Tammy** \
     Made README prettier and made final edits to the prototype; added/uploaded images onto the readme
 - **Peihua**
-    Got squash to do the crushing motion when it attacks. Zombie now flashes red when a pea hits it. Added a small 300 millisecond delay before displaying the end screen so that the player has a little time to realize what happened and the end screen would not be too abrupt. Finished adding comments to the code and removed variables that were not used.
+    Got squash to do the crushing motion when it attacks and reduced its attack radius to 0.5 tile in front and 0.5 behind. Zombie now flashes red when a pea hits it. Added a small 300 millisecond delay before displaying the end screen so that the player has a little time to realize what happened and the end screen would not be too abrupt. Finished adding comments to the code and removed variables that were not used. Updated instructions.
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
