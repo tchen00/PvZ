@@ -31,6 +31,42 @@ abstract class Plant {
     health -= 5;
   }
 
+  void setTarget() {
+    for (Zombie z : zombies) {
+      if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
+        if (this.target == null || z.x < this.target.x) {
+          this.target = z;
+        }
+      }
+    }
+  }
+
+  void addProjectile() {
+    if (this.target != null) {
+      if (!zombies.contains(this.target)) {
+        this.target = null;
+      } else {
+        if (this.firstS()) {
+          if (this instanceof Peashooter) {
+            projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target));
+          } else if (this instanceof SnowPea) {
+            projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target));
+          }
+          proj++;
+          this.startTime(); 
+          this.firstSetter();
+        } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
+          if (this instanceof Peashooter) {
+            projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target));
+          } else if (this instanceof SnowPea) {
+            projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target));
+          }
+          this.resetProjectile();
+        }
+      }
+    }
+  }
+
   int getRow() {
     return row;
   }
@@ -108,30 +144,6 @@ class Sunflower extends Plant {
 class Peashooter extends Plant {
   int speed; 
 
-  void attack() {
-    for (Zombie z : zombies) {
-      if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
-        if (this.target == null || z.x < this.target.x) {
-          this.target = z;
-        }
-      }
-    }
-    if (this.target != null) {
-      if (!zombies.contains(this.target)) {
-        this.target = null;
-      } else {
-        if (this.firstS()) {
-          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target));
-          proj++;
-          this.startTime(); 
-          this.firstSetter();
-        } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
-          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target)); 
-          this.resetProjectile();
-        }
-      }
-    }
-  }
   Peashooter() {
     //super(imgx, 100, 5, x_co, y_co);
   }
@@ -141,6 +153,10 @@ class Peashooter extends Plant {
     type = 1;
   }
 
+  void attack() {
+    this.setTarget();
+    this.addProjectile();
+  }
   void display() { 
     imageMode(CENTER);
     image(this.img, this.x, this.y, this.pw, this.ph);
@@ -157,7 +173,7 @@ class CherryBomb extends Plant {
     if (millis() > placed + 1200 ) {
       for (Zombie zzz : zombies) {
         if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
-          zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 ) {
+          zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 && zzz.x < ori_x + 9 * w) {
           tint(255, 0, 0);
           zzz.hp = 0;
           zzz.display();
@@ -233,30 +249,7 @@ class Squash extends Plant {
 
 class SnowPea extends Plant {
   int speed; 
-  void attack() {
-    for (Zombie z : zombies) {
-      if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
-        if (this.target == null || z.x < this.target.x) {
-          this.target = z;
-        }
-      }
-    }
-    if (this.target != null) {
-      if (!zombies.contains(this.target)) {
-        this.target = null;
-      } else {
-        if (this.firstS()) {
-          projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target));
-          proj++;
-          this.startTime(); 
-          this.firstSetter();
-        } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
-          projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target)); 
-          this.resetProjectile();
-        }
-      }
-    }
-  }
+
   SnowPea() {
     //super
   }
@@ -264,6 +257,11 @@ class SnowPea extends Plant {
   SnowPea(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 3/20, imgx.height * 3/20, 200);
     type = 2;
+  }
+
+  void attack() {
+    this.setTarget();
+    this.addProjectile();
   }
 
   void display() { 
