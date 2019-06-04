@@ -2,10 +2,7 @@ abstract class Projectile {
   // PImage img = loadImage("projectile.png"); 
   Zombie target;
   float x, y; 
-  int damage; 
-  int row;
-  int type; 
-   
+  int damage, row, type;  
   Projectile(float x, float y, int row, Zombie target) {
     this.x = x; 
     this.y = y; 

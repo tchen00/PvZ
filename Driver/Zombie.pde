@@ -2,11 +2,8 @@ abstract class Zombie {
   PImage img;
   Plant target;
   int hp, dmg, row;
-  float x, y, t;
-  float atk_speed;
-  float speed = 1; 
-  boolean hurt;
-  boolean displayed;
+  float x, y, t, atk_speed, speed = 1; 
+  boolean hurt, displayed;
 
   Zombie() {
   }

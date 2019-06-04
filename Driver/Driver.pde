@@ -3,8 +3,7 @@ import java.util.*;
  VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless, winscreen;
-Plant next, peaNext;
-PGraphics pg;
+Plant next;
 ArrayList<Plant> menu, plants, plantRemove;
 ArrayList<Zombie> zombies, zombieRemove;
 ArrayList<Projectile> projectiles, projectileRemove;
@@ -14,7 +13,6 @@ Queue<Zombie> nextZombies;
 boolean startGame, bover, sover, setup, locked, cool, slocked = false;
 Plant[][] hasPlant;
 int[] zombieNum;
-int[] zombieCount; 
 int screen = -1, sunT, projectileT, sunSum, demo;
 int time, coolT = millis();
 int[] timess, costs;
@@ -154,7 +152,7 @@ void updatePlantRowCol() {
         p.x = ((ori_x + w * p.col) + (ori_x + w * (p.col + 1))) / 2;
         p.y = ((ori_y + h * p.row) + (ori_y + h * (p.row + 1))) / 2;
         plants.add(p);
-        p.placed = millis();
+        p.time = millis();
         timess[i] = millis();
         cools[i] = false;
         sunSum -= costs[i];
@@ -340,7 +338,6 @@ void loadImages() {
 
 void instLists() {
   zombieNum = new int[5];
-  zombieCount = new int[5];
   hasPlant = new Plant[5][9];
   plants = new ArrayList<Plant>();
   zombies = new ArrayList<Zombie>();

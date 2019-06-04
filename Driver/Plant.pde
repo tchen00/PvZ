@@ -2,9 +2,9 @@ abstract class Plant {
   PImage img; 
   Zombie target;
   int price, cooldown, row, col, health, type, time; 
-  float x, y, x_co, y_co, ph, pw; 
+  float x, y, ph, pw; 
   boolean is_planted = false; 
-  int projectileT, placed; 
+  int projectileT; 
   boolean firstShot = true; 
 
   Plant() {
@@ -178,7 +178,7 @@ class Peashooter extends Plant {
 
 class CherryBomb extends Plant {
   void attack() {
-    if (millis() > placed + 1200 ) {
+    if (millis() > this.time + 1200) {
       for (Zombie zzz : zombies) {
         if ((zzz.row == this.row || zzz.row + 1 == this.row || zzz.row -1 == this.row) &&
           zzz.x > this.x - w * 3 / 2 - 20 && zzz.x < this.x + w * 3 / 2 && zzz.x < ori_x + 9 * w) {
