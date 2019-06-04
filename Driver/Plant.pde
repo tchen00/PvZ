@@ -234,6 +234,28 @@ class Squash extends Plant {
 class SnowPea extends Plant {
   int speed; 
   void attack() {
+    for (Zombie z : zombies) {
+      if (z.row == this.row && this.x < z.x && z.x < (ori_x + 9 * w)) {
+        if (this.target == null || z.x < this.target.x) {
+          this.target = z;
+        }
+      }
+    }
+    if (this.target != null) {
+      if (!zombies.contains(this.target)) {
+        this.target = null;
+      } else {
+        if (this.firstS()) {
+          projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target));
+          proj++;
+          this.startTime(); 
+          this.firstSetter();
+        } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
+          projectiles.add(new blueProjectile(this.getX(), this.getY(), this.row, this.target)); 
+          this.resetProjectile();
+        }
+      }
+    }
   }
   SnowPea() {
     //super

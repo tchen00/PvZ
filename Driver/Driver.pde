@@ -585,14 +585,14 @@ void updateProjectile() {
   for (Projectile p : projectiles) {
     //print("projectile");
     if (zombies.contains(p.target)) {
-      if (p.type == 2) {
-        p.target.speed = 0.6;
-      }
       if (p.x < p.target.x + 3) {
         //print(zombieNum[p.row]);
         p.display(); 
         p.move();
       } else {
+        if (p.type == 2) {
+          p.target.speed = 0.6;
+        }
         p.target.hp -= p.damage;
         projectileRemove.add(p);
       }
