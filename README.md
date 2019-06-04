@@ -1,9 +1,10 @@
 # :collision::collision::collision::collision: MKS22X FINAL PROJECT :collision: :collision::collision::collision:
 <p align="center">
-	<b>PROJECT NAME: </b> Plant vs. Zombies 
-	<b> GROUP NAME: </b> Floofy Sleeping Ducks
-	<b> GROUP MEMBERS: </b> Peihua Huang, Tammy Chen (Period 5) 
+	<b>PROJECT NAME: </b> Plant vs. Zombies <br>
+	<b> GROUP NAME: </b> Floofy Sleeping Ducks <br>
+	<b> GROUP MEMBERS: </b> Peihua Huang, Tammy Chen (Period 5) <br>
 </p>
+
 ## :bookmark_tabs:TABLE OF CONTENTS 
 1. :star:[Project Description](#star-project-description) 
 2. :video_game:[Phases of the Game (Project)](#video_game-phases-of-the-game-project) 
