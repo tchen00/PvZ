@@ -136,14 +136,14 @@ Started on the final project grind. Continued to work on the Plant classes (spec
 - **Peihua** \
     Added attack method for CherryBomb (it will explode 1.2 seconds after placed). Changed display so Zombie's head and cone will also fall off as it's hp decreases. Plant will change color every time it is attacked. Added a win screen.
 
-## DAY 19: June 3 2019
+### DAY 19: June 3 2019
 - **Tammy** \
     Implemented the blue projectile so it would slow done the zombies speed (added a zombie variable); sunflower can now produce suns (Peihua implemented this a while ago - in plant attack()); fixed bugs in projectiles
 - **Peihua**  
     Moved the Peashooter and SnowPea's attacking code into their respective attack methods. Fixed bug in CherryBomb so that it can't attack Zombies outside of the grid. Fixed bugs in Squash so that it can't kill Zombies that passed it and so that it can't attack zombies not yet in the grid. Fixed bug in Sunflower so that the timer for producing suns only resets after the previous sun produced is either collected or is dead. Made Zombies turn red when hit by peas.
     
-## DAY 20: June 4 2019 
+### DAY 20: June 4 2019 
 - **Tammy** \
-    Made README prettier and made final edits to the prototype 
+    Made README prettier and made final edits to the prototype; added/uploaded images onto the readme 
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
