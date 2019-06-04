@@ -38,7 +38,7 @@ to stop the zombies from getting pass the lawn into your house. After placing a 
 Adventure Mode: This is your normal plant versus zombie level. Suns will fall every 10 seconds, and will disappear in 5 seconds if not collected. If collected, each sun will add 50 to your sun tracker. Once you have enough suns and once the plant has cooled down (there is a 6 second cooldown), you can drag the plant onto the lawn. The shovel behaves the same in both modes.
 ![Image of End Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20endscreen.PNG)  
 If you lose, you will see this screen, "THE ZOMBIES ATE YOUR BRAIN". Click "Return to Menu" to return to main menu and play again.
-![Image of Win Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%won.PNG)
+![Image of Win Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombieswon.PNG)
 If you win, you will see this screen, "CONGRATULATIONS, YOU WON!". Click "Return to Menu" to return to main menu and play again.   
 
 Note: If you press the key 'd', it will enter demo mode (which is basically a cheat mode with shorter cooldown times, more suns than you need, and faster zombies). If you press the key 'r', it will reset back to regular mode (BE WARNED: Your sun tracker will reset to 0 even if you were already in regular mode).
