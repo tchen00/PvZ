@@ -27,11 +27,21 @@ IN THE TERMINAL:
 :arrow_forward: Once you have opened that file, press run in Processing and enjoy! :smiley:
 
 ## :video_game: PHASES OF THE GAME (PROJECT)
-![Image of Start Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20start%20menu.PNG)
-![Image of Menu](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20menu.PNG)
-![Image of Random Mode](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20randommode.PNG)
-![Image of Adventure Mode](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20startadventuremode.PNG)
-![Image of End Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20endscreen.PNG)
+![Image of Start Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20start%20menu.PNG)   
+Press "Tap to Start!" to get to the main menu.  
+![Image of Menu](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20menu.PNG)   
+The main menu has two modes: Random Mode and Adventure Mode  
+![Image of Random Mode](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20randommode.PNG)  
+Random Mode: There are no suns in this mode. On the left the plant menu, a box with a randomly generated plant. Drag the plant onto the lawn
+to stop the zombies from getting pass the lawn into your house. After placing a plant, there is a cooldown of 3 seconds. The shovel allows you to remove a plant from the grid.
+![Image of Adventure Mode](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20startadventuremode.PNG)  
+Adventure Mode: This is your normal plant versus zombie level. Suns will fall every 10 seconds, and will disappear in 5 seconds if not collected. If collected, each sun will add 50 to your sun tracker. Once you have enough suns and once the plant has cooled down (there is a 6 second cooldown), you can drag the plant onto the lawn. The shovel behaves the same in both modes.
+![Image of End Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20endscreen.PNG)  
+If you lose, you will see this screen, "THE ZOMBIES ATE YOUR BRAIN". Click "Return to Menu" to return to main menu and play again.
+![Image of Win Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%won.PNG)
+If you win, you will see this screen, "CONGRATULATIONS, YOU WON!". Click "Return to Menu" to return to main menu and play again.   
+
+Note: If you press the key 'd', it will enter demo mode (which is basically a cheat mode with shorter cooldown times, more suns than you need, and faster zombies). If you press the key 'r', it will reset back to regular mode (BE WARNED: Your sun tracker will reset to 0 even if you were already in regular mode).
 
 [Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
 
