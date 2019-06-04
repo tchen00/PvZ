@@ -121,12 +121,12 @@ class Peashooter extends Plant {
         this.target = null;
       } else {
         if (this.firstS()) {
-          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row));
+          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target));
           proj++;
           this.startTime(); 
           this.firstSetter();
         } else if (millis() >=  3000 - 2000 * demo + this.checkTime() ) {
-          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row)); 
+          projectiles.add(new greenProjectile(this.getX(), this.getY(), this.row, this.target)); 
           this.resetProjectile();
         }
       }

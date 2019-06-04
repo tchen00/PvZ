@@ -1,15 +1,17 @@
 abstract class Projectile {
   // PImage img = loadImage("projectile.png"); 
+  Zombie target;
   float x, y; 
   int damage; 
   int row;
   int type; 
    
-  Projectile(float x, float y, int row) {
+  Projectile(float x, float y, int row, Zombie target) {
     this.x = x; 
     this.y = y; 
     damage = 50;
     this.row = row;
+    this.target = target;
   }
 
 
@@ -38,8 +40,8 @@ class greenProjectile extends Projectile {
   PImage img; 
   //float x, y; 
   
-  greenProjectile(float x, float y, int row) {
-    super(x, y, row);
+  greenProjectile(float x, float y, int row, Zombie target) {
+    super(x, y, row, target);
     type = 1;
   }
 
@@ -64,8 +66,8 @@ class greenProjectile extends Projectile {
 }
 
 class blueProjectile extends Projectile {
-  blueProjectile(float x, float y, int row) {
-    super(x, y, row);
+  blueProjectile(float x, float y, int row, Zombie target) {
+    super(x, y, row, target);
     type = 2;
   }
 

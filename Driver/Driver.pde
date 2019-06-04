@@ -1,6 +1,6 @@
 import java.util.*;
 /* ------------------------------------------------------------------- 
-                           VARIABLES AND FIELDS                      
+ VARIABLES AND FIELDS                      
  ------------------------------------------------------------------- */
 PImage start, lawn, zombie1, zombie2, sun, pea, cherry, wall, squash, snow, end, shovel, shovel_bg, sun_money, sunTracker, cmenu, starticon, headless, winscreen;
 Plant next, peaNext;
@@ -28,7 +28,7 @@ int proj = -1;
 float difx, dify, sdifx, sdify = 0.0;
 Shovel s;
 /* ------------------------------------------------------------------- 
-                               SHOVEL CLASS                      
+ SHOVEL CLASS                      
  ------------------------------------------------------------------- */
 class Shovel {
   PImage img;
@@ -43,9 +43,9 @@ class Shovel {
     col = -1;
   }
 
-/* ------------------------------------------------------------------- 
-                               DISPLAY METHOD                       
- ------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------- 
+   DISPLAY METHOD                       
+   ------------------------------------------------------------------- */
   void display() {
     imageMode(CENTER);
     image(img, this.x, this.y, img.width / 7.0 * 6, img.height / 7.0 * 6);
@@ -60,7 +60,7 @@ class Shovel {
 }
 
 /* ------------------------------------------------------------------- 
-                                 SUN CLASS                      
+ SUN CLASS                      
  ------------------------------------------------------------------- */
 class Sun {
   PImage img;
@@ -100,7 +100,7 @@ class Sun {
 }
 
 /* ------------------------------------------------------------------- 
-                             MAKE THE GRID                      
+ MAKE THE GRID                      
  ------------------------------------------------------------------- */
 void makeGrid() {
   noFill();
@@ -115,7 +115,7 @@ void makeGrid() {
 }
 
 /* ------------------------------------------------------------------- 
-                      UPDATING PLANTS (ROW + COL)                     
+ UPDATING PLANTS (ROW + COL)                     
  ------------------------------------------------------------------- */
 void updatePlantRowCol() {
   if (screen == 1) {
@@ -179,7 +179,7 @@ void updatePlantRowCol() {
   }
 }
 /* ------------------------------------------------------------------- 
-                             UPDATING SHOVEL                     
+ UPDATING SHOVEL                     
  ------------------------------------------------------------------- */
 void updateShovelRowCol() {
   slocked = false;
@@ -194,8 +194,8 @@ void updateShovelRowCol() {
 }
 
 /* ------------------------------------------------------------------- 
-                        UPDATING X AND Y COORDINATES 
-------------------------------------------------------------------- */
+ UPDATING X AND Y COORDINATES 
+ ------------------------------------------------------------------- */
 
 void updateXY() {
   if (screen == 1) {
@@ -219,7 +219,7 @@ void updateXY() {
 
 
 /* ------------------------------------------------------------------- 
-                        UPDATE CHANGE IN X AND Y                      
+ UPDATE CHANGE IN X AND Y                      
  ------------------------------------------------------------------- */
 void updateChangeXY() {
   //print("pressed " + true);
@@ -254,7 +254,7 @@ void updateChangeXY() {
 }
 
 /* ------------------------------------------------------------------- 
-                          RANDOMIZING THE ZOMBIES                      
+ RANDOMIZING THE ZOMBIES                      
  ------------------------------------------------------------------- */
 void instZombies() {
   nextZombies = new LinkedList<Zombie>();
@@ -277,7 +277,7 @@ void instZombies() {
 }
 
 /* ------------------------------------------------------------------- 
-                          RANDOMIZING THE PLANTS                       
+ RANDOMIZING THE PLANTS                       
  ------------------------------------------------------------------- */
 void instPlants() {
   nextPlants = new LinkedList<Plant>();
@@ -298,7 +298,7 @@ void instPlants() {
 }
 
 /* ------------------------------------------------------------------- 
-             SETUP - time, background, images, lists, menu                      
+ SETUP - time, background, images, lists, menu                      
  ------------------------------------------------------------------- */
 void updateTimes() {
   time = millis();
@@ -552,31 +552,31 @@ void updatePlant() {
     }
     /*
     if (pla.type == 3){
-      if (millis() > sunT + 10000) {
-        suns.add(new Sun(pla.x, pla.y));
-        sunT = millis();
-      }
-      for (Sun sss : suns) {
-        sss.move();
-        sss.display();
-        if (millis() > sss.deathTime) {
-          sunRemove.add(sss);
-        }
-        if (mouseX > (sss.x) && mouseX < (sss.x + 100) &&
-          mouseY > (sss.y) && mouseY < (sss.y + 100)) {
-          sss.over = true;
-        } else {
-          sss.over = false;
-        }
-      }
-      for (Sun ss : sunRemove) {
-        suns.remove(ss);
-      }
-      if (sunRemove.size() > 100) {
-        sunRemove = new ArrayList<Sun>();
-      }
-    }
-    */
+     if (millis() > sunT + 10000) {
+     suns.add(new Sun(pla.x, pla.y));
+     sunT = millis();
+     }
+     for (Sun sss : suns) {
+     sss.move();
+     sss.display();
+     if (millis() > sss.deathTime) {
+     sunRemove.add(sss);
+     }
+     if (mouseX > (sss.x) && mouseX < (sss.x + 100) &&
+     mouseY > (sss.y) && mouseY < (sss.y + 100)) {
+     sss.over = true;
+     } else {
+     sss.over = false;
+     }
+     }
+     for (Sun ss : sunRemove) {
+     suns.remove(ss);
+     }
+     if (sunRemove.size() > 100) {
+     sunRemove = new ArrayList<Sun>();
+     }
+     }
+     */
   }
 }
 
@@ -584,31 +584,18 @@ void updateProjectile() {
   // FOR THE PROJECTILES -- IN THE WORKS ATM 
   for (Projectile p : projectiles) {
     //print("projectile");
-    if (zombieNum[p.row] > 0){
-      //print(zombieNum[p.row]);
-      p.display(); 
-      p.move();
-    }
-  }
-}
-
-void checkMotion() {
-  for (Projectile p : projectiles) {
-    Zombie targ = null;
-    for (Zombie z : zombies) {
-      if (p.row == z.row && (p.x < z.x + 3) && (p.x > z.x - 3)) {
-        targ = z;
+    if (zombies.contains(p.target)) {
+      if (p.type == 2) {
+        p.target.speed = 0.6;
       }
-      if (p.type == 2 && z.row == p.row){
-        z.speed = 0.6;
+      if (p.x < p.target.x + 3) {
+        //print(zombieNum[p.row]);
+        p.display(); 
+        p.move();
+      } else {
+        p.target.hp -= p.damage;
+        projectileRemove.add(p);
       }
-    }
-    if (targ != null) {
-      print(targ.getHP() + "\n");
-      //print("in this loop");
-      targ.hp -= p.damage;
-      projectileRemove.add(p); 
-      //print(targ.getHP());
     }
   }
 }
@@ -737,7 +724,6 @@ void draw() {
     spawnZombies();
     updatePlant();
     updateProjectile();
-    checkMotion();
     cooldownDisplay();
     zombieAction();
     removeAndUpdatePlantsZombies();
