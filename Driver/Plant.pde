@@ -219,7 +219,6 @@ class WallNut extends Plant {
 }
 
 class Squash extends Plant {
-  boolean not_found = true;
   Squash(float x_co, float y_co, PImage imgx) {
     super(imgx, 150, 5, x_co, y_co, imgx.width * 1/10, imgx.height * 1/10, 200);
   }
@@ -234,16 +233,17 @@ class Squash extends Plant {
   }
 
   void attack() {
-    while (not_found) {
-      for (Zombie zzz : zombies) {
-        if (this.row == zzz.row && not_found) {
-          zzz.hp = 0; 
-          zzz.display();
-          not_found = false;
+    for (Zombie zzz : zombies) {
+      if (this.row == zzz.row  && zzz.x > ori_x + this.col * w) {
+        if (this.target == null || zzz.x < this.target.x) {
+          this.target = zzz;
         }
       }
     }
-    this.health = 0;
+    if (this.target != null) {
+      this.target.hp = 0; 
+      this.health = 0;
+    }
   }
 }
 
