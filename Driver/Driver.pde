@@ -456,6 +456,7 @@ void zombieAction() {
       zombieRemove.add(zzz);
     }
     if (zzz.x < 161) {
+      delay(300);
       screen = 0;
     }
   }
@@ -707,6 +708,7 @@ void draw() {
   }
   if (screen == 1 || screen == 2) {
     if (nextZombies.size() == 0 && zombies.size() == 0) {
+      delay(300);
       screen = 4;
     }
     if (!setup) {
@@ -759,6 +761,10 @@ void keyPressed() {
   if (key == 'R' || key == 'r') {
     demo = 0;
     sunSum = 0;
+  }
+  if (key == 'W' || key == 'w'){
+    zombies = new ArrayList<Zombie>();
+    nextZombies = new LinkedList<Zombie>();
   }
 }
 
