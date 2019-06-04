@@ -110,14 +110,22 @@ abstract class Plant {
 
 class Sunflower extends Plant {
   int speed, cost;
+  Sun product;
   //PImage img; 
   void attack() {
     if (this.time == 0) {
       this.time = millis();
     }
-    if (millis() > this.time + 7000) {
-      suns.add(new Sun(this.x, this.y));
-      this.time = millis();
+    if (this.product == null) {
+      if (millis() > this.time + 7000 - 5000 * demo) {
+        this.product = new Sun(this.x, this.y);
+        suns.add(this.product);
+      }
+    } else {
+      if (!suns.contains(this.product)){
+        this.product = null;
+        this.time = millis();
+      }
     }
   }
 
