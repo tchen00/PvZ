@@ -22,11 +22,11 @@ abstract class Zombie {
 
   /*
   if zombie does not have a target (meaning it is not attacking a plant) and if its target is not cherry bomb, 
-   zombie moves one pixel every time the method is called (its moving speed doubles in demo)
+   zombie moves one pixel every time the method is called (its moving speed increases by 50% in demo)
    */
   void move() {
     if (this.target == null || this.target instanceof CherryBomb) {
-      this.x = this.x - speed - demo;
+      this.x = this.x - speed - 0.5 * demo;
     }
   }
 

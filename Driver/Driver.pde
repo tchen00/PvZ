@@ -92,7 +92,7 @@ class Sun {
 
   /*
   moves the sun downward until it reaches its endpoint
-  */
+   */
   void move() {
     if (this.y < this.target) {
       this.y += this.speed;
@@ -118,7 +118,7 @@ void makeGrid() {
 /* ------------------------------------------------------------------- 
  UPDATING PLANTS (ROW + COL)   
  ((if the plant can be placed (meaning there is enough sun, it is cooled down, and it is at a valid grid), place the plant.
-   else, return the plant back to its spot on the menu)
+ else, return the plant back to its spot on the menu)
  ------------------------------------------------------------------- */
 void updatePlantRowCol() {
   if (screen == 1) {
@@ -185,7 +185,7 @@ void updatePlantRowCol() {
 /* ------------------------------------------------------------------- 
  UPDATING SHOVEL       
  (if the shovel is placed in a grid with a plant, shovel removes plant and disappears.
-  else, shovel returns to its spot)
+ else, shovel returns to its spot)
  ------------------------------------------------------------------- */
 void updateShovelRowCol() {
   slocked = false;
@@ -311,10 +311,10 @@ void instPlants() {
 /* ------------------------------------------------------------------- 
  SETUP - time, background, images, lists, menu                      
  ------------------------------------------------------------------- */
- 
+
 /* 
-updates all the times to the current time
-*/
+ updates all the times to the current time
+ */
 void updateTimes() {
   time = millis();
   coolT = millis();
@@ -325,7 +325,7 @@ void updateTimes() {
 
 /*
 sets up the lawn and shovel
-*/
+ */
 void set_bg() {
   image(lawn, 0, 0, width, height);
   pushMatrix();
@@ -336,7 +336,7 @@ void set_bg() {
 
 /*
 load all of the images
-*/
+ */
 void loadImages() {
   start = loadImage("start_screen.png");
   lawn = loadImage("lawn.png");
@@ -361,7 +361,7 @@ void loadImages() {
 
 /*
 instantiate all lists (arrays, ArrayLists, etc)
-*/
+ */
 void instLists() {
   zombieNum = new int[5];
   hasPlant = new Plant[5][9];
@@ -392,7 +392,7 @@ void instLists() {
 
 /*
 displays the graphics for the plant menus (shows cooldown and whether or not the player has enough sun to afford the plants)
-*/
+ */
 void displayPlantMenu() {
   if (screen == 2) {
     for (int i = 0; i < 6; i++) {
@@ -437,7 +437,7 @@ void displayPlantMenu() {
 
 /*
 sends zombie into the game every 8 seconds (every 2 seconds in demo)
-*/
+ */
 void spawnZombies() {
   if (millis() > time - 6000 * demo + 8000) {
     time = millis();
@@ -449,7 +449,7 @@ void spawnZombies() {
 
 /*
 displays bars over plants on the menu to show how much longer cooldown is
-*/
+ */
 void cooldownDisplay() {
   pushMatrix();
   fill(10, 80);
@@ -475,10 +475,10 @@ void cooldownDisplay() {
 
 /*
 tells zombies to display themselves, move and attack.
-sets the zombies target to the closest plant in front of them (if there are any)
-if zombie has no more hp, it is added to the remove arraylist
-if zombie passes the lawn, calls end screen
-*/
+ sets the zombies target to the closest plant in front of them (if there are any)
+ if zombie has no more hp, it is added to the remove arraylist
+ if zombie passes the lawn, calls end screen
+ */
 void zombieAction() {
   for (Zombie zzz : zombies) {
     zzz.display();
@@ -504,8 +504,8 @@ void zombieAction() {
 
 /*
 removes dead zombies and plants from the screen
-if the remove lists get too big, reset them
-*/
+ if the remove lists get too big, reset them
+ */
 void removeAndUpdatePlantsZombies() {
   for (Zombie z : zombieRemove) {
     if (zombies.contains(z)) {
@@ -526,22 +526,22 @@ void removeAndUpdatePlantsZombies() {
 
 /*
 removes used projectiles from screen
-if the remove list gets too big, reset it
-*/
+ if the remove list gets too big, reset it
+ */
 void removeProjectile() {
   for (Projectile p : projectileRemove) {
     if (projectiles.contains(p)) {
       projectiles.remove(p);
     }
   }
-  if (projectileRemove.size() > 100){
+  if (projectileRemove.size() > 100) {
     projectileRemove = new ArrayList<Projectile>();
   }
 } 
 
 /*
 sets up the Sun Tracker and the cost menu
-*/
+ */
 void setupSun() {
   float sunH = sunTracker.height * 120.0 / sunTracker.width;
   image(sunTracker, 120, 120, 120, sunH);
@@ -561,9 +561,9 @@ void setupSun() {
 
 /*
 have sun fall every 10 seconds (every 2 seconds in demo)
-if sun is not collected within 5 seconds, the sun dies
-if the mouse is over the sun, it makes a boolean true (to be used in collect sun)
-*/
+ if sun is not collected within 5 seconds, the sun dies
+ if the mouse is over the sun, it makes a boolean true (to be used in collect sun)
+ */
 void fallingSuns() {
   if (millis() > sunT + 10000 - 8000 * demo) {
     suns.add(new Sun());
@@ -592,8 +592,8 @@ void fallingSuns() {
 
 /*
 if the mouse is hovering over the sun (checked in falling sun), remove sun and add 50 to the sun tracker
-each sun is 50 (500 in demo)
-*/
+ each sun is 50 (500 in demo)
+ */
 void collectSun() {
   for (Sun sss : suns) {
     if (sss.over) {
@@ -605,8 +605,8 @@ void collectSun() {
 
 /*
 have plant display itself and attack
-if a plant's health is 0 or less, it dies and is removed
-*/
+ if a plant's health is 0 or less, it dies and is removed
+ */
 void updatePlant() {
   // FOR THE PLANTS 
   for (Plant pla : plants) {
@@ -648,9 +648,9 @@ void updatePlant() {
 
 /*
 if the target zombie of the projectile is still alive, projectile displays itself and moves toward it
-if the projectile is a blue pea, it's target zombie is slowed down when hit
-once projectile reaches its target zombies, it deals its damage and dies
-*/
+ if the projectile is a blue pea, it's target zombie is slowed down when hit
+ once projectile reaches its target zombies, it deals its damage and dies
+ */
 void updateProjectile() {
   // FOR THE PROJECTILES -- IN THE WORKS ATM 
   for (Projectile p : projectiles) {
@@ -675,8 +675,8 @@ void updateProjectile() {
 
 /*
 sets up the menu for player to choose between the two modes (adventure vs random)
-when mouse is hovered over the modes, the border thickens so the player know which ones they're choosing
-*/
+ when mouse is hovered over the modes, the border thickens so the player know which ones they're choosing
+ */
 void setupMenu() {
   textSize(60);
   image(cmenu, 0, 0);
@@ -708,14 +708,16 @@ void setupMenu() {
 
 /*
 if the player clicks on the modes in the menu, enter the respective game mode
-if player clicked return to menu after finishing a game, bring them back to the main menu
-*/
+ if player clicked return to menu after finishing a game, bring them back to the main menu
+ */
 void enterGame() {
-  if (hover[0] == true) {
-    screen = 1;
-  }
-  if (hover[1] == true) {
-    screen = 2;
+  if (screen == 3) {
+    if (hover[0] == true) {
+      screen = 1;
+    }
+    if (hover[1] == true) {
+      screen = 2;
+    }
   }
   if (hover[2] == true || hover[3] == true) {
     reset();
@@ -725,7 +727,7 @@ void enterGame() {
 
 /*
 reset all lists and queues and some fields (needed to restart a game)
-*/
+ */
 void reset() {
   instLists();
   instZombies();
@@ -736,7 +738,7 @@ void reset() {
 
 /*
 displays the button for the player to return to the main menu and play again
-*/
+ */
 void tryAgain() {
   textSize(60);
   rectMode(CENTER);
@@ -758,8 +760,8 @@ void tryAgain() {
 
 /*
 in the starting screen, if the player hovers over "tap to start", the words change to red color
-if player clicks the "tap to start" button, switch screen to main menu for player to choose game mode
-*/
+ if player clicks the "tap to start" button, switch screen to main menu for player to choose game mode
+ */
 void startGame() {
   if (mouseX > 200 && mouseX < 1030 && mouseY > 630 && mouseY < 710) {
     hover[3] = true;
@@ -775,8 +777,8 @@ void startGame() {
 
 // SETUP METHOD 
 /* 
-loads the start screen
-*/
+ loads the start screen
+ */
 void setup() {
   size(1280, 720);
   loadImages();
@@ -789,12 +791,12 @@ void setup() {
 // DRAW METHOD 
 /*
 displays the different screens depending on which one is toggled
-  0 : losing screen
-  1 : random mode
-  2 : adventure mode
-  3 : main menu
-  4 : winning screen
-*/
+ 0 : losing screen
+ 1 : random mode
+ 2 : adventure mode
+ 3 : main menu
+ 4 : winning screen
+ */
 void draw() {
   // ONCE CLICKED AND ONTO THE NEXT FRAME 
   if (screen == -1) {
@@ -855,10 +857,10 @@ void mouseReleased() {
 
 /*
 pressing on keys:
-  d : demo mode (player's sun tracker is set to 1000 suns, cooldown time is shorter, speeds things up, makes player too powerful)
-  r : regular mode (goes back to regular cooldown times, resets the sun tracker to 0)
-  w : win (automatically kills all the zombies, aka you win!)
-*/
+ d : demo mode (player's sun tracker is set to 1000 suns, cooldown time is shorter, speeds things up, makes player too powerful)
+ r : regular mode (goes back to regular cooldown times, resets the sun tracker to 0)
+ w : win (automatically kills all the zombies, aka you win!)
+ */
 void keyPressed() {
   if (key == 'D' || key == 'd') {
     demo = 1;
@@ -868,7 +870,7 @@ void keyPressed() {
     demo = 0;
     sunSum = 0;
   }
-  if (key == 'W' || key == 'w'){
+  if (key == 'W' || key == 'w') {
     zombies = new ArrayList<Zombie>();
     nextZombies = new LinkedList<Zombie>();
   }
@@ -876,7 +878,7 @@ void keyPressed() {
 
 /*
 returns true if there is a plant at a certain space on the grid and if there are zombies in that row
-*/
+ */
 boolean checkPlant(int row, int col) {
   return (!(hasPlant[row][col] == null) && zombieNum[row] > 0);
 }
