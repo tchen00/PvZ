@@ -23,6 +23,8 @@ Our project utilizes various data structures we learned in the past two semester
 ### :rocket: Queues 
 Our project utilizes Queues in the RANDOM mode of the game. It is basically a conveyer belt of plants/zombies to which we thought using Queues would be the most efficient (FIFO system). Each quene (both the zombie and plant) will store different class types (zombie and plants respectively). 
 
+[Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
+
 ## :pushpin: INSTRUCTIONS
 :arrow_forward: In order to run our game, you have to first clone this repository!
 ```
@@ -31,6 +33,8 @@ IN THE TERMINAL:
 ```
 :arrow_forward: Once you have cloned the repository, open the Driver.pde file located inside the Driver file. \
 :arrow_forward: Once you have opened that file, press run in Processing and enjoy! :smiley:
+
+[Back to top](#collisioncollisioncollisioncollision-mks22x-final-project-collision-collisioncollisioncollision)
 
 ## :video_game: PHASES OF THE GAME (PROJECT)
 ![Image of Start Screen](https://github.com/tchen00/PvZ/blob/master/images/plantvszombies%20start%20menu.PNG)   
